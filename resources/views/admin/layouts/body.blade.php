@@ -5,29 +5,121 @@
 @include('admin.layouts.head')
 
 <body>
-    <!-- Menu Superior -->
-    @include('admin.layouts.menusuperior')
-
     <!-- Menu Lateral -->
     @include('admin.layouts.menulateral')
-
-    <!-- Conteúdo Principal -->
-    <main class="main-content">
-        @yield('conteudo')
-        <footer>
-            <p>&copy; 2025 CDCI. Todos os direitos reservados.</p>
-        </footer>
-    </main>
-
-
-    <script src="{{ asset('style/exibir.js') }}"></script>
-    <script src="{{ asset('style/pesquisar.js') }}"></script>
-
-    <!-- Importação do jQuery e Select2 -->
+    
+    <!-- Content Section -->
+    <section id="content">
+        <!-- Menu Superior -->
+        @include('admin.layouts.menusuperior')
+        
+        <!-- Conteúdo Principal -->
+        <main>
+            @yield('conteudo')
+            <footer>
+                <p>&copy; 2025 CDCI. Todos os direitos reservados.</p>
+            </footer>
+        </main>
+    </section>
 
     <script>
+        // SIDEBAR DROPDOWN
+        const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+        const sidebar = document.getElementById('sidebar');
+
+        allDropdown.forEach(item => {
+            const a = item.parentElement.querySelector('a:first-child');
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!this.classList.contains('active')) {
+                    allDropdown.forEach(i => {
+                        const aLink = i.parentElement.querySelector('a:first-child');
+                        aLink.classList.remove('active');
+                        i.classList.remove('show');
+                    })
+                }
+                this.classList.toggle('active');
+                item.classList.toggle('show');
+            })
+        });
+
+        // SIDEBAR COLLAPSE
+        const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+        const allSideDivider = document.querySelectorAll('#sidebar .divider');
+
+        if (sidebar.classList.contains('hide')) {
+            allSideDivider.forEach(item => {
+                item.textContent = '_'
+            })
+        } else {
+            allSideDivider.forEach(item => {
+                item.textContent = item.dataset.text;
+            })
+        }
+
+        toggleSidebar.addEventListener('click', function() {
+            sidebar.classList.toggle('hide');
+
+            if (sidebar.classList.contains('hide')) {
+                allSideDivider.forEach(item => {
+                    item.textContent = '_'
+                })
+            } else {
+                allSideDivider.forEach(item => {
+                    item.textContent = item.dataset.text;
+                })
+            }
+        });
+
+        sidebar.addEventListener('mouseleave', function() {
+            if (this.classList.contains('hide')) {
+                allDropdown.forEach(item => {
+                    const a = item.parentElement.querySelector('a:first-child');
+                    a.classList.remove('active');
+                    item.classList.remove('show');
+                })
+                allSideDivider.forEach(item => {
+                    item.textContent = '_'
+                })
+            }
+        });
+
+        sidebar.addEventListener('mouseenter', function() {
+            if (this.classList.contains('hide')) {
+                allDropdown.forEach(item => {
+                    const a = item.parentElement.querySelector('a:first-child');
+                    a.classList.remove('active');
+                    item.classList.remove('show');
+                })
+                allSideDivider.forEach(item => {
+                    item.textContent = item.dataset.text;
+                })
+            }
+        });
+
+        // PROFILE DROPDOWN
+        const profile = document.querySelector('nav .profile');
+        const imgProfile = profile.querySelector('img');
+        const dropdownProfile = profile.querySelector('.profile-link');
+
+        imgProfile.addEventListener('click', function() {
+            dropdownProfile.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target !== imgProfile) {
+                if (e.target !== dropdownProfile) {
+                    if (dropdownProfile.classList.contains('show')) {
+                        dropdownProfile.classList.remove('show');
+                    }
+                }
+            }
+        });
+
+        // Initialize Select2
         $(document).ready(function() {
-            // Função para inicializar o Select2 dentro de uma modal específica
+            // Function to initialize Select2 in specific modal
             function initSelect2(modal) {
                 $(modal).find('.select2').select2({
                     dropdownParent: $(modal),
@@ -37,28 +129,28 @@
                 });
             }
 
-            // Quando qualquer modal for aberta, inicializa o Select2 dentro dela
+            // When any modal is opened, initialize Select2 inside it
             $('.modal').on('shown.bs.modal', function() {
                 initSelect2(this);
             });
 
             let table = new DataTable('.myTable', {
-                paging: true, // Paginação
-                searching: true, // Barra de pesquisa
-                info: true, // Informação do total de registros
-                responsive: true, // Responsivo para mobile
-                lengthMenu: [5, 10, 25, 50], // Quantidade de registros por página
+                paging: true,
+                searching: true,
+                info: true,
+                responsive: true,
+                lengthMenu: [5, 10, 25, 50],
                 language: {
-                    search: "Buscar:", // Personalizar rótulos
+                    search: "Buscar:",
                     lengthMenu: "Mostrar _MENU_ registros",
                     info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
                 }
             });
-
         });
     </script>
 
-
+    <script src="{{ asset('style/exibir.js') }}"></script>
+    <script src="{{ asset('style/pesquisar.js') }}"></script>
 </body>
 
 </html>
