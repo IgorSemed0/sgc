@@ -1,0 +1,115 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 260px;
+    background: #1b1e21;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    top: 0;
+}
+.link1 {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+    
+    background: rgb(0, 104, 168);
+}
+.link1:hover {
+    padding-left: 25px;
+}
+.link2 i{
+    margin: 0 10px;
+}
+.link1 i{
+    margin: 0 10px;
+}
+.link2 {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.link2:hover {
+    background: #343a40;
+    padding-left: 25px;
+}
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+}
+.main-content {
+    width: calc(100% - 260px); /* Subtrai a largura da sidebar */
+    margin-left: 260px; /* Aumenta o espaçamento da esquerda para a sidebar */
+    padding: 20px;
+    background: #ffffff;
+    flex-grow: 1;
+    padding-bottom: 60px; /* Garantir que o conteúdo não sobreponha o rodapé */
+}
+
+.navbar {
+    background-color: #22262b;
+}
+
+.navbar .navbar-brand, .navbar-nav .nav-link {
+    color: white;
+}
+.navbar .navbar-brand:hover, .navbar-nav .nav-link:hover {
+    color: #adb5bd;
+}
+
+.profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+.user-info .nav-link {
+    padding-right: 15px;
+}
+.logo {
+    width: 150px;
+    height: auto;
+}
+/* Rodapé */
+footer {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 260px); /* Subtrai a largura da sidebar */
+    margin-left: 260px; /* Aumenta o espaçamento da esquerda para a sidebar */
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.card-header {
+    font-weight: bold;
+}
+.hm{
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+.margin{
+    margin-right: 20px;
+}
+.img-hm{
+    margin: 0 10px;
+    border: 1px solid white;
+}
+/*----------------bara de rolagem-----------------*/
+
+  
