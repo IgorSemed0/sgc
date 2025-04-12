@@ -8,13 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+// class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable
 {
     use HasApiTokens;
-
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
@@ -26,9 +27,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'primeiro_nome',
+        'nomes_meio',
+        'ultimo_nome',
         'email',
-        'password',
+        'username',
+        'password', // --- Reverted back to 'password' ---
+        'bi',
+        'telefone',
+        'tipo_usuario',
+        'condominio_id',
     ];
 
     /**
@@ -37,7 +45,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'password', // --- Reverted back to 'password' ---
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
@@ -50,6 +58,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'full_name',
     ];
 
     /**
@@ -61,7 +70,27 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed', // --- Cast 'password' ---
         ];
+    }
+
+    // --- REMOVED getAuthPassword() method - not needed when using 'password' column ---
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->primeiro_nome . ' ' . $this->nomes_meio . ' ' . $this->ultimo_nome);
+    }
+
+    /**
+     * Get the condominio that owns the user.
+     */
+    public function condominio(): BelongsTo
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
     }
 }

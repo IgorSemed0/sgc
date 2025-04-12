@@ -3,10 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Condominio;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Illuminate\Validation\Rule;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,16 +22,34 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'primeiro_nome' => ['required', 'string', 'max:50'],
+            'nomes_meio' => ['nullable', 'string', 'max:100'],
+            'ultimo_nome' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:100', Rule::unique('users', 'email')],
+            'username' => ['required', 'string', 'max:50', Rule::unique('users', 'username')],
             'password' => $this->passwordRules(),
+            'bi' => ['required', 'string', 'max:20'],
+            'telefone' => ['nullable', 'string', 'max:15'],
+            'tipo_usuario' => ['required', 'string', 'max:50'],
+            'condominio_id' => ['integer', Rule::exists('condominio', 'id')],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ],
+        [
+            'password.required' => 'A senha é obrigatória.',
+            'condominio_id.exists' => 'O condomínio selecionado é inválido.',
         ])->validate();
 
         return User::create([
-            'name' => $input['name'],
+            'primeiro_nome' => $input['primeiro_nome'],
+            'nomes_meio' => $input['nomes_meio'] ?? null,
+            'ultimo_nome' => $input['ultimo_nome'],
             'email' => $input['email'],
+            'username' => $input['username'],
             'password' => Hash::make($input['password']),
+            'bi' => $input['bi'],
+            'telefone' => $input['telefone'] ?? null,
+            'tipo_usuario' => $input['tipo_usuario'],
+            // 'condominio_id' => $input['condominio_id'],
         ]);
     }
 }
