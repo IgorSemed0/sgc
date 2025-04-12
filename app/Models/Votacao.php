@@ -30,7 +30,6 @@ class Votacao extends Model
         'quorum_minimo' => 'integer',
     ];
 
-    // Relationships
     public function condominio(): BelongsTo
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
