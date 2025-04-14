@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaturaTable extends Migration
+class CreateFacturaTable extends Migration
 {
     public function up()
     {
-        Schema::create('fatura', function (Blueprint $table) {
+        Schema::create('factura', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('unidade_id')->notNull();
             $table->string('referencia')->nullable();
@@ -26,6 +26,6 @@ class CreateFaturaTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('fatura');
+        Schema::dropIfExists('factura');
     }
 }
