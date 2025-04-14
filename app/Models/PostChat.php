@@ -18,4 +18,15 @@ class PostChat extends Model
         'conteudo', 
         'data_publicacao'
     ];
+
+    public function ComentarioChat()
+    {
+        return $this->hasMany(ComentarioChat::class, 'post_id');
+    }
+
+    public function condominio()
+    {
+        return $this->belongsTo(condominio::class, 'condominio_id');
+    }
+
 }

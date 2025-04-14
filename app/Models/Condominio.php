@@ -44,4 +44,14 @@ class Condominio extends Model
     {
         return $this->hasMany(EspacoComum::class, 'condominio_id');
     }
+
+    public function funcionario()
+    {
+        return $this->hasMany(Funcionario::class, 'condominio_id');
+    }
+
+    public function post_chat()
+    {
+        return $this->hasMany(PostChat::class, 'condominio_id');
+    }
 }

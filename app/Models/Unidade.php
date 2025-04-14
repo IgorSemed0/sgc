@@ -22,16 +22,21 @@ class Unidade extends Model
 
     public function factura()
     {
-        return $this->hasMany(Factura::class, 'id');
+        return $this->hasMany(Factura::class, 'factura_id');
     }
 
     public function bloco()
     {
-        return $this->belongsTo(Bloco::class, 'id');
+        return $this->belongsTo(Bloco::class, 'bloco_id');
     }
 
     public function edificio()
     {
         return $this->belongsTo(Edificio::class, 'edificio_id');
+    }
+
+    public function morador()
+    {
+        return $this->hasMany(Morador::class, 'unidade_id');
     }
 }

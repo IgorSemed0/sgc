@@ -22,6 +22,6 @@ class Factura extends Model
 
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'id');
+        return $this->belongsTo(Unidade::class, 'unidade_id');
     }
 }

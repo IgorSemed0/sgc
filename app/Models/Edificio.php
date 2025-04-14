@@ -18,6 +18,11 @@ class Edificio extends Model
     
     public function bloco()
     {
-        return $this->belongsTo(Bloco::class, 'id');
+        return $this->belongsTo(Bloco::class, 'bloco_id');
+    }
+
+    public function unidade()
+    {
+        return $this->hasMany(Unidade::class, 'edificio_id');
     }
 }

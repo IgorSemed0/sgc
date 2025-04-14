@@ -17,10 +17,10 @@ class ComentarioChat extends Model
     ];
     public function post_id()
     {
-        return $this->belongsTo(PostChat::class, 'id');
+        return $this->belongsTo(PostChat::class, 'post_id');
     }  
     public function morador()
     {
-        return $this->belongsTo(Morador::class, 'id');
+        return $this->belongsTo(Morador::class, 'morador_id');
     }
 }

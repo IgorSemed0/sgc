@@ -23,4 +23,14 @@ class Morador extends Model
         'unidade_id', 
         'tipo'
     ];
+
+    public function ComentarioChat()
+    {
+        return $this->hasMany(ComentarioChat::class, 'morador_id');
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'unidade_id');
+    }
 }

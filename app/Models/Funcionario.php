@@ -23,4 +23,14 @@ class Funcionario extends Model
         'departamento_id', 
         'condominio_id'
     ];
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
+
+    public function condominio()
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
 }

@@ -19,4 +19,9 @@ class Departamento extends Model
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
     }
+
+    public function funcionario()
+    {
+        return $this->hasMany(Funcionario::class, 'departamento_id');
+    }
 }

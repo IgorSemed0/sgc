@@ -25,4 +25,9 @@ class Bloco extends Model
     {
         return $this->hasMany(Edificio::class, 'edificio_id');
     }
+
+    public function unidade()
+    {
+        return $this->hasMany(Unidade::class, 'bloco_id');
+    }
 }
