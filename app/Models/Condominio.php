@@ -24,7 +24,7 @@ class Condominio extends Model
     {
         return $this->hasMany(Departamento::class, 'condominio_id');
     }
-    
+
     public function bloco()
     {
         return $this->hasMany(Bloco::class, 'condominio_id');
@@ -38,5 +38,10 @@ class Condominio extends Model
     public function despesa()
     {
         return $this->hasMany(Despesa::class, 'condominio_id');
+    }
+
+    public function espaco_comum()
+    {
+        return $this->hasMany(EspacoComum::class, 'condominio_id');
     }
 }

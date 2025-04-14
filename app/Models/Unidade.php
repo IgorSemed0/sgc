@@ -19,4 +19,19 @@ class Unidade extends Model
         'area_m2', 
         'status'
     ];
+
+    public function factura()
+    {
+        return $this->hasMany(Factura::class, 'id');
+    }
+
+    public function bloco()
+    {
+        return $this->belongsTo(Bloco::class, 'id');
+    }
+
+    public function edificio()
+    {
+        return $this->belongsTo(Edificio::class, 'edificio_id');
+    }
 }

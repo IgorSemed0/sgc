@@ -15,4 +15,9 @@ class Edificio extends Model
         'descricao', 
         'bloco_id'
     ];
+    
+    public function bloco()
+    {
+        return $this->belongsTo(Bloco::class, 'id');
+    }
 }

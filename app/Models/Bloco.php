@@ -20,4 +20,9 @@ class Bloco extends Model
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
     }
+
+    public function edificio()
+    {
+        return $this->hasMany(Edificio::class, 'edificio_id');
+    }
 }

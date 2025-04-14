@@ -17,4 +17,9 @@ class EspacoComum extends Model
         'capacidade', 
         'regras'
     ];
+
+    public function condominio()
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
 }

@@ -19,4 +19,9 @@ class Factura extends Model
         'status', 
         'observacao'
     ];
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'id');
+    }
 }
