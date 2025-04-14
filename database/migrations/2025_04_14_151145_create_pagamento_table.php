@@ -9,7 +9,7 @@ class CreatePagamentoTable extends Migration
     {
         Schema::create('pagamento', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fatura_id')->notNull();
+            $table->unsignedBigInteger('factura_id')->notNull();
             $table->date('data_pagamento')->notNull();
             $table->decimal('valor_pago')->notNull();
             $table->string('metodo_pagamento')->notNull();
@@ -17,7 +17,7 @@ class CreatePagamentoTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('fatura_id')->references('id')->on('fatura')->onDelete('cascade');
+            $table->foreign('factura_id')->references('id')->on('factura')->onDelete('cascade');
         });
     }
 

@@ -20,7 +20,7 @@ class CreateFacturaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('unidade_id')->references('id')->on('unidade_id')->onDelete('cascade');
+            $table->foreign('unidade_id')->references('id')->on('unidade')->onDelete('cascade');
         });
     }
 
