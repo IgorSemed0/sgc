@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
     {
         Schema::create('acesso', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pessoa_id')->notNull();
+            $table->unsignedBigInteger('entidade_id')->notNull();
             $table->string('tipo_pessoa')->notNull();
             $table->date('data_hora')->notNull();
             $table->string('tipo')->notNull();

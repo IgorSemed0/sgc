@@ -11,7 +11,7 @@ class Acesso extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'pessoa_id', 
+        'entidade_id', 
         'tipo_pessoa', 
         'data_hora', 
         'tipo', 

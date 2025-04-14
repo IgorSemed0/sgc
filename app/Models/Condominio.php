@@ -19,4 +19,9 @@ class Condominio extends Model
         'telefone', 
         'email'
     ];
+
+    public function departamento()
+    {
+        return $this->hasMany(Departamento::class, 'condominio_id');
+    }
 }
