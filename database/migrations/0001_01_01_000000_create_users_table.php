@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB; // Not needed for schema definition
 
 return new class extends Migration
 {
@@ -14,21 +14,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('primeiro_nome', 50);
-            $table->string('nomes_meio', 100)->nullable();
-            $table->string('ultimo_nome', 50);
-            $table->string('email', 100)->unique();
-            $table->string('username', 50)->unique();
+            $table->string('primeiro_nome');
+            $table->string('nomes_meio')->nullable();
+            $table->string('ultimo_nome');
+            $table->string('email')->unique();
+            $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255);
-            $table->string('bi', 20);
-            $table->string('telefone', 15)->nullable();
-            $table->string('tipo_usuario', 50);
+            $table->string('password');
+            $table->string('bi');
+            $table->string('telefone')->nullable();
+            $table->string('tipo_usuario');
             $table->unsignedBigInteger('condominio_id')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -52,7 +53,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

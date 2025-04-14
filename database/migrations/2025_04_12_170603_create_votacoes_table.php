@@ -7,33 +7,29 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-        * Run the migrations.
-        */
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('votacao', function (Blueprint $table) {
+        Schema::create('votacoes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
+            $table->foreignId('condominio_id')->constrained('condominios')->onDelete('cascade');
             $table->string('titulo', 100);
             $table->text('descricao');
             $table->dateTime('data_inicio');
             $table->dateTime('data_fim');
             $table->integer('quorum_minimo')->nullable();
-            $table->string('status', 20); // Ex.: aberta, fechada
-            // No default timestamps
-
-            $table->foreign('condominio_id')
-                    ->references('id')
-                    ->on('condominio')
-                    ->cascadeOnDelete(); // ON DELETE CASCADE
+            $table->string('status', 20);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
     /**
-        * Reverse the migrations.
-        */
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('votacao');
+        Schema::dropIfExists('votacoes');
     }
 };
