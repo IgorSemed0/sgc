@@ -1,26 +1,17 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Funcionario extends Model
+class Departamento extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'primeiro_nome', 
-        'nomes_meio', 
-        'ultimo_nome', 
-        'email', 
-        'username',
-        'telefone', 
-        'bi', 
-        'sexo', 
-        'cargo', 
-        'departamento_id', 
+        'nome', 
+        'descricao', 
         'condominio_id'
     ];
 }

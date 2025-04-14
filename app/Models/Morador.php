@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Funcionario extends Model
+class Morador extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,12 +15,12 @@ class Funcionario extends Model
         'nomes_meio', 
         'ultimo_nome', 
         'email', 
-        'username',
+        'username', 
         'telefone', 
         'bi', 
+        'data_nascimento', 
         'sexo', 
-        'cargo', 
-        'departamento_id', 
-        'condominio_id'
+        'unidade_id', 
+        'tipo'
     ];
 }

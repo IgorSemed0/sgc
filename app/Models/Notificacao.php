@@ -1,20 +1,20 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pagamento extends Model
+class Notificacao extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'fatura_id', 
-        'data_pagamento', 
-        'valor_pago', 
-        'metodo_pagamento', 
-        'transacao_id'
+        'morador_id', 
+        'tipo', 
+        'titulo', 
+        'conteudo', 
+        'data_hora', 
+        'lida'
     ];
 }
