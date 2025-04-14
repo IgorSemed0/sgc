@@ -18,4 +18,8 @@ class Acesso extends Model
         'dispositivo', 
         'observacao'
     ];
+    public function entidade()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

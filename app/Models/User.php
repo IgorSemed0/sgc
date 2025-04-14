@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
     }
+    
+    public function acesso()
+    {
+        return $this->hasMany(Acesso::class, 'id');
+    }
 }

@@ -15,4 +15,12 @@ class ComentarioChat extends Model
         'conteudo', 
         'data_comentario'
     ];
+    public function post_id()
+    {
+        return $this->belongsTo(PostChat::class, 'id');
+    }  
+    public function morador()
+    {
+        return $this->belongsTo(Morador::class, 'id');
+    }
 }
