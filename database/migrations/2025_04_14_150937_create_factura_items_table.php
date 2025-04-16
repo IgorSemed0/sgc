@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('fatura_items', function (Blueprint $table) {
+        Schema::create('factura_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('factura_id');
             $table->string('categoria');

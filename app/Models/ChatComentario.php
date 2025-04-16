@@ -15,9 +15,9 @@ class ChatComentario extends Model
         'conteudo', 
         'data_comentario'
     ];
-    public function post_id()
+    public function chatPost()
     {
-        return $this->belongsTo(PostChat::class, 'post_id');
+        return $this->belongsTo(ChatPost::class, 'post_id');
     }  
     public function user()
     {

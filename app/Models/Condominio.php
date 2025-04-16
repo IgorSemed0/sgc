@@ -50,8 +50,8 @@ class Condominio extends Model
         return $this->hasMany(Funcionario::class, 'condominio_id');
     }
 
-    public function post_chat()
+    public function chatPost()
     {
-        return $this->hasMany(PostChat::class, 'condominio_id');
+        return $this->hasMany(ChatPost::class, 'condominio_id');
     }
 }

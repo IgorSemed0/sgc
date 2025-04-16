@@ -17,6 +17,7 @@ class Despesa extends Model
         'valor', 
         'data_despesa'
     ];
+
     public function condominio()
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');

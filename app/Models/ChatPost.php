@@ -19,7 +19,7 @@ class ChatPost extends Model
         'data_publicacao'
     ];
 
-    public function ComentarioChat()
+    public function chatComentario()
     {
         return $this->hasMany(ChatComentario::class, 'post_id');
     }

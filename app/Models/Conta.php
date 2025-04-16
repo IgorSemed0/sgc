@@ -16,6 +16,7 @@ class Conta extends Model
         'tipo', 
         'saldo'
     ];
+
     public function condominio()
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');

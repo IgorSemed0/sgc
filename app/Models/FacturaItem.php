@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FaturaItem extends Model
+class FacturaItem extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,4 +15,9 @@ class FaturaItem extends Model
         'descricao', 
         'valor'
     ];
+
+    public function factura()
+    {
+    return $this->belongsTo(Factura::class, 'factura_id');
+    }
 }

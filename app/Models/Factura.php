@@ -24,4 +24,10 @@ class Factura extends Model
     {
         return $this->belongsTo(Unidade::class, 'unidade_id');
     }
+
+    public function facturaItem()
+    {
+    return $this->hasMany(FacturaItem::class, 'factura_id');
+    }
+
 }
