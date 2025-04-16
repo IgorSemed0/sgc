@@ -24,6 +24,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('espaco_comum');
+        Schema::dropIfExists('espaco_comums');
     }
 };
