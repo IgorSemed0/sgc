@@ -10,7 +10,7 @@ return new class extends Migration
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id(); 
             $table->string('primeiro_nome');
-            $table->string('nome_meio')->nullable();
+            $table->string('nomes_meio')->nullable();
             $table->string('ultimo_nome');
             $table->string('email');
             $table->string('username')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('funcionario');
+        Schema::dropIfExists('funcionarios');
     }
 };
