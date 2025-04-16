@@ -10,7 +10,7 @@ class Notificacao extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'morador_id', 
+        'user_id', 
         'tipo', 
         'titulo', 
         'conteudo', 

@@ -12,7 +12,7 @@ class ReservaEspaco extends Model
 
     protected $fillable = [
         'espaco_id', 
-        'morador_id', 
+        'user_id', 
         'data_reserva', 
         'hora_inicio', 
         'hora_fim', 

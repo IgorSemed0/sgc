@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('notificacaos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('morador_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('tipo');
             $table->string('titulo');
             $table->text('conteudo');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('morador_id')->references('id')->on('moradors')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

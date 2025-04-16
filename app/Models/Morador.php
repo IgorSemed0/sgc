@@ -26,7 +26,7 @@ class Morador extends Model
 
     public function ComentarioChat()
     {
-        return $this->hasMany(ComentarioChat::class, 'morador_id');
+        return $this->hasMany(ComentarioChat::class, 'user_id');
     }
 
     public function unidade()

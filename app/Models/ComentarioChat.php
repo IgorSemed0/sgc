@@ -11,7 +11,7 @@ class ComentarioChat extends Model
 
     protected $fillable = [
         'post_id', 
-        'morador_id', 
+        'user_id', 
         'conteudo', 
         'data_comentario'
     ];
@@ -19,8 +19,8 @@ class ComentarioChat extends Model
     {
         return $this->belongsTo(PostChat::class, 'post_id');
     }  
-    public function morador()
+    public function user()
     {
-        return $this->belongsTo(Morador::class, 'morador_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

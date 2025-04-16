@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('votos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('votacao_id');
-            $table->unsignedBigInteger('morador_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('opcao_id');
             $table->dateTime('data_hora');
             $table->string('hash_voto', 255)->nullable();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('votacao_id')->references('id')->on('votacaos')->onDelete('cascade');
-            $table->foreign('morador_id')->references('id')->on('moradors')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('opcao_id')->references('id')->on('opcao_votacaos')->onDelete('cascade');
         });
     }

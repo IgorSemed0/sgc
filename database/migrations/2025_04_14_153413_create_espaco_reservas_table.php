@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('espaco_reservas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('espaco_id');
-            $table->unsignedBigInteger('morador_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('data_reserva');
             $table->time('hora_inicio');
             $table->time('hora_fim');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('espaco_id')->references('id')->on('espaco_comums')->onDelete('cascade');
-            $table->foreign('morador_id')->references('id')->on('moradors')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
