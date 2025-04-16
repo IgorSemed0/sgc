@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tipo_pessoa');
             $table->date('data_hora');
             $table->string('tipo');
-            $table->string('rf_id');
+            $table->string('rf_id')->nullable();
             $table->string('observacao');
             $table->timestamps();
         });
