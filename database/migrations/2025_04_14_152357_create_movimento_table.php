@@ -9,11 +9,11 @@ class CreateMovimentoTable extends Migration
     {
         Schema::create('movimento', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('conta_id')->notNull();
-            $table->string('tipo')->notNull();
-            $table->decimal('valor')->notNull();
+            $table->unsignedBigInteger('conta_id');
+            $table->string('tipo');
+            $table->decimal('valor');
             $table->string('descricao')->nullable();
-            $table->date('data_movimento')->notNull();
+            $table->date('data_movimento');
             $table->timestamps();
             $table->softDeletes();
 

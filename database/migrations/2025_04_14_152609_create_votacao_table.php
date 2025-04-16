@@ -9,13 +9,13 @@ class CreateVotacaoTable extends Migration
     {
         Schema::create('votacao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id')->notNull();
-            $table->string('titulo')->notNull();
-            $table->text('descricao')->notNull();
-            $table->dateTime('data_inicio')->notNull();
-            $table->dateTime('data_fim')->notNull();
+            $table->unsignedBigInteger('condominio_id');
+            $table->string('titulo');
+            $table->text('descricao');
+            $table->dateTime('data_inicio');
+            $table->dateTime('data_fim');
             $table->integer('quorum_minimo')->nullable();
-            $table->string('status')->notNull();
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
 

@@ -9,10 +9,10 @@ class CreateComentarioChatTable extends Migration
     {
         Schema::create('comentario_chat', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id')->notNull();
-            $table->unsignedBigInteger('morador_id')->notNull();
-            $table->text('conteudo')->notNull();
-            $table->dateTime('data_comentario')->notNull();
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('morador_id');
+            $table->text('conteudo');
+            $table->dateTime('data_comentario');
             $table->timestamps();
             $table->softDeletes();
 

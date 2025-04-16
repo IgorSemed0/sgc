@@ -10,12 +10,12 @@ class CreateFacturaTable extends Migration
     {
         Schema::create('factura', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('unidade_id')->notNull();
+            $table->unsignedBigInteger('unidade_id');
             $table->string('referencia')->nullable();
-            $table->date('data_emissao')->notNull();
-            $table->date('data_vencimento')->notNull();
-            $table->decimal('valor_total')->notNull();
-            $table->string('status')->notNull();
+            $table->date('data_emissao');
+            $table->date('data_vencimento');
+            $table->decimal('valor_total');
+            $table->string('status');
             $table->string('observacao')->nullable();
             $table->timestamps();
             $table->softDeletes();

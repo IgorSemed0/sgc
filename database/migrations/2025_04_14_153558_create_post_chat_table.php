@@ -9,12 +9,12 @@ class CreatePostChatTable extends Migration
     {
         Schema::create('post_chat', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id')->notNull();
-            $table->unsignedBigInteger('autor_id')->notNull();
-            $table->string('tipo_autor')->notNull();
-            $table->string('titulo')->notNull();
-            $table->text('conteudo')->notNull();
-            $table->dateTime('data_publicacao')->notNull();
+            $table->unsignedBigInteger('condominio_id');
+            $table->unsignedBigInteger('autor_id');
+            $table->string('tipo_autor');
+            $table->string('titulo');
+            $table->text('conteudo');
+            $table->dateTime('data_publicacao');
             $table->timestamps();
             $table->softDeletes();
 

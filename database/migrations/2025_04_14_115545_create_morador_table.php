@@ -10,17 +10,17 @@ class CreateMoradorTable extends Migration
     {
         Schema::create('morador', function (Blueprint $table) {
             $table->id(); 
-            $table->string('primeiro_nome')->notNull();
-            $table->string('nome_meio')->notNull();
-            $table->string('ultimo_nome')->notNull();
-            $table->string('email')->notNull();
-            $table->string('username')->notNull();
-            $table->string('telefone')->notNull();
-            $table->string('bi')->notNull();
-            $table->date('data_nascimento')->notNull();
-            $table->string('sexo')->notNull();
-            $table->unsignedBigInteger('id_unidade')->notNull(); 
-            $table->string('tipo')->notNull();
+            $table->string('primeiro_nome');
+            $table->string('nome_meio');
+            $table->string('ultimo_nome');
+            $table->string('email');
+            $table->string('username');
+            $table->string('telefone');
+            $table->string('bi');
+            $table->date('data_nascimento');
+            $table->string('sexo');
+            $table->unsignedBigInteger('id_unidade'); 
+            $table->string('tipo');
             $table->timestamps(); 
             $table->softDeletes();
             $table->foreign('id_unidade')->references('id')->on('unidade')->onDelete('cascade');

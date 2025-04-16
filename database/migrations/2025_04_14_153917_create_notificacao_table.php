@@ -9,11 +9,11 @@ class CreateNotificacaoTable extends Migration
     {
         Schema::create('notificacao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('morador_id')->notNull();
-            $table->string('tipo')->notNull();
-            $table->string('titulo')->notNull();
-            $table->text('conteudo')->notNull();
-            $table->dateTime('data_hora')->notNull();
+            $table->unsignedBigInteger('morador_id');
+            $table->string('tipo');
+            $table->string('titulo');
+            $table->text('conteudo');
+            $table->dateTime('data_hora')();
             $table->boolean('lida')->default(false);
             $table->timestamps();
             $table->softDeletes();

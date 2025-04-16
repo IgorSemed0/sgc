@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Schema;
     {
         Schema::create('acesso', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entidade_id')->notNull();
-            $table->string('tipo_pessoa')->notNull();
-            $table->date('data_hora')->notNull();
-            $table->string('tipo')->notNull();
-            $table->string('saida_dispositivo')->notNull();
+            $table->unsignedBigInteger('entidade_id');
+            $table->string('tipo_pessoa');
+            $table->date('data_hora');
+            $table->string('tipo');
+            $table->string('saida_dispositivo');
             $table->string('observacao');
             $table->timestamps();
         });

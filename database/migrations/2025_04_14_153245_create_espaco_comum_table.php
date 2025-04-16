@@ -9,10 +9,10 @@ class CreateEspacoComumTable extends Migration
     {
         Schema::create('espaco_comum', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id')->notNull();
-            $table->string('nome')->notNull();
+            $table->unsignedBigInteger('condominio_id');
+            $table->string('nome');
             $table->text('descricao')->nullable();
-            $table->integer('capacidade')->notNull();
+            $table->integer('capacidade');
             $table->text('regras')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -9,10 +9,10 @@ class CreateRupeTable extends Migration
     {
         Schema::create('rupe', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id')->notNull();
-            $table->string('descricao')->notNull();
-            $table->decimal('valor')->notNull();
-            $table->date('data_receita')->notNull();
+            $table->unsignedBigInteger('condominio_id');
+            $table->string('descricao');
+            $table->decimal('valor');
+            $table->date('data_receita');
             $table->timestamps();
             $table->softDeletes();
 

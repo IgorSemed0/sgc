@@ -9,11 +9,11 @@ class CreateDespesaTable extends Migration
     {
         Schema::create('despesa', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id')->notNull();
-            $table->string('categoria')->notNull();
-            $table->string('descricao')->notNull();
-            $table->decimal('valor')->notNull();
-            $table->date('data_despesa')->notNull();
+            $table->unsignedBigInteger('condominio_id');
+            $table->string('categoria');
+            $table->string('descricao');
+            $table->decimal('valor');
+            $table->date('data_despesa');
             $table->timestamps();
             $table->softDeletes();
 

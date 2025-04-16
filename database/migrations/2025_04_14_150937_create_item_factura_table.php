@@ -9,10 +9,10 @@ class CreateItemFacturaTable extends Migration
     {
         Schema::create('item_fatura', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('factura_id')->notNull();
-            $table->string('categoria')->notNull();
-            $table->string('descricao')->notNull();
-            $table->decimal('valor')->notNull();
+            $table->unsignedBigInteger('factura_id');
+            $table->string('categoria');
+            $table->string('descricao');
+            $table->decimal('valor');
             $table->timestamps();
             $table->softDeletes();
 

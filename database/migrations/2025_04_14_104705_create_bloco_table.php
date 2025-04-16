@@ -14,9 +14,9 @@ class CreateBlocoTable extends Migration
     {
         Schema::create('bloco', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->notNull();
+            $table->string('nome');
             $table->string('descricao')->nullable();
-            $table->unsignedBigInteger('condominio_id')->notNull();
+            $table->unsignedBigInteger('condominio_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');

@@ -13,16 +13,16 @@ class CreateVisitanteTable extends Migration
     {
         Schema::create('visitante', function (Blueprint $table) {
             $table->id();
-            $table->string('primeiro_nome')->notNull();
-            $table->string('nome_meio')->notNull();
-            $table->string('ultimo_nome')->notNull();
-            $table->string('bi')->unique()->notNull();
-            $table->string('email')->unique()->notNull();
+            $table->string('primeiro_nome');
+            $table->string('nome_meio');
+            $table->string('ultimo_nome');
+            $table->string('bi')->unique();
+            $table->string('email')->unique();
             $table->string('telefone');
-            $table->string('motivo_visita')->notNull();
-            $table->unsignedBigInteger('id_unidade')->notNull();
+            $table->string('motivo_visita');
+            $table->unsignedBigInteger('id_unidade');
             $table->string('token')->unique();
-            $table->date('data_entrada')->notNull();
+            $table->date('data_entrada');
             $table->timestamps();
             $table->softDeletes();    
             $table->foreign('id_unidade')->references('id')->on('unidade')->onDelete('cascade');

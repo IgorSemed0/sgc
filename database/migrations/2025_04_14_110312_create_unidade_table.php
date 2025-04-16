@@ -9,12 +9,12 @@ class CreateUnidadeTable extends Migration
     {
         Schema::create('unidade', function (Blueprint $table) {
             $table->id(); 
-            $table->string('tipo')->notNull();
-            $table->string('numero')->notNull();
+            $table->string('tipo');
+            $table->string('numero');
             $table->foreignId('id_bloco')->constrained('bloco')->onDelete('cascade'); 
             $table->foreignId('edificio_id')->references('edificio_id')->on('edificio')->onDelete('cascade'); 
-            $table->decimal('area_m2')->notNull();
-            $table->string('status')->notNull();
+            $table->decimal('area_m2');
+            $table->string('status');
             $table->timestamps(); 
             $table->softDeletes(); 
         });

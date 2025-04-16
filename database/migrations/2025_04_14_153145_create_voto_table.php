@@ -9,10 +9,10 @@ class CreateVotoTable extends Migration
     {
         Schema::create('voto', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('votacao_id')->notNull();
-            $table->unsignedBigInteger('morador_id')->notNull();
-            $table->unsignedBigInteger('opcao_id')->notNull();
-            $table->dateTime('data_hora')->notNull();
+            $table->unsignedBigInteger('votacao_id');
+            $table->unsignedBigInteger('morador_id');
+            $table->unsignedBigInteger('opcao_id');
+            $table->dateTime('data_hora');
             $table->string('hash_voto', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();

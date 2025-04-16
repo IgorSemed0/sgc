@@ -9,12 +9,12 @@ class CreateReservaEspacoTable extends Migration
     {
         Schema::create('reserva_espaco', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('espaco_id')->notNull();
-            $table->unsignedBigInteger('morador_id')->notNull();
-            $table->date('data_reserva')->notNull();
-            $table->time('hora_inicio')->notNull();
-            $table->time('hora_fim')->notNull();
-            $table->string('status')->notNull();
+            $table->unsignedBigInteger('espaco_id');
+            $table->unsignedBigInteger('morador_id');
+            $table->date('data_reserva');
+            $table->time('hora_inicio');
+            $table->time('hora_fim');
+            $table->string('status');
             $table->string('observacao')->nullable();
             $table->timestamps();
             $table->softDeletes();

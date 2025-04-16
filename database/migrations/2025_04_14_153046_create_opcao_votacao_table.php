@@ -9,8 +9,8 @@ class CreateOpcaoVotacaoTable extends Migration
     {
         Schema::create('opcao_votacao', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('votacao_id')->notNull();
-            $table->string('descricao')->notNull();
+            $table->unsignedBigInteger('votacao_id');
+            $table->string('descricao');
             $table->timestamps();
             $table->softDeletes();
 

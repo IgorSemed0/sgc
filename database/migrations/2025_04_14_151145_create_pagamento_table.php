@@ -9,10 +9,10 @@ class CreatePagamentoTable extends Migration
     {
         Schema::create('pagamento', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('factura_id')->notNull();
-            $table->date('data_pagamento')->notNull();
-            $table->decimal('valor_pago')->notNull();
-            $table->string('metodo_pagamento')->notNull();
+            $table->unsignedBigInteger('factura_id');
+            $table->date('data_pagamento');
+            $table->decimal('valor_pago');
+            $table->string('metodo_pagamento');
             $table->string('transacao_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
