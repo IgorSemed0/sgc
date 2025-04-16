@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('ultimo_nome');
             $table->string('email');
             $table->string('username');
+            $table->string('processo');
             $table->string('telefone');
             $table->string('bi');
             $table->date('data_nascimento');

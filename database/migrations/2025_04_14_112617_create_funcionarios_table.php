@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('nome_meio')->nullable();
             $table->string('ultimo_nome');
             $table->string('email');
-            $table->string('username');
+            $table->string('username')->nullable();
             $table->string('telefone');
             $table->string('bi');
             $table->string('sexo');
