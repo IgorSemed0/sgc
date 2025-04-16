@@ -14,12 +14,9 @@ class Acesso extends Model
         'entidade_id', 
         'tipo_pessoa', 
         'data_hora', 
-        'tipo', 
-        'dispositivo', 
-        'observacao'
+        'tipo',
+        'rf_id',  
+        'observacao',
     ];
-    public function entidade()
-    {
-        return $this->belongsTo(User::class, 'id');
-    }
+
 }
