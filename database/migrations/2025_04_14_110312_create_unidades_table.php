@@ -11,9 +11,10 @@ return new class extends Migration
             $table->id(); 
             $table->string('tipo');
             $table->string('numero');
-            $table->foreignId('id_bloco')->constrained('blocos')->onDelete('cascade'); 
+            $table->foreignId('bloco_id')->constrained('blocos')->onDelete('cascade'); 
             $table->foreignId('edificio_id')->references('id')->on('edificios')->onDelete('cascade'); 
             $table->decimal('area_m2');
+            $table->integer('andar')->nullable();
             $table->string('status');
             $table->timestamps(); 
             $table->softDeletes(); 

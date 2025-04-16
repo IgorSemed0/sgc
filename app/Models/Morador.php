@@ -23,6 +23,7 @@ class Morador extends Model
         'unidade_id', 
         'tipo',
         'rf_id',
+        'processo',
     ];
 
     public function chatComentario()
