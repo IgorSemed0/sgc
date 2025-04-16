@@ -14,14 +14,14 @@ return new class extends Migration
             $table->string('nome_meio')->nullable();
             $table->string('ultimo_nome');
             $table->string('email');
-            $table->string('username');
+            $table->string('username')->nullable();
             $table->string('processo');
+            $table->string('rf_id');
             $table->string('telefone');
             $table->string('bi');
             $table->date('data_nascimento');
             $table->string('sexo');
             $table->unsignedBigInteger('id_unidade'); 
-            $table->string('tipo');
             $table->timestamps(); 
             $table->softDeletes();
             $table->foreign('id_unidade')->references('id')->on('unidades')->onDelete('cascade');

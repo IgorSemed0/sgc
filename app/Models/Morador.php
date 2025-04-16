@@ -21,10 +21,11 @@ class Morador extends Model
         'data_nascimento', 
         'sexo', 
         'unidade_id', 
-        'tipo'
+        'tipo',
+        'rf_id',
     ];
 
-    public function ComentarioChat()
+    public function comentarioChat()
     {
         return $this->hasMany(ComentarioChat::class, 'user_id');
     }
