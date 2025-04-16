@@ -20,6 +20,17 @@ class Visitante extends Model
         'motivo_visita', 
         'unidade_id', 
         'data_entrada', 
-        'data_saida'
+        'data_saida',
+        'condominio_id'
     ];
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'unidade_id');
+    }
+
+    public function condominio()
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
 }

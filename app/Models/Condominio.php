@@ -57,11 +57,18 @@ class Condominio extends Model
 
     public function rupe()
     {
-    return $this->hasMany(Rupe::class, 'condominio_id');
+        return $this->hasMany(Rupe::class, 'condominio_id');
     }
 
     public function votacao()
     {
-    return $this->hasMany(Votacao::class, 'condominio_id');
+        return $this->hasMany(Votacao::class, 'condominio_id');
     }
+
+    
+    public function visitante()
+    {
+        return $this->hasMany(Visitante::class, 'condominio_id');
+    }
+
 }
