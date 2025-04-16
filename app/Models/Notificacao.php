@@ -17,4 +17,9 @@ class Notificacao extends Model
         'data_hora', 
         'lida'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

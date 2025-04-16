@@ -10,7 +10,7 @@ class FacturaItem extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'fatura_id', 
+        'factura_id', 
         'categoria', 
         'descricao', 
         'valor'

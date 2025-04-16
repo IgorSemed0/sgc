@@ -54,4 +54,14 @@ class Condominio extends Model
     {
         return $this->hasMany(ChatPost::class, 'condominio_id');
     }
+
+    public function rupe()
+    {
+    return $this->hasMany(Rupe::class, 'condominio_id');
+    }
+
+    public function votacao()
+    {
+    return $this->hasMany(Votacao::class, 'condominio_id');
+    }
 }

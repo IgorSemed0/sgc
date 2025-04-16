@@ -14,4 +14,9 @@ class OpcaoVotacao extends Model
         'votacao_id', 
         'descricao'
     ];
+
+    public function opcaoVotacao()
+    {
+        return $this->belongsTo(OpcaoVotacao::class, 'votacao_id');
+    }
 }

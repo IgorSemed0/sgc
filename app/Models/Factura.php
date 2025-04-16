@@ -30,4 +30,8 @@ class Factura extends Model
     return $this->hasMany(FacturaItem::class, 'factura_id');
     }
 
+    public function pagamento()
+    {
+    return $this->hasMany(Pagamento::class, 'factura_id');
+    }
 }

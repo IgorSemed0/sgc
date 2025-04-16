@@ -17,4 +17,9 @@ class Movimento extends Model
         'descricao', 
         'data_movimento'
     ];
+
+    public function conta()
+    {
+        return $this->belongsTo(Conta::class, 'conta_id');
+    }
 }

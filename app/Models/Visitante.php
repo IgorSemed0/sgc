@@ -19,7 +19,6 @@ class Visitante extends Model
         'telefone', 
         'motivo_visita', 
         'unidade_id', 
-        'token_acesso', 
         'data_entrada', 
         'data_saida'
     ];

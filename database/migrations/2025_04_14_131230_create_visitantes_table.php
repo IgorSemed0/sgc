@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('telefone');
             $table->string('motivo_visita');
             $table->unsignedBigInteger('id_unidade');
-            $table->string('token')->unique();
             $table->date('data_entrada');
             $table->timestamps();
             $table->softDeletes();    

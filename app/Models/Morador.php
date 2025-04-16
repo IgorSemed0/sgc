@@ -25,9 +25,9 @@ class Morador extends Model
         'rf_id',
     ];
 
-    public function comentarioChat()
+    public function chatComentario()
     {
-        return $this->hasMany(ComentarioChat::class, 'user_id');
+        return $this->hasMany(ChatComentario::class, 'user_id');
     }
 
     public function unidade()

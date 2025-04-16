@@ -17,4 +17,9 @@ class Voto extends Model
         'data_hora', 
         'hash_voto'
     ];
+
+    public function votacao()
+    {
+    return $this->hasMany(Votacao::class, 'votacao_id');
+    }
 }
