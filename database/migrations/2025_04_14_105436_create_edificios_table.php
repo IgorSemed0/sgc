@@ -1,35 +1,33 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlocoTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('bloco', function (Blueprint $table) {
+        Schema::create('edificios', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('descricao')->nullable();
-            $table->unsignedBigInteger('condominio_id');
+            $table->unsignedBigInteger('bloco_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');
+            $table->foreign('bloco_id')->references('id')->on('blocos')->onDelete('cascade');
+
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('bloco');
+        Schema::dropIfExists('edificio');
     }
-}
+};

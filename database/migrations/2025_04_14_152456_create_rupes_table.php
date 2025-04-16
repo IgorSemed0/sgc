@@ -3,26 +3,26 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreateDespesaTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('despesa', function (Blueprint $table) {
+        Schema::create('rupes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condominio_id');
-            $table->string('categoria');
             $table->string('descricao');
             $table->decimal('valor');
-            $table->date('data_despesa');
+            $table->date('data_receita');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');
+            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('despesa');
+        Schema::dropIfExists('rupe');
     }
-}
+};

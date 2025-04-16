@@ -3,22 +3,23 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreateNotificacaoTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('notificacao', function (Blueprint $table) {
+        Schema::create('notificacaos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('morador_id');
             $table->string('tipo');
             $table->string('titulo');
             $table->text('conteudo');
-            $table->dateTime('data_hora')();
+            $table->dateTime('data_hora');
             $table->boolean('lida')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('morador_id')->references('id')->on('morador')->onDelete('cascade');
+            $table->foreign('morador_id')->references('id')->on('moradors')->onDelete('cascade');
         });
     }
 
@@ -26,4 +27,4 @@ class CreateNotificacaoTable extends Migration
     {
         Schema::dropIfExists('notificacao');
     }
-}
+};

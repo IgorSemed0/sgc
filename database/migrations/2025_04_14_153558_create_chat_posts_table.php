@@ -3,11 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreatePostChatTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('post_chat', function (Blueprint $table) {
+        Schema::create('chat_posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condominio_id');
             $table->unsignedBigInteger('autor_id');
@@ -18,7 +19,7 @@ class CreatePostChatTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');
+            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 
@@ -26,4 +27,4 @@ class CreatePostChatTable extends Migration
     {
         Schema::dropIfExists('post_chat');
     }
-}
+};

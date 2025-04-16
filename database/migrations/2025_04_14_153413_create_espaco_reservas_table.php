@@ -3,11 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreateReservaEspacoTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('reserva_espaco', function (Blueprint $table) {
+        Schema::create('espaco_reservas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('espaco_id');
             $table->unsignedBigInteger('morador_id');
@@ -19,8 +20,8 @@ class CreateReservaEspacoTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('espaco_id')->references('id')->on('espaco_comum')->onDelete('cascade');
-            $table->foreign('morador_id')->references('id')->on('morador')->onDelete('cascade');
+            $table->foreign('espaco_id')->references('id')->on('espaco_comums')->onDelete('cascade');
+            $table->foreign('morador_id')->references('id')->on('moradors')->onDelete('cascade');
         });
     }
 
@@ -28,4 +29,4 @@ class CreateReservaEspacoTable extends Migration
     {
         Schema::dropIfExists('reserva_espaco');
     }
-}
+};

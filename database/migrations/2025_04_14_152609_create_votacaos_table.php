@@ -3,11 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreateVotacaoTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('votacao', function (Blueprint $table) {
+        Schema::create('votacaos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condominio_id');
             $table->string('titulo');
@@ -19,7 +20,7 @@ class CreateVotacaoTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');
+            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 
@@ -27,4 +28,4 @@ class CreateVotacaoTable extends Migration
     {
         Schema::dropIfExists('votacao');
     }
-}
+};

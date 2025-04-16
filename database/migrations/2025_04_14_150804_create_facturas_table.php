@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacturaTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('factura', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('unidade_id');
             $table->string('referencia')->nullable();
@@ -20,7 +20,7 @@ class CreateFacturaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('unidade_id')->references('id')->on('unidade')->onDelete('cascade');
+            $table->foreign('unidade_id')->references('id')->on('unidades')->onDelete('cascade');
         });
     }
 
@@ -28,4 +28,4 @@ class CreateFacturaTable extends Migration
     {
         Schema::dropIfExists('factura');
     }
-}
+};

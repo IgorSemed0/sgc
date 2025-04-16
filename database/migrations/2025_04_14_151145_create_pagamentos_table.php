@@ -3,11 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-class CreatePagamentoTable extends Migration
+
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('pagamento', function (Blueprint $table) {
+        Schema::create('pagamentos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('factura_id');
             $table->date('data_pagamento');
@@ -17,7 +18,7 @@ class CreatePagamentoTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('factura_id')->references('id')->on('factura')->onDelete('cascade');
+            $table->foreign('factura_id')->references('id')->on('facturas')->onDelete('cascade');
         });
     }
 
@@ -25,4 +26,4 @@ class CreatePagamentoTable extends Migration
     {
         Schema::dropIfExists('pagamento');
     }
-}
+};

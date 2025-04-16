@@ -3,7 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCondominioTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class CreateCondominioTable extends Migration
      */
     public function up()
     {
-        Schema::create('condominio', function (Blueprint $table) {
-            $table->id('condominio_id');
+        Schema::create('condominios', function (Blueprint $table) {
+            $table->id();
             $table->string('nome');
             $table->string('endereco');
             $table->string('bairro')->nullable();
@@ -35,4 +35,4 @@ class CreateCondominioTable extends Migration
     {
         Schema::dropIfExists('condominio');
     }
-}
+};
