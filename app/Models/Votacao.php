@@ -18,4 +18,14 @@ class Votacao extends Model
         'quorum_minimo', 
         'status'
     ];
+
+    public function condominio()
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
+
+    public function voto()
+    {
+    return $this->hasMany(Voto::class, 'votacao_id');
+    }
 }

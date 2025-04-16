@@ -11,10 +11,15 @@ class Pagamento extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'fatura_id', 
+        'factura_id', 
         'data_pagamento', 
         'valor_pago', 
         'metodo_pagamento', 
         'transacao_id'
     ];
+
+    public function factura()
+    {
+        return $this->belongsTo(Factura::class, 'factura_id');
+    }
 }

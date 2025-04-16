@@ -10,11 +10,16 @@ class Notificacao extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'morador_id', 
+        'user_id', 
         'tipo', 
         'titulo', 
         'conteudo', 
         'data_hora', 
         'lida'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

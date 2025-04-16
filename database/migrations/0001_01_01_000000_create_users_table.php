@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('bi');
             $table->string('telefone')->nullable();
-            $table->string('tipo_usuario');
-            $table->unsignedBigInteger('condominio_id')->nullable();
+            $table->string('tipo_usuario')->default('admin');
+            $table->foreignId('condominio_id')->constrained('condominios')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

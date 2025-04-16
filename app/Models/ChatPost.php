@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostChat extends Model
+class ChatPost extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -19,14 +19,14 @@ class PostChat extends Model
         'data_publicacao'
     ];
 
-    public function ComentarioChat()
+    public function chatComentario()
     {
-        return $this->hasMany(ComentarioChat::class, 'post_id');
+        return $this->hasMany(ChatComentario::class, 'post_id');
     }
 
     public function condominio()
     {
-        return $this->belongsTo(condominio::class, 'condominio_id');
+        return $this->belongsTo(Condominio::class, 'condominio_id');
     }
 
 }

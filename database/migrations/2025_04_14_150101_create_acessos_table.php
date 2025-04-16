@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
- class CreateAcessoTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('acesso', function (Blueprint $table) {
+        Schema::create('acessos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entidade_id')->notNull();
-            $table->string('tipo_pessoa')->notNull();
-            $table->date('data_hora')->notNull();
-            $table->string('tipo')->notNull();
-            $table->string('saida_dispositivo')->notNull();
+            $table->unsignedBigInteger('entidade_id');
+            $table->string('tipo_pessoa');
+            $table->date('data_hora');
+            $table->string('tipo');
+            $table->string('rf_id')->nullable();
             $table->string('observacao');
             $table->timestamps();
         });

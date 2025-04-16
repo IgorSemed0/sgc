@@ -1,22 +1,23 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ReservaEspaco extends Model
+class FacturaItem extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'espaco_id', 
-        'morador_id', 
-        'data_reserva', 
-        'hora_inicio', 
-        'hora_fim', 
-        'status',
-        'observacao'
+        'factura_id', 
+        'categoria', 
+        'descricao', 
+        'valor'
     ];
+
+    public function factura()
+    {
+    return $this->belongsTo(Factura::class, 'factura_id');
+    }
 }

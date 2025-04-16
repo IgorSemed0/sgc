@@ -16,4 +16,9 @@ class Rupe extends Model
         'valor', 
         'data_receita'
     ];
+
+    public function condominio()
+    {
+        return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
 }

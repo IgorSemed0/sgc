@@ -12,9 +12,14 @@ class Voto extends Model
 
     protected $fillable = [
         'votacao_id', 
-        'morador_id', 
+        'user_id', 
         'opcao_id', 
         'data_hora', 
         'hash_voto'
     ];
+
+    public function votacao()
+    {
+    return $this->hasMany(Votacao::class, 'votacao_id');
+    }
 }

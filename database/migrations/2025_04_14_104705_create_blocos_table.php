@@ -3,7 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlocoTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateBlocoTable extends Migration
      */
     public function up()
     {
-        Schema::create('bloco', function (Blueprint $table) {
+        Schema::create('blocos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->notNull();
+            $table->string('nome');
             $table->string('descricao')->nullable();
-            $table->unsignedBigInteger('condominio_id')->notNull();
+            $table->unsignedBigInteger('condominio_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('condominio_id')->references('condominio_id')->on('condominio')->onDelete('cascade');
+            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 
@@ -32,4 +32,4 @@ class CreateBlocoTable extends Migration
     {
         Schema::dropIfExists('bloco');
     }
-}
+};

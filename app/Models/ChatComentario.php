@@ -5,22 +5,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ComentarioChat extends Model
+class ChatComentario extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'post_id', 
-        'morador_id', 
+        'user_id', 
         'conteudo', 
         'data_comentario'
     ];
-    public function post_id()
+    public function chatPost()
     {
-        return $this->belongsTo(PostChat::class, 'post_id');
+        return $this->belongsTo(ChatPost::class, 'post_id');
     }  
-    public function morador()
+    public function user()
     {
-        return $this->belongsTo(Morador::class, 'morador_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
