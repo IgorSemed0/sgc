@@ -1,8 +1,8 @@
 <div class="modal-body">
-    <form action="{{ route('admin.edificio.store') }}" method="POST">
+    <form action="{{ route('admin.unidade.store') }}" method="POST">
         @csrf
-        {{$edificio=null}}
-        @include('admin._form.edificio.index')
+        {{$unidade=null}}
+        @include('admin._form.unidade.index')
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
