@@ -30,6 +30,12 @@
                 Blocos
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.edificio.index') }}">
+                <i class="fas fa-building icon"></i>
+                Edifícios
+            </a>
+        </li>
         
         <!-- You can add more menu items based on your system requirements -->
         <li class="divider" data-text="Usuários">Usuários</li>
