@@ -41,5 +41,18 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.bloco.restore', 'uses' => 'App\Http\Controllers\Admin\BlocoController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.bloco.purge', 'uses' => 'App\Http\Controllers\Admin\BlocoController@purge']);
         });
+
+        //Edificio Routes
+        Route::prefix('edificio')->group(function () {
+            Route::get('index', ['as' => 'admin.edificio.index', 'uses' => 'App\Http\Controllers\Admin\EdificioController@index']);
+            Route::get('create', ['as' => 'admin.edificio.create', 'uses' => 'App\Http\Controllers\Admin\EdificioController@create']);
+            Route::post('store', ['as' => 'admin.edificio.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.edificio.edit', 'uses' => 'App\Http\Controllers\Admin\EdificioController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.edificio.update', 'uses' => 'App\Http\Controllers\Admin\EdificioController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.edificio.destroy', 'uses' => 'App\Http\Controllers\Admin\EdificioController@destroy']);
+            Route::get('trash', ['as' => 'admin.edificio.trash', 'uses' => 'App\Http\Controllers\Admin\EdificioController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.edificio.restore', 'uses' => 'App\Http\Controllers\Admin\EdificioController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.edificio.purge', 'uses' => 'App\Http\Controllers\Admin\EdificioController@purge']);
+        });
     });
 });
