@@ -68,8 +68,8 @@
                     {{-- @foreach($condominios as $condominio) --}}
                     {{-- <option value="{{ $condominio->id }}" {{ old('condominio_id') == $condominio->id ? 'selected' : '' }}>{{ $condominio->nome }}</option> --}}
                     {{-- @endforeach --}}
-                     <!-- <option value="1" {{ old('condominio_id') == 1 ? 'selected' : '' }}>Condomínio Exemplo 1</option>
-                     <option value="2" {{ old('condominio_id') == 2 ? 'selected' : '' }}>Condomínio Exemplo 2</option> -->
+                     <option value="1" {{ old('condominio_id') == 1 ? 'selected' : '' }}>Copolo</option>
+                     <!-- <option value="2" {{ old('condominio_id') == 2 ? 'selected' : '' }}>Condomínio Exemplo 2</option> -->
                  </select>
                  <x-input-error for="condominio_id" class="mt-2" />
              </div>
