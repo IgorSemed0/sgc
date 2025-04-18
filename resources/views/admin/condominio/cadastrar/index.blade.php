@@ -1,8 +1,9 @@
-<div class="modal-body">
-    <form action="{{ route('admin.alocacao.store') }}" method="POST">
-        @csrf
-        {{$alocacao=null}}
-        @include('admin._form.alocacao.index')
-        <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
-</div>
+@extends('admin.layouts.body')
+@section('title', 'Cadastrar Condomínio')
+@section('conteudo')
+<form action="{{ route('admin.condominio.store') }}" method="POST">
+    @csrf
+    @include('admin._form.condominio.index')
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+@endsection
