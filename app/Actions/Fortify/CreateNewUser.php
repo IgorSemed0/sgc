@@ -22,16 +22,16 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'primeiro_nome' => ['required', 'string', 'max:50'],
+            'primeiro_nome' => ['required', 'string'],
             'nomes_meio' => ['nullable', 'string', 'max:100'],
-            'ultimo_nome' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'string', 'email', 'max:100', Rule::unique('users', 'email')],
-            'username' => ['required', 'string', 'max:50', Rule::unique('users', 'username')],
+            'ultimo_nome' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', Rule::unique('users', 'email')],
+            'username' => ['required', 'string', Rule::unique('users', 'username')],
             'password' => $this->passwordRules(),
-            'bi' => ['required', 'string', 'max:20'],
-            'telefone' => ['nullable', 'string', 'max:15'],
-            'tipo_usuario' => ['required', 'string', 'max:50'],
-            'condominio_id' => ['integer', Rule::exists('condominio', 'id')],
+            'bi' => ['required', 'string', 'max:14'],
+            'telefone' => ['nullable', 'string', 'max:9'],
+            'tipo_usuario' => ['required', 'string'],
+            'condominio_id' => ['integer', Rule::exists('condominios', 'id')],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ],
         [
@@ -49,7 +49,7 @@ class CreateNewUser implements CreatesNewUsers
             'bi' => $input['bi'],
             'telefone' => $input['telefone'] ?? null,
             'tipo_usuario' => $input['tipo_usuario'],
-            // 'condominio_id' => $input['condominio_id'],
+            'condominio_id' => $input['condominio_id'],
         ]);
     }
 }

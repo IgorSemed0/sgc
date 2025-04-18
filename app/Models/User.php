@@ -32,7 +32,7 @@ class User extends Authenticatable
         'ultimo_nome',
         'email',
         'username',
-        'password', // --- Reverted back to 'password' ---
+        'password',
         'bi',
         'telefone',
         'tipo_usuario',
@@ -45,7 +45,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password', // --- Reverted back to 'password' ---
+        'password',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
@@ -70,34 +70,24 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed', // --- Cast 'password' ---
+            'password' => 'hashed'
         ];
     }
 
-    // --- REMOVED getAuthPassword() method - not needed when using 'password' column ---
-
-    /**
-     * Get the user's full name.
-     *
-     * @return string
-     */
     public function getFullNameAttribute(): string
     {
         return trim($this->primeiro_nome . ' ' . $this->nomes_meio . ' ' . $this->ultimo_nome);
     }
 
-    /**
-     * Get the condominio that owns the user.
-     */
     public function condominio(): BelongsTo
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
     }
     
-    public function acesso()
-    {
-        return $this->hasMany(Acesso::class, 'id');
-    }
+    // public function acesso()
+    // {
+    //     return $this->hasMany(Acesso::class, 'id');
+    // }
 
     public function notificacao()
     {
