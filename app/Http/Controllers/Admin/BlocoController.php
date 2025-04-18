@@ -11,8 +11,9 @@ class BlocoController extends Controller
 {
     public function index()
     {
-        $blocos = Bloco::with('condominio')->get();
-        return view('admin.bloco.index', compact('blocos'));
+        $data['condominios'] = Condominio::all();
+        $data['blocos'] = Bloco::with('condominio')->get();
+        return view('admin.bloco.index', $data);
     }
 
     public function create()

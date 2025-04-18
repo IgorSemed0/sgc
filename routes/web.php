@@ -28,5 +28,18 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.condominio.restore', 'uses' => 'App\Http\Controllers\Admin\CondominioController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.condominio.purge', 'uses' => 'App\Http\Controllers\Admin\CondominioController@purge']);
         });
+
+        //Bloco Routes
+        Route::prefix('bloco')->group(function () {
+            Route::get('index', ['as' => 'admin.bloco.index', 'uses' => 'App\Http\Controllers\Admin\BlocoController@index']);
+            Route::get('create', ['as' => 'admin.bloco.create', 'uses' => 'App\Http\Controllers\Admin\BlocoController@create']);
+            Route::post('store', ['as' => 'admin.bloco.store', 'uses' => 'App\Http\Controllers\Admin\BlocoController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.bloco.edit', 'uses' => 'App\Http\Controllers\Admin\BlocoController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.bloco.update', 'uses' => 'App\Http\Controllers\Admin\BlocoController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.bloco.destroy', 'uses' => 'App\Http\Controllers\Admin\BlocoController@destroy']);
+            Route::get('trash', ['as' => 'admin.bloco.trash', 'uses' => 'App\Http\Controllers\Admin\BlocoController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.bloco.restore', 'uses' => 'App\Http\Controllers\Admin\BlocoController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.bloco.purge', 'uses' => 'App\Http\Controllers\Admin\BlocoController@purge']);
+        });
     });
 });

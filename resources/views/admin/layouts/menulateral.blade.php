@@ -24,6 +24,12 @@
                 <li><a href="{{ route('admin.condominio.index') }}">Listar</a></li>
             </ul>
         </li>
+        <li>
+            <a href="{{ route('admin.bloco.index') }}">
+                <i class="fas fa-th-large icon"></i>
+                Blocos
+            </a>
+        </li>
         
         <!-- You can add more menu items based on your system requirements -->
         <li class="divider" data-text="Usuários">Usuários</li>
