@@ -22,7 +22,7 @@
 
     <div class="col-md-6 mb-3">
         <label for="numero">Número</label>
-        <input type="text" class="form-control" id="numero" name="numero" value="{{ old('numero', $unidade->numero ?? '') }}" required>
+        <input type="number" class="form-control" id="numero" name="numero" value="{{ old('numero', $unidade->numero ?? '') }}" required>
     </div>
 
     <div class="col-md-6 mb-3">
