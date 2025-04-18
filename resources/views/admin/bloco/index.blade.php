@@ -1,10 +1,10 @@
 @extends('admin.layouts.body')
-@section('title', 'Listar Condomínios')
+@section('title', 'Listar Blocos')
 @section('conteudo')
-<h1 class="h3">Tabela de Condomínios</h1>
+<h1 class="h3">Tabela de Blocos</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#condominioModal">Novo Condomínio</button>
-    <a href="{{ route('admin.condominio.trash') }}" class="btn btn-secondary">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#blocoModal">Novo Bloco</button>
+    <a href="{{ route('admin.bloco.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
 </div>
@@ -15,33 +15,33 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Cidade</th>
-                <th>Estado</th>
+                <th>Descrição</th>
+                <th>Condomínio</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($condominios as $condominio)
+            @foreach ($blocos as $bloco)
             <tr>
-                <td>{{ $condominio->id }}</td>
-                <td>{{ $condominio->nome }}</td>
-                <td>{{ $condominio->cidade }}</td>
-                <td>{{ $condominio->estado }}</td>
+                <td>{{ $bloco->id }}</td>
+                <td>{{ $bloco->nome }}</td>
+                <td>{{ $bloco->descricao }}</td>
+                <td>{{ $bloco->condominio->nome }}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $condominio->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.condominio.destroy', $condominio->id) }}')">Deletar</a>
+                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $bloco->id }}">Editar</a>
+                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.bloco.destroy', $bloco->id) }}')">Deletar</a>
                 </td>
             </tr>
 
-            <div class="modal fade" id="editar_modal{{ $condominio->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $condominio->id }}Label" aria-hidden="true">
+            <div class="modal fade" id="editar_modal{{ $bloco->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $bloco->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Condomínio</h5>
+                            <h5 class="modal-title">Editar Bloco</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            @include('admin.condominio.editar.index', ['condominio' => $condominio])
+                            @include('admin.bloco.editar.index', ['bloco' => $bloco])
                         </div>
                     </div>
                 </div>
@@ -50,14 +50,14 @@
         </tbody>
     </table>
 
-    <div class="modal fade" id="condominioModal" tabindex="-1" aria-labelledby="condominioModalLabel" aria-hidden="true">
+    <div class="modal fade" id="blocoModal" tabindex="-1" aria-labelledby="blocoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Condomínio</h5>
+                    <h5 class="modal-title">Cadastro de Bloco</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @include('admin.condominio.cadastrar.index')
+                @include('admin.bloco.cadastrar.index')
             </div>
         </div>
     </div>

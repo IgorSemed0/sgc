@@ -32,11 +32,70 @@
                 <form action="{{ route('admin.condominio.purge', $condominio->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir permanentemente este condomínio?')">Excluir Permanentemente</button>
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmPurge('{{ route('admin.condominio.purge', $condominio->id) }}')">Excluir Permanentemente</button>
+
                 </form>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+@if (session('success'))
+<script>
+    Swal.fire({
+        title: "Sucesso!",
+        text: "{{ session('success') }}",
+        icon: "success",
+        confirmButtonText: "OK"
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    Swal.fire({
+        title: "Erro!",
+        text: "{{ session('error') }}",
+        icon: "error",
+        confirmButtonText: "OK"
+    });
+</script>
+@endif
+
+<script>
+    function confirmRestore(url) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Deseja restaurar este condomínio?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, restaurar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+
+    function confirmPurge(url) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Esta ação excluirá permanentemente o condomínio!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+</script>
 @endsection
