@@ -54,5 +54,18 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.edificio.restore', 'uses' => 'App\Http\Controllers\Admin\EdificioController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.edificio.purge', 'uses' => 'App\Http\Controllers\Admin\EdificioController@purge']);
         });
+
+        //Unidade Routes
+        Route::prefix('unidade')->group(function () {
+            Route::get('index', ['as' => 'admin.unidade.index', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@index']);
+            Route::get('create', ['as' => 'admin.unidade.create', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@create']);
+            Route::post('store', ['as' => 'admin.unidade.store', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.unidade.edit', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.unidade.update', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.unidade.destroy', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@destroy']);
+            Route::get('trash', ['as' => 'admin.unidade.trash', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.unidade.restore', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.unidade.purge', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@purge']);
+        });
     });
 });
