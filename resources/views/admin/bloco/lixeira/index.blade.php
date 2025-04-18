@@ -25,8 +25,16 @@
             <td>{{ $bloco->descricao }}</td>
             <td>{{ $bloco->condominio->nome }}</td>
             <td>
-                <button class="btn btn-success btn-sm" onclick="confirmRestore('{{ route('admin.bloco.restore', $bloco->id) }}')">Restaurar</button>
-                <button class="btn btn-danger btn-sm" onclick="confirmPurge('{{ route('admin.bloco.purge', $bloco->id) }}')">Excluir Permanentemente</button>
+                <form id="restore-form-{{ $bloco->id }}" action="{{ route('admin.bloco.restore', $bloco->id) }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $bloco->id }})">Restaurar</button>
+
+                <form id="purge-form-{{ $bloco->id }}" action="{{ route('admin.bloco.purge', $bloco->id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $bloco->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -56,7 +64,7 @@
 @endif
 
 <script>
-    function confirmRestore(url) {
+    function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
             text: "Deseja restaurar este bloco?",
@@ -68,12 +76,12 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = url;
+                document.getElementById(`restore-form-${id}`).submit();
             }
         });
     }
 
-    function confirmPurge(url) {
+    function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
             text: "Esta ação excluirá permanentemente o bloco!",
@@ -85,7 +93,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = url;
+                document.getElementById(`purge-form-${id}`).submit();
             }
         });
     }

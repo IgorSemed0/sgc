@@ -87,8 +87,9 @@ class BlocoController extends Controller
 
     public function trash()
     {
-        $blocos = Bloco::onlyTrashed()->with('condominio')->get();
-        return view('admin.bloco.lixeira.index', compact('blocos'));
+        $data['condominios'] = Condominio::all();
+        $data['blocos']  = Bloco::onlyTrashed()->with('condominio')->get();
+        return view('admin.bloco.lixeira.index', $data);
     }
 
     public function restore($id)

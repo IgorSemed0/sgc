@@ -12,6 +12,7 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Endereço</th>
             <th>Cidade</th>
             <th>Estado</th>
             <th>Ações</th>
@@ -22,19 +23,22 @@
         <tr>
             <td>{{ $condominio->id }}</td>
             <td>{{ $condominio->nome }}</td>
+            <td>{{ $condominio->endereco }}</td>
             <td>{{ $condominio->cidade }}</td>
             <td>{{ $condominio->estado }}</td>
             <td>
-                <form action="{{ route('admin.condominio.restore', $condominio->id) }}" method="POST" class="d-inline">
+                <!-- Restore Form -->
+                <form id="restore-form-{{ $condominio->id }}" action="{{ route('admin.condominio.restore', $condominio->id) }}" method="POST" style="display: none;">
                     @csrf
-                    <button type="submit" class="btn btn-success btn-sm">Restaurar</button>
                 </form>
-                <form action="{{ route('admin.condominio.purge', $condominio->id) }}" method="POST" class="d-inline">
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $condominio->id }})">Restaurar</button>
+
+                <!-- Purge Form -->
+                <form id="purge-form-{{ $condominio->id }}" action="{{ route('admin.condominio.purge', $condominio->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmPurge('{{ route('admin.condominio.purge', $condominio->id) }}')">Excluir Permanentemente</button>
-
                 </form>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $condominio->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -64,7 +68,7 @@
 @endif
 
 <script>
-    function confirmRestore(url) {
+    function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
             text: "Deseja restaurar este condomínio?",
@@ -76,12 +80,12 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = url;
+                document.getElementById(`restore-form-${id}`).submit();
             }
         });
     }
 
-    function confirmPurge(url) {
+    function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
             text: "Esta ação excluirá permanentemente o condomínio!",
@@ -93,7 +97,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = url;
+                document.getElementById(`purge-form-${id}`).submit();
             }
         });
     }
