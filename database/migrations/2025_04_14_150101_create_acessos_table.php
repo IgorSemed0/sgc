@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tipo');
             $table->string('rf_id')->nullable();
             $table->string('observacao');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
