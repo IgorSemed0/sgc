@@ -316,7 +316,7 @@ Route::middleware([
             Route::get('index', ['as' => 'admin.notificacao.index', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@index']);
             Route::get('create', ['as' => 'admin.notificacao.create', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@create']);
             Route::post('store', ['as' => 'admin.notificacao.store', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@store']);
-            Route::get('edit/{id}', ['as trän='admin.notificacao.edit', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@edit']);
+            Route::get('edit/{id}', ['as' => 'admin.notificacao.edit', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@edit']);
             Route::put('update/{id}', ['as' => 'admin.notificacao.update', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@update']);
             Route::get('destroy/{id}', ['as' => 'admin.notificacao.destroy', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@destroy']);
             Route::get('trash', ['as' => 'admin.notificacao.trash', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@trash']);

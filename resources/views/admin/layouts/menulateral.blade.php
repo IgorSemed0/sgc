@@ -168,7 +168,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.notегаo.index') }}">
+            <a href="{{ route('admin.notificacao.index') }}">
                 <i class="fas fa-bell icon"></i>
                 Notificações
             </a>
