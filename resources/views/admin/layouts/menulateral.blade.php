@@ -53,6 +53,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.funcionario.index') }}">
+                <i class="fas fa-user-tie icon"></i>
+                Funcionários
+            </a>
+        </li>
+
         
 
         <!-- You can add more menu items based on your system requirements -->

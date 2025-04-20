@@ -80,5 +80,18 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.departamento.restore', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.departamento.purge', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@purge']);
         });
+
+        //Funcionario Routes
+        Route::prefix('funcionario')->group(function () {
+            Route::get('index', ['as' => 'admin.funcionario.index', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@index']);
+            Route::get('create', ['as' => 'admin.funcionario.create', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@create']);
+            Route::post('store', ['as' => 'admin.funcionario.store', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.funcionario.edit', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.funcionario.update', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.funcionario.destroy', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@destroy']);
+            Route::get('trash', ['as' => 'admin.funcionario.trash', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.funcionario.restore', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.funcionario.purge', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@purge']);
+        });
     });
 });
