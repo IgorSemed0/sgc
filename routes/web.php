@@ -130,6 +130,18 @@ Route::middleware([
             Route::delete('purge/{id}', ['as' => 'admin.acesso.purge', 'uses' => 'App\Http\Controllers\Admin\AcessoController@purge']);
         });
 
+        Route::prefix('factura')->group(function () {
+            Route::get('index', ['as' => 'admin.factura.index', 'uses' => 'App\Http\Controllers\Admin\FacturaController@index']);
+            Route::get('create', ['as' => 'admin.factura.create', 'uses' => 'App\Http\Controllers\Admin\FacturaController@create']);
+            Route::post('store', ['as' => 'admin.factura.store', 'uses' => 'App\Http\Controllers\Admin\FacturaController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.factura.edit', 'uses' => 'App\Http\Controllers\Admin\FacturaController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.factura.update', 'uses' => 'App\Http\Controllers\Admin\FacturaController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.factura.destroy', 'uses' => 'App\Http\Controllers\Admin\FacturaController@destroy']);
+            Route::get('trash', ['as' => 'admin.factura.trash', 'uses' => 'App\Http\Controllers\Admin\FacturaController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.factura.restore', 'uses' => 'App\Http\Controllers\Admin\FacturaController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.factura.purge', 'uses' => 'App\Http\Controllers\Admin\FacturaController@purge']);
+        });
+
         
     });
 });

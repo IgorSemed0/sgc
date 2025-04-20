@@ -81,6 +81,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.factura.index') }}">
+                <i class="fas fa-file-invoice-dollar icon"></i>
+                Faturas
+            </a>
+        </li>
+
         
 
         <!-- You can add more menu items based on your system requirements -->
