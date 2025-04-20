@@ -1,8 +1,8 @@
 <div class="modal-body">
-    <form action="{{ route('admin.voto.update', $voto->id) }}" method="POST">
+    <form action="{{ route('admin.espaco-reserva.update', $espacoReserva->id) }}" method="POST">
         @csrf
         @method('PUT')
-        @include('admin._form.voto.index', ['voto' => $voto])
+        @include('admin._form.espaco-reserva.index', ['espacoReserva' => $espacoReserva])
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </form>
 </div>

@@ -1,10 +1,10 @@
 @extends('admin.layouts.body')
-@section('title', 'Listar Espaços Comuns')
+@section('title', 'Listar Reservas de Espaço')
 @section('conteudo')
-<h1 class="h3">Tabela de Espaços Comuns</h1>
+<h1 class="h3">Tabela de Reservas de Espaço</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#espacoComumModal">Novo Espaço Comum</button>
-    <a href="{{ route('admin.espaco-comum.trash') }}" class="btn btn-secondary">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#espacoReservaModal">Nova Reserva de Espaço</button>
+    <a href="{{ route('admin.espaco-reserva.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
 </div>
@@ -14,38 +14,42 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Condomínio</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Capacidade</th>
-                <th>Regras</th>
+                <th>Espaço Comum</th>
+                <th>Usuário</th>
+                <th>Data Reserva</th>
+                <th>Hora Início</th>
+                <th>Hora Fim</th>
+                <th>Status</th>
+                <th>Observação</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($espacoComums as $espacoComum)
+            @foreach ($espacoReservas as $espacoReserva)
             <tr>
-                <td>{{ $espacoComum->id }}</td>
-                <td>{{ $espacoComum->condominio->nome }}</td>
-                <td>{{ $espacoComum->nome }}</td>
-                <td>{{ $espacoComum->descricao ?? '-' }}</td>
-                <td>{{ $espacoComum->capacidade }}</td>
-                <td>{{ $espacoComum->regras ?? '-' }}</td>
+                <td>{{ $espacoReserva->id }}</td>
+                <td>{{ $espacoReserva->espacoComum->nome }}</td>
+                <td>{{ $espacoReserva->user->full_name }}</td>
+                <td>{{ \Carbon\Carbon::parse($espacoReserva->data_reserva)->format('d/m/Y') }}</td>
+                <td>{{ $espacoReserva->hora_inicio }}</td>
+                <td>{{ $espacoReserva->hora_fim }}</td>
+                <td>{{ $espacoReserva->status }}</td>
+                <td>{{ $espacoReserva->observacao ?? '-' }}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $espacoComum->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.espaco-comum.destroy', $espacoComum->id) }}')">Deletar</a>
+                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $espacoReserva->id }}">Editar</a>
+                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.espaco-reserva.destroy', $espacoReserva->id) }}')">Deletar</a>
                 </td>
             </tr>
 
-            <div class="modal fade" id="editar_modal{{ $espacoComum->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $espacoComum->id }}Label" aria-hidden="true">
+            <div class="modal fade" id="editar_modal{{ $espacoReserva->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $espacoReserva->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Espaço Comum</h5>
+                            <h5 class="modal-title">Editar Reserva de Espaço</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            @include('admin.espaco-comum.editar.index', ['espacoComum' => $espacoComum])
+                            @include('admin.espaco-reserva.editar.index', ['espacoReserva' => $espacoReserva])
                         </div>
                     </div>
                 </div>
@@ -54,14 +58,14 @@
         </tbody>
     </table>
 
-    <div class="modal fade" id="espacoComumModal" tabindex="-1" aria-labelledby="espacoComumModalLabel" aria-hidden="true">
+    <div class="modal fade" id="espacoReservaModal" tabindex="-1" aria-labelledby="espacoReservaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Espaço Comum</h5>
+                    <h5 class="modal-title">Cadastro de Reserva de Espaço</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @include('admin.espaco-comum.cadastrar.index')
+                @include('admin.espaco-reserva.cadastrar.index')
             </div>
         </div>
     </div>

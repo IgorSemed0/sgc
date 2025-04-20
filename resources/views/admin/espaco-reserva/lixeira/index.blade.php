@@ -1,44 +1,48 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Votos')
+@section('title', 'Lixeira de Reservas de Espaço')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
-    <a href="{{ route('admin.voto.index') }}" class="btn btn-secondary">
+    <a href="{{ route('admin.espaco-reserva.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Votos Apagados</h1>
+<h1 class="h3">Reservas de Espaço Apagadas</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Votação</th>
+            <th>Espaço Comum</th>
             <th>Usuário</th>
-            <th>Opção</th>
-            <th>Data/Hora</th>
-            <th>Hash Voto</th>
+            <th>Data Reserva</th>
+            <th>Hora Início</th>
+            <th>Hora Fim</th>
+            <th>Status</th>
+            <th>Observação</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($votos as $voto)
+        @foreach ($espacoReservas as $espacoReserva)
         <tr>
-            <td>{{ $voto->id }}</td>
-            <td>{{ $voto->votacao->titulo }}</td>
-            <td>{{ $voto->user->full_name }}</td>
-            <td>{{ $voto->opcaoVotacao->descricao }}</td>
-            <td>{{ \Carbon\Carbon::parse($voto->data_hora)->format('d/m/Y H:i') }}</td>
-            <td>{{ $voto->hash_voto ?? '-' }}</td>
+            <td>{{ $espacoReserva->id }}</td>
+            <td>{{ $espacoReserva->espacoComum->nome }}</td>
+            <td>{{ $espacoReserva->user->full_name }}</td>
+            <td>{{ \Carbon\Carbon::parse($espacoReserva->data_reserva)->format('d/m/Y') }}</td>
+            <td>{{ $espacoReserva->hora_inicio }}</td>
+            <td>{{ $espacoReserva->hora_fim }}</td>
+            <td>{{ $espacoReserva->status }}</td>
+            <td>{{ $espacoReserva->observacao ?? '-' }}</td>
             <td>
-                <form id="restore-form-{{ $voto->id }}" action="{{ route('admin.voto.restore', $voto->id) }}" method="POST" style="display: none;">
+                <form id="restore-form-{{ $espacoReserva->id }}" action="{{ route('admin.espaco-reserva.restore', $espacoReserva->id) }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $voto->id }})">Restaurar</button>
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $espacoReserva->id }})">Restaurar</button>
 
-                <form id="purge-form-{{ $voto->id }}" action="{{ route('admin.voto.purge', $voto->id) }}" method="POST" style="display: none;">
+                <form id="purge-form-{{ $espacoReserva->id }}" action="{{ route('admin.espaco-reserva.purge', $espacoReserva->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
-                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $voto->id }})">Excluir Permanentemente</button>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $espacoReserva->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -71,7 +75,7 @@
     function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Deseja restaurar este voto?",
+            text: "Deseja restaurar esta reserva de espaço?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -88,7 +92,7 @@
     function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação excluirá permanentemente o voto!",
+            text: "Esta ação excluirá permanentemente a reserva de espaço!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
