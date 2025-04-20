@@ -14,6 +14,8 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect()->route('admin.dashboard')->with('error', 'Acesso negado. Apenas administradores podem acessar esta área.');
+        abort(404);
+        return redirect()->route('home')->with('error', 'Acesso negado. Apenas administradores podem acessar esta área.');
+        // return redirect()->route('admin.home')->with('error', 'Acesso negado. Apenas administradores podem acessar esta área.');
     }
 }

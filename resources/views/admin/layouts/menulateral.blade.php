@@ -42,6 +42,7 @@
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
             <ul class="side-dropdown">
+                <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
                 <li><a href="{{ route('admin.departamento.index') }}"><i class="fas fa-sitemap icon"></i> Departamentos</a></li>
                 <li><a href="{{ route('admin.funcionario.index') }}"><i class="fas fa-user-tie icon"></i> Funcionários</a></li>
                 <li><a href="{{ route('admin.morador.index') }}"><i class="fas fa-users icon"></i> Moradores</a></li>
@@ -99,10 +100,8 @@
             </ul>
         </li>
         
-        <!-- Configurações -->
-        <li class="divider" data-text="Sistema"></li>
-        
-        <li>
+   
+        <!-- <li>
             <a href="#">
                 <i class="fas fa-cog icon"></i>
                 Configurações
@@ -112,9 +111,8 @@
                 <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
                 <!-- <li><a href="#"><i class="fas fa-user-shield icon"></i> Perfis</a></li>
                 <li><a href="#"><i class="fas fa-key icon"></i> Permissões</a></li>
-                <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li> -->
-            </ul>
-        </li>
+                <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li            </ul>
+        </li> -->
     </ul>
 </section>
 
