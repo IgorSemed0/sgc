@@ -67,5 +67,18 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.unidade.restore', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.unidade.purge', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@purge']);
         });
+
+        //Departamento Routes
+        Route::prefix('departamento')->group(function () {
+            Route::get('index', ['as' => 'admin.departamento.index', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@index']);
+            Route::get('create', ['as' => 'admin.departamento.create', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@create']);
+            Route::post('store', ['as' => 'admin.departamento.store', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.departamento.edit', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.departamento.update', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.departamento.destroy', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@destroy']);
+            Route::get('trash', ['as' => 'admin.departamento.trash', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.departamento.restore', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.departamento.purge', 'uses' => 'App\Http\Controllers\Admin\DepartamentoController@purge']);
+        });
     });
 });
