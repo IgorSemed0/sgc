@@ -88,6 +88,19 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.factura-item.index') }}">
+                <i class="fas fa-file-invoice icon"></i>
+                Itens de Fatura
+            </a>
+        </li>
+
+        
+
+        
+
+        
+
         
 
         <!-- You can add more menu items based on your system requirements -->

@@ -142,6 +142,18 @@ Route::middleware([
             Route::delete('purge/{id}', ['as' => 'admin.factura.purge', 'uses' => 'App\Http\Controllers\Admin\FacturaController@purge']);
         });
 
-        
+        // FacturaItem Routes
+        Route::prefix('factura-item')->group(function () {
+            Route::get('index', ['as' => 'admin.factura-item.index', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@index']);
+            Route::get('create', ['as' => 'admin.factura-item.create', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@create']);
+            Route::post('store', ['as' => 'admin.factura-item.store', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.factura-item.edit', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.factura-item.update', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.factura-item.destroy', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@destroy']);
+            Route::get('trash', ['as' => 'admin.factura-item.trash', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.factura-item.restore', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.factura-item.purge', 'uses' => 'App\Http\Controllers\Admin\FacturaItemController@purge']);
+        });
+
     });
 });
