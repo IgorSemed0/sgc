@@ -148,6 +148,11 @@
 
     <script src="{{ asset('style/exibir.js') }}"></script>
     <script src="{{ asset('style/pesquisar.js') }}"></script>
+    <script>
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
+    </script>
 </body>
 
 </html>

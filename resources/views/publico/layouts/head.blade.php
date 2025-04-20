@@ -23,6 +23,20 @@
 
     <!-- Custom Admin CSS -->
     <style>
+    
+    @media (max-width: 768px) {
+        #sidebar {
+            transform: translateX(-100%);
+            max-width: 260px;
+        }
+        #sidebar.show {
+            transform: translateX(0);
+        }
+        #content {
+            width: 100%;
+            left: 0;
+        }
+    }
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
         * {

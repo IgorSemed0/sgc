@@ -28,7 +28,11 @@
             <tr>
                 <td>{{ $chatPost->id }}</td>
                 <td>{{ $chatPost->condominio->nome }}</td>
-                <td>{{ $chatPost->user->full_name }}</td>
+                <td>
+                    {{ $chatPost->user->primeiro_nome ?? '' }} 
+                    {{ $chatPost->user->nomes_meio ?? '' }} 
+                    {{ $chatPost->user->ultimo_nome ?? '' }}
+                </td>                
                 <td>{{ $chatPost->tipo_autor }}</td>
                 <td>{{ $chatPost->titulo }}</td>
                 <td>{{ Str::limit($chatPost->conteudo, 50) }}</td>

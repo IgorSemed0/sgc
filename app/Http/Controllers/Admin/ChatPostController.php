@@ -14,7 +14,9 @@ class ChatPostController extends Controller
     {
         $data['condominios'] = Condominio::all();
         $data['users'] = User::all();
-        $data['chatPosts'] = ChatPost::with(['condominio'])->get();
+        $data['chatPosts'] = ChatPost::with(['condominio','user'])->get();
+        
+        // dd($data['chatPosts']);
         return view('admin.chat-post.index', $data);
     }
 
