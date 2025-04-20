@@ -118,6 +118,18 @@ Route::middleware([
             Route::delete('purge/{id}', ['as' => 'admin.visitante.purge', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@purge']);
         });
 
+        Route::prefix('acesso')->group(function () {
+            Route::get('index', ['as' => 'admin.acesso.index', 'uses' => 'App\Http\Controllers\Admin\AcessoController@index']);
+            Route::get('create', ['as' => 'admin.acesso.create', 'uses' => 'App\Http\Controllers\Admin\AcessoController@create']);
+            Route::post('store', ['as' => 'admin.acesso.store', 'uses' => 'App\Http\Controllers\Admin\AcessoController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.acesso.edit', 'uses' => 'App\Http\Controllers\Admin\AcessoController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.acesso.update', 'uses' => 'App\Http\Controllers\Admin\AcessoController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.acesso.destroy', 'uses' => 'App\Http\Controllers\Admin\AcessoController@destroy']);
+            Route::get('trash', ['as' => 'admin.acesso.trash', 'uses' => 'App\Http\Controllers\Admin\AcessoController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.acesso.restore', 'uses' => 'App\Http\Controllers\Admin\AcessoController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.acesso.purge', 'uses' => 'App\Http\Controllers\Admin\AcessoController@purge']);
+        });
+
         
     });
 });

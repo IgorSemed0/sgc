@@ -74,6 +74,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.acesso.index') }}">
+                <i class="fas fa-door-open icon"></i>
+                Acessos
+            </a>
+        </li>
+
         
 
         <!-- You can add more menu items based on your system requirements -->
