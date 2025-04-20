@@ -95,13 +95,84 @@
             </a>
         </li>
 
-        
-
-        
-
-        
-
-        
+        <li>
+            <a href="{{ route('admin.pagamento.index') }}">
+                <i class="fas fa-money-bill-wave icon"></i>
+                Pagamentos
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.despesa.index') }}">
+                <i class="fas fa-shopping-cart icon"></i>
+                Despesas
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.conta.index') }}">
+                <i class="fas fa-piggy-bank icon"></i>
+                Contas
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.movimento.index') }}">
+                <i class="fas fa-exchange-alt icon"></i>
+                Movimentos
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.rupe.index') }}">
+                <i class="fas fa-coins icon"></i>
+                Receitas
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.votacao.index') }}">
+                <i class="fas fa-vote-yea icon"></i>
+                Votações
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.opcao-votacao.index') }}">
+                <i class="fas fa-list-ul icon"></i>
+                Opções de Votação
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.voto.index') }}">
+                <i class="fas fa-ballot icon"></i>
+                Votos
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.espaco-comum.index') }}">
+                <i class="fas fa-building icon"></i>
+                Espaços Comuns
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.espaco-reserva.index') }}">
+                <i class="fas fa-calendar-check icon"></i>
+                Reservas de Espaços
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.chat-post.index') }}">
+                <i class="fas fa-comments icon"></i>
+                Posts de Chat
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.chat-comentario.index') }}">
+                <i class="fas fa-comment-dots icon"></i>
+                Comentários de Chat
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.notегаo.index') }}">
+                <i class="fas fa-bell icon"></i>
+                Notificações
+            </a>
+        </li>
 
         <!-- You can add more menu items based on your system requirements -->
         <li class="divider" data-text="Usuários">Usuários</li>
