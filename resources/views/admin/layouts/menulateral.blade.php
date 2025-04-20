@@ -109,10 +109,10 @@
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
             <ul class="side-dropdown">
-                <li><a href="#"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
-                <li><a href="#"><i class="fas fa-user-shield icon"></i> Perfis</a></li>
+                <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
+                <!-- <li><a href="#"><i class="fas fa-user-shield icon"></i> Perfis</a></li>
                 <li><a href="#"><i class="fas fa-key icon"></i> Permissões</a></li>
-                <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li>
+                <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li> -->
             </ul>
         </li>
 

@@ -18,7 +18,21 @@ Route::middleware([
     Route::prefix('dashboard')->middleware(['auth'])->group(function () {
         
         Route::get('index', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);
-        Route::get('/', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);
+        Route::get('/', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);        
+
+        // User Routes
+        Route::prefix('user')->group(function () {
+            Route::get('index', ['as' => 'admin.user.index', 'uses' => 'App\Http\Controllers\Admin\UserController@index']);
+            Route::get('create', ['as' => 'admin.user.create', 'uses' => 'App\Http\Controllers\Admin\UserController@create']);
+            Route::post('store', ['as' => 'admin.user.store', 'uses' => 'App\Http\Controllers\Admin\UserController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.user.edit', 'uses' => 'App\Http\Controllers\Admin\UserController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.user.update', 'uses' => 'App\Http\Controllers\Admin\UserController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.user.destroy', 'uses' => 'App\Http\Controllers\Admin\UserController@destroy']);
+            Route::get('trash', ['as' => 'admin.user.trash', 'uses' => 'App\Http\Controllers\Admin\UserController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.user.restore', 'uses' => 'App\Http\Controllers\Admin\UserController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.user.purge', 'uses' => 'App\Http\Controllers\Admin\UserController@purge']);
+        });
+
         //Condominio Routes
         Route::prefix('condominio')->group(function () {
             Route::get('index', ['as' => 'admin.condominio.index', 'uses' => 'App\Http\Controllers\Admin\CondominioController@index']);

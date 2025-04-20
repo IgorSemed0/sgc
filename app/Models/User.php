@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -33,6 +32,7 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
+        'processo',
         'bi',
         'telefone',
         'tipo_usuario',
