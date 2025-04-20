@@ -60,6 +60,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.morador.index') }}">
+                <i class="fas fa-users icon"></i>
+                Moradores
+            </a>
+        </li>
+
         
 
         <!-- You can add more menu items based on your system requirements -->

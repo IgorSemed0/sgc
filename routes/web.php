@@ -93,5 +93,17 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.funcionario.restore', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.funcionario.purge', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@purge']);
         });
+
+        Route::prefix('morador')->group(function () {
+            Route::get('index', ['as' => 'admin.morador.index', 'uses' => 'App\Http\Controllers\Admin\MoradorController@index']);
+            Route::get('create', ['as' => 'admin.morador.create', 'uses' => 'App\Http\Controllers\Admin\MoradorController@create']);
+            Route::post('store', ['as' => 'admin.morador.store', 'uses' => 'App\Http\Controllers\Admin\MoradorController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.morador.edit', 'uses' => 'App\Http\Controllers\Admin\MoradorController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.morador.update', 'uses' => 'App\Http\Controllers\Admin\MoradorController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.morador.destroy', 'uses' => 'App\Http\Controllers\Admin\MoradorController@destroy']);
+            Route::get('trash', ['as' => 'admin.morador.trash', 'uses' => 'App\Http\Controllers\Admin\MoradorController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.morador.restore', 'uses' => 'App\Http\Controllers\Admin\MoradorController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.morador.purge', 'uses' => 'App\Http\Controllers\Admin\MoradorController@purge']);
+        });
     });
 });
