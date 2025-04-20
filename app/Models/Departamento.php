@@ -12,7 +12,8 @@ class Departamento extends Model
     protected $fillable = [
         'nome', 
         'descricao', 
-        'condominio_id'
+        'condominio_id',
+        'unidade_id'
     ];
 
     public function condominio()

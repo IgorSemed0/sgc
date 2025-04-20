@@ -13,6 +13,9 @@ class AcessoController extends Controller
 {
     public function index()
     {
+        $data['visitantes'] = Visitante::all();
+        $data['moradores'] = Morador::all();
+        $data['funcionarios'] = Funcionario::all();
         $data['acessos'] = Acesso::all();
         return view('admin.acesso.index', $data);
     }
