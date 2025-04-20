@@ -45,6 +45,16 @@
                 Unidades
             </a>
         </li>
+
+        <li>
+            <a href="{{ route('admin.departamento.index') }}">
+                <i class="fas fa-sitemap icon"></i>
+                Departamentos
+            </a>
+        </li>
+
+        
+
         <!-- You can add more menu items based on your system requirements -->
         <li class="divider" data-text="Usuários">Usuários</li>
         <li>
