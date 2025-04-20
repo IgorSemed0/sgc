@@ -115,13 +115,6 @@
                 <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li> -->
             </ul>
         </li>
-
-        <li>
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt icon"></i>
-                Sair
-            </a>
-        </li>
     </ul>
 </section>
 

@@ -49,13 +49,19 @@
                     <i class="fas fa-cog icon"></i> Configurações
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="dropdown-item">
                         <i class="fas fa-sign-out-alt icon"></i> Sair
                     </button>
                 </form>
+            </li> -->
+            <li>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-out-alt icon"></i>
+                    Sair
+                </a>
             </li>
         </ul>
     </div>
