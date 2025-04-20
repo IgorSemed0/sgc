@@ -3,8 +3,8 @@
 models=("Pagamento" "Despesa" "Conta" "Movimento" "Rupe" "Votacao" "OpcaoVotacao" "Voto" "EspacoComum" "EspacoReserva" "ChatPost" "ChatComentario" "Notificacao")
 
 for model in "${models[@]}"; do
-    # Convert model to lowercase and replace camel case with kebab case
-    kebab_model=$(echo "$model" | sed -r 's/([A-Z])/-\1/g' | tr '[:upper:]' '[:lower:]' | sed 's/^-//')
+    # Convert model to kebab-case (camelCase -> kebab-case)
+    kebab_model=$(echo "$model" | sed -r 's/([a-z])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]')
 
     # Create directories
     mkdir -p "resources/views/admin/$kebab_model"
@@ -20,5 +20,5 @@ for model in "${models[@]}"; do
     touch "resources/views/admin/$kebab_model/lixeira/index.blade.php"
     touch "resources/views/admin/_form/$kebab_model/index.blade.php"
 
-    echo "Created view files for $model"
+    echo "✅ Created view files for $model -> $kebab_model"
 done
