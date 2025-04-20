@@ -24,6 +24,6 @@ class Conta extends Model
     
     public function movimento()
     {
-        return $this->hasMany(Conta::class, 'conta_id')
+        return $this->hasMany(Conta::class, 'conta_id');
     }
 }

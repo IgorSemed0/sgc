@@ -13,13 +13,13 @@ class FacturaItemController extends Controller
     {
         $data['facturas'] = Factura::all();
         $data['facturaItems'] = FacturaItem::with('factura')->get();
-        return view('admin.factura_item.index', $data);
+        return view('admin.factura-item.index', $data);
     }
 
     public function create()
     {
         $facturas = Factura::all();
-        return view('admin.factura_item.cadastrar.index', compact('facturas'));
+        return view('admin.factura-item.cadastrar.index', compact('facturas'));
     }
 
     public function store(Request $request)
@@ -34,7 +34,7 @@ class FacturaItemController extends Controller
 
             FacturaItem::create($validated);
 
-            return redirect()->route('admin.factura_item.index')
+            return redirect()->route('admin.factura-item.index')
                 ->with('success', 'Item de Fatura registrado com sucesso.');
         } catch (\Exception $e) {
             return redirect()->back()
@@ -47,7 +47,7 @@ class FacturaItemController extends Controller
     {
         $facturaItem = FacturaItem::findOrFail($id);
         $facturas = Factura::all();
-        return view('admin.factura_item.editar.index', compact('facturaItem', 'facturas'));
+        return view('admin.factura-item.editar.index', compact('facturaItem', 'facturas'));
     }
 
     public function update(Request $request, $id)
@@ -64,7 +64,7 @@ class FacturaItemController extends Controller
 
             $facturaItem->update($validated);
 
-            return redirect()->route('admin.factura_item.index')
+            return redirect()->route('admin.factura-item.index')
                 ->with('success', 'Item de Fatura atualizado com sucesso.');
         } catch (\Exception $e) {
             return redirect()->back()
@@ -79,10 +79,10 @@ class FacturaItemController extends Controller
             $facturaItem = FacturaItem::findOrFail($id);
             $facturaItem->delete();
 
-            return redirect()->route('admin.factura_item.index')
+            return redirect()->route('admin.factura-item.index')
                 ->with('success', 'Item de Fatura excluído com sucesso.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.factura_item.index')
+            return redirect()->route('admin.factura-item.index')
                 ->with('error', 'Erro ao excluir item de fatura: ' . $e->getMessage());
         }
     }
@@ -91,7 +91,7 @@ class FacturaItemController extends Controller
     {
         $data['facturas'] = Factura::all();
         $data['facturaItems'] = FacturaItem::onlyTrashed()->with('factura')->get();
-        return view('admin.factura_item.lixeira.index', $data);
+        return view('admin.factura-item.lixeira.index', $data);
     }
 
     public function restore($id)

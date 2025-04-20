@@ -85,7 +85,7 @@ class OpcaoVotacaoController extends Controller
 
     public function trash()
     {
-        $data['votacaos'] = V Dr::all();
+        $data['votacaos'] = Votacao::all();
         $data['opcaoVotacaos'] = OpcaoVotacao::onlyTrashed()->with(['votacao'])->get();
         return view('admin.opcao-votacao.lixeira.index', $data);
     }
