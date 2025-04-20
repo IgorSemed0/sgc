@@ -1,44 +1,40 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Condomínios')
+@section('title', 'Lixeira de Departamentos')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
-    <a href="{{ route('admin.condominio.index') }}" class="btn btn-secondary">
+    <a href="{{ route('admin.departamento.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Condomínios Apagados</h1>
+<h1 class="h3">Departamentos Apagados</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Endereço</th>
-            <th>Cidade</th>
-            <th>Estado</th>
+            <th>Descrição</th>
+            <th>Condomínio</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($condominios as $condominio)
+        @foreach ($departamentos as $departamento)
         <tr>
-            <td>{{ $condominio->id }}</td>
-            <td>{{ $condominio->nome }}</td>
-            <td>{{ $condominio->endereco }}</td>
-            <td>{{ $condominio->cidade }}</td>
-            <td>{{ $condominio->estado }}</td>
+            <td>{{ $departamento->id }}</td>
+            <td>{{ $departamento->nome }}</td>
+            <td>{{ $departamento->descricao }}</td>
+            <td>{{ $departamento->condominio->nome }}</td>
             <td>
-                <!-- Restore Form -->
-                <form id="restore-form-{{ $condominio->id }}" action="{{ route('admin.condominio.restore', $condominio->id) }}" method="POST" style="display: none;">
+                <form id="restore-form-{{ $departamento->id }}" action="{{ route('admin.departamento.restore', $departamento->id) }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $condominio->id }})">Restaurar</button>
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $departamento->id }})">Restaurar</button>
 
-                <!-- Purge Form -->
-                <form id="purge-form-{{ $condominio->id }}" action="{{ route('admin.condominio.purge', $condominio->id) }}" method="POST" style="display: none;">
+                <form id="purge-form-{{ $departamento->id }}" action="{{ route('admin.departamento.purge', $departamento->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
-                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $condominio->id }})">Excluir Permanentemente</button>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $departamento->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -71,7 +67,7 @@
     function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Deseja restaurar este condomínio?",
+            text: "Deseja restaurar este departamento?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -88,7 +84,7 @@
     function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação excluirá permanentemente o condomínio!",
+            text: "Esta ação excluirá permanentemente o departamento!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
