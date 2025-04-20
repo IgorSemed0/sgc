@@ -67,6 +67,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{ route('admin.visitante.index') }}">
+                <i class="fas fa-user-friends icon"></i>
+                Visitantes
+            </a>
+        </li>
+
         
 
         <!-- You can add more menu items based on your system requirements -->

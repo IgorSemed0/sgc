@@ -105,5 +105,19 @@ Route::middleware([
             Route::post('restore/{id}', ['as' => 'admin.morador.restore', 'uses' => 'App\Http\Controllers\Admin\MoradorController@restore']);
             Route::delete('purge/{id}', ['as' => 'admin.morador.purge', 'uses' => 'App\Http\Controllers\Admin\MoradorController@purge']);
         });
+
+        Route::prefix('visitante')->group(function () {
+            Route::get('index', ['as' => 'admin.visitante.index', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@index']);
+            Route::get('create', ['as' => 'admin.visitante.create', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@create']);
+            Route::post('store', ['as' => 'admin.visitante.store', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@store']);
+            Route::get('edit/{id}', ['as' => 'admin.visitante.edit', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@edit']);
+            Route::put('update/{id}', ['as' => 'admin.visitante.update', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@update']);
+            Route::get('destroy/{id}', ['as' => 'admin.visitante.destroy', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@destroy']);
+            Route::get('trash', ['as' => 'admin.visitante.trash', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@trash']);
+            Route::post('restore/{id}', ['as' => 'admin.visitante.restore', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@restore']);
+            Route::delete('purge/{id}', ['as' => 'admin.visitante.purge', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@purge']);
+        });
+
+        
     });
 });
