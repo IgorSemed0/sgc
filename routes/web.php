@@ -351,6 +351,7 @@ Route::middleware([
     Route::prefix('morador')->middleware(['auth'])->group(function () {
         Route::get('feed', ['as' => 'morador.feed', 'uses' => 'App\Http\Controllers\Morador\FeedController@index']);
         Route::post('feed/comment', ['as' => 'morador.feed.comment', 'uses' => 'App\Http\Controllers\Morador\FeedController@comment']);
+        Route::get('feed/search', ['as' => 'morador.feed.search', 'uses' => 'App\Http\Controllers\Morador\FeedController@search']);
         Route::get('votacao', ['as' => 'morador.votacao', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@index']);
         Route::post('votacao/vote', ['as' => 'morador.votacao.vote', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@vote']);
         Route::get('perfil', ['as' => 'morador.perfil', 'uses' => 'App\Http\Controllers\Morador\PerfilController@index']);
