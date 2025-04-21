@@ -28,4 +28,9 @@ class Votacao extends Model
     {
     return $this->hasMany(Voto::class, 'votacao_id');
     }
+
+    public function opcaoVotacaos()
+    {
+        return $this->hasMany(OpcaoVotacao::class, 'votacao_id');
+    }
 }

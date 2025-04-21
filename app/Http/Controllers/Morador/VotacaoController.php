@@ -13,7 +13,7 @@ class VotacaoController extends Controller
 {
     public function index()
     {
-        $votacaos = Votacao::where('status', 'ativa')->get();
+        $votacaos = Votacao::with('opcaoVotacaos')->get();
         return view('morador.votacao', compact('votacaos'));
     }
 
