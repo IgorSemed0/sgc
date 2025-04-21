@@ -354,6 +354,7 @@ Route::middleware([
         Route::get('feed/search', ['as' => 'morador.feed.search', 'uses' => 'App\Http\Controllers\Morador\FeedController@search']);
         Route::get('votacao', ['as' => 'morador.votacao', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@index']);
         Route::post('votacao/vote', ['as' => 'morador.votacao.vote', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@vote']);
+        Route::get('votacao/search', ['as' => 'morador.votacao.search', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@search']); // Nova rota
         Route::get('perfil', ['as' => 'morador.perfil', 'uses' => 'App\Http\Controllers\Morador\PerfilController@index']);
         Route::put('perfil/update', ['as' => 'morador.perfil.update', 'uses' => 'App\Http\Controllers\Morador\PerfilController@update']);
     });
