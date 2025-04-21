@@ -2,13 +2,13 @@
 <html lang="pt">
 
 <!-- Head -->
-@include('admin.layouts.head')
+@include('publico.layouts.head')
 
 <body>
     <!-- Content Section -->
     <section id="content">
         <!-- Menu Superior -->
-        @include('admin.layouts.menusuperior')
+        @include('publico.layouts.menusuperior')
         
         <!-- Conteúdo Principal -->
         <main>

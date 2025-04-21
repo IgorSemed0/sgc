@@ -23,6 +23,7 @@ Route::middleware([
         Route::middleware(['admin'])->group(function () {
             Route::get('index', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);
             Route::get('/', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);        
+            Route::get('/', ['as' => 'dashboard', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);        
     
             // User Routes
             Route::prefix('user')->group(function () {

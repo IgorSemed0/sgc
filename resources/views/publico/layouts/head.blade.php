@@ -24,19 +24,7 @@
     <!-- Custom Admin CSS -->
     <style>
     
-    @media (max-width: 768px) {
-        #sidebar {
-            transform: translateX(-100%);
-            max-width: 260px;
-        }
-        #sidebar.show {
-            transform: translateX(0);
-        }
-        #content {
-            width: 100%;
-            left: 0;
-        }
-    }
+
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
         * {
@@ -58,222 +46,35 @@
             --red: #fc3b56;
         }
 
-        html {
+        html, body {
             overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
         }
 
+        .container, .container-fluid, .row {
+            max-width: 100%;
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: 0;
+            margin-left: 0;
+        }
+        
+        
         body {
             background: var(--grey);
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
-
         a {
             text-decoration: none;
         }
 
         li {
             list-style: none;
-        }
-
-        /* SIDEBAR */
-        #sidebar {
-            position: fixed;
-            max-width: 260px;
-            width: 100%;
-            background: var(--light);
-            top: 0;
-            left: 0;
-            height: 100%;
-            overflow-y: auto;
-            scrollbar-width: none;
-            transition: all .3s ease;
-            z-index: 200;
-        }
-
-        #sidebar.hide {
-            max-width: 60px;
-        }
-
-        #sidebar.hide:hover {
-            max-width: 260px;
-        }
-
-        #sidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #sidebar .brand {
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            height: 64px;
-            font-weight: 700;
-            color: var(--blue);
-            position: sticky;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            background: var(--light);
-            transition: all .3s ease;
-            padding: 0 6px;
-        }
-
-        #sidebar.hide .brand {
-            justify-content: flex-start;
-        }
-
-        #sidebar .icon {
-            min-width: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 14px;
-            margin-left: 10px;
-        }
-
-        #sidebar .logo {
-            margin-right: 18px;
-            margin-left: 9px;
-            width: 38px;
-            height: 38px;
-        }
-
-        #sidebar .icon-right {
-            margin: auto;
-            transition: all .3s ease;
-        }
-
-        #sidebar .side-menu {
-            margin: 36px 0;
-            padding: 0 20px;
-            transition: all .3s ease;
-        }
-
-        #sidebar.hide .side-menu {
-            padding: 0 6px;
-        }
-
-        #sidebar.hide:hover .side-menu {
-            padding: 0 20px;
-        }
-
-        #sidebar .side-menu a {
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-            color: var(--dark);
-            padding: 12px 16px 12px 0;
-            transition: all .3s ease;
-            border-radius: 10px;
-            margin: 4px 0;
-            grid-gap: 6px;
-            white-space: nowrap;
-        }
-
-        #sidebar .side-menu > li > a:hover {
-            background: var(--grey);
-        }
-
-        #sidebar .side-menu > li > a.active .icon-right {
-            transform: rotateZ(90deg);
-        }
-
-        #sidebar .side-menu > li > a.active,
-        #sidebar .side-menu > li > a.active:hover {
-            background: var(--blue);
-            color: var(--light);
-        }
-
-        #sidebar .divider {
-            margin-top: 24px;
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--dark-grey);
-            transition: all .3s ease;
-            white-space: nowrap;
-        }
-
-        #sidebar.hide:hover .divider {
-            text-align: left;
-        }
-
-        #sidebar.hide .divider {
-            text-align: center;
-        }
-
-        #sidebar .side-dropdown {
-            padding-left: 54px;
-            max-height: 0;
-            overflow-y: hidden;
-            transition: all .15s ease;
-        }
-
-        #sidebar .side-dropdown.show {
-            max-height: 1000px;
-        }
-
-        #sidebar .side-dropdown a:hover {
-            color: var(--blue);
-        }
-
-        #sidebar .ads {
-            width: 100%;
-            padding: 20px;
-        }
-
-        #sidebar.hide .ads {
-            display: none;
-        }
-
-        #sidebar.hide:hover .ads {
-            display: block;
-        }
-
-        #sidebar .ads .wrapper {
-            background: var(--grey);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        #sidebar .btn-upgrade {
-            font-size: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px 0;
-            color: var(--light);
-            background: var(--blue);
-            border-radius: 5px;
-            transition: all .3s ease;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        #sidebar .btn-upgrade:hover {
-            background: var(--dark-blue);
-        }
-
-        #sidebar .ads .wrapper p {
-            font-size: 12px;
-            color: var(--dark-grey);
-            text-align: center;
-        }
-
-        #sidebar .ads .wrapper p span {
-            font-weight: 700;
-        }
-
-        /* CONTENT */
-        #content {
-            position: relative;
-            width: calc(100% - 260px);
-            left: 260px;
-            transition: all .3s ease;
-        }
-
-        #sidebar.hide + #content {
-            width: calc(100% - 60px);
-            left: 60px;
         }
 
         /* NAV */
@@ -297,11 +98,6 @@
             align-items: center;
             margin-right: 8px;
             margin-left: 8px;
-        }
-
-        nav .toggle-sidebar {
-            font-size: 18px;
-            cursor: pointer;
         }
 
         nav form {
@@ -420,7 +216,8 @@
         /* MAIN */
         main {
             width: 100%;
-            padding: 24px 20px 20px 20px;
+            /* padding: 24px 20px; */
+            margin: 0;
         }
 
         main .title {
@@ -457,18 +254,33 @@
         }
 
         /* Media Queries */
-        @media screen and (max-width: 768px) {
-            #content {
-                position: relative;
-                width: calc(100% - 60px);
-                left: 60px;
-            }
-
-            nav .nav-link,
-            nav .divider {
-                display: none;
-            }
-        }
+        /* Media Queries */
+            @media (max-width: 768px) {
+                body {
+                    width: 100%;
+                    max-width: 100vw;
+                    overflow-x: hidden;
+                }
+                #content {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+                main {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+                nav {
+                    width: 100%;
+                    max-width: 100%;
+                    padding: 0 10px;
+                }
+                nav form {
+                    max-width: 100%;
+                }
 
         main .content-1 {
             display: flex;
@@ -583,10 +395,10 @@
 
         main .chat-box::-webkit-scrollbar {
             display: none;
-        }
+        }card
 
         main .content-data .card {
-            padding: 20px;
+            padding: 2
             border-radius: 10px;
             background: var(--light);
             box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
