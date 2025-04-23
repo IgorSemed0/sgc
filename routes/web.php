@@ -356,11 +356,6 @@ Route::middleware([
         Route::get('votacao', ['as' => 'morador.votacao', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@index']);
         Route::post('votacao/vote', ['as' => 'morador.votacao.vote', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@vote']);
         Route::get('votacao/search', ['as' => 'morador.votacao.search', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@search']); // Nova rota
-        Route::get('perfil', ['as' => 'morador.perfil', 'uses' => 'App\Http\Controllers\Morador\PerfilController@index']);
-        Route::put('perfil/update', ['as' => 'morador.perfil.update', 'uses' => 'App\Http\Controllers\Morador\PerfilController@update']);
-    });
-    
-    Route::middleware(['auth'])->group(function () {
         Route::get('/morador/perfil', [PerfilController::class, 'index'])->name('morador.perfil');
         Route::put('/morador/perfil', [PerfilController::class, 'update'])->name('morador.perfil.update');
         Route::post('/morador/perfil/update-password', [PerfilController::class, 'updatePassword'])->name('morador.perfil.updatePassword');
@@ -370,5 +365,12 @@ Route::middleware([
         Route::post('/morador/perfil/disable-two-factor', [PerfilController::class, 'disableTwoFactor'])->name('morador.perfil.disableTwoFactor');
         Route::post('/morador/perfil/logout-other-sessions', [PerfilController::class, 'logoutOtherSessions'])->name('morador.perfil.logoutOtherSessions');
         Route::post('/morador/perfil/delete-account', [PerfilController::class, 'deleteAccount'])->name('morador.perfil.deleteAccount');
+    });
+
+    Route::prefix('portaria')->middleware(['auth', 'admin'])->group(function () {
+        Route::get('index', ['as' => 'portaria.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
+        Route::post('search', ['as' => 'portaria.search', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@search']);
+        Route::post('access', ['as' => 'portaria.access', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@registerAccess']);
+        Route::post('visitante/store', ['as' => 'portaria.visitante.store', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@storeVisitante']);
     });
 });
