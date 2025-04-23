@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('home', function () {
-    return view('welcome');
+    return redirect(route('morador.feed'));
 })->name('home');
 
 Route::middleware([
