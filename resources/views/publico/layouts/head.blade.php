@@ -12,14 +12,14 @@
     <script src="{{ asset('style/cdn/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('style/cdn/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('style/cdn/chart.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sweetalert.js') }}"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('js/datatable.css') }}">
+    <script src="{{ asset('js/datatable.js') }}"></script>
 
     <!-- Importação do jQuery e Select2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('js/select2.css') }}">
+    <script src="{{ asset('js/select2.js') }}""></script>
 
     <!-- Custom Admin CSS -->
     <style>

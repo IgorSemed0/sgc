@@ -12,9 +12,9 @@
     <script src="{{ asset('style/cdn/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('style/cdn/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('style/cdn/chart.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sweetalert.js') }}"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('js/datatable.css') }}">
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
     <!-- Importação do jQuery e Select2 -->
