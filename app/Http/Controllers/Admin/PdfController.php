@@ -1,4 +1,3 @@
-```php
 <?php
 
 namespace App\Http\Controllers\Admin;
@@ -273,4 +272,3 @@ class PdfController extends Controller
         exit;
     }
 }
-```

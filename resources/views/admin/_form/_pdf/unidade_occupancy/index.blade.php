@@ -1,4 +1,3 @@
-```php
 @extends('admin.layouts.body')
 @section('title', 'Filtros Relatório de Ocupação de Unidades')
 @section('conteudo')
@@ -32,4 +31,3 @@
     <button type="submit" class="btn btn-primary">Gerar Relatório</button>
 </form>
 @endsection
-```

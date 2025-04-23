@@ -1,8 +1,5 @@
 <section id="sidebar">
     <a href="#" class="brand">
-        <!-- <i class="icon logo">
-            <img src="{{ asset('assets/images/logo.jpg') }}" class="logo" alt="Logo">
-        </i> -->
         PIGC
     </a>
     <ul class="side-menu">
@@ -65,7 +62,6 @@
                 <li><a href="{{ route('admin.pagamento.index') }}"><i class="fas fa-hand-holding-usd icon"></i> Pagamentos</a></li>
                 <li><a href="{{ route('admin.despesa.index') }}"><i class="fas fa-shopping-cart icon"></i> Despesas</a></li>
                 <li><a href="{{ route('admin.conta.index') }}"><i class="fas fa-piggy-bank icon"></i> Contas</a></li>
-                <!-- <li><a href="{{ route('admin.movimento.index') }}"><i class="fas fa-exchange-alt icon"></i> Movimentos</a></li> -->
                 <li><a href="{{ route('admin.rupe.index') }}"><i class="fas fa-coins icon"></i> Receitas</a></li>
             </ul>
         </li>
@@ -98,10 +94,28 @@
                 <li><a href="{{ route('admin.notificacao.index') }}"><i class="fas fa-bell icon"></i> Notificações</a></li>
             </ul>
         </li>
+
+        <!-- Relatórios -->
+        <li class="divider" data-text="Relatórios"></li>
+        
+        <li>
+            <a href="#">
+                <i class="fas fa-file-alt icon"></i>
+                Relatórios
+                <i class="fas fa-angle-right icon-right"></i>
+            </a>
+            <ul class="side-dropdown">
+                <li><a href="{{ route('pdf.unidade_occupancy.selecionar') }}"><i class="fas fa-home icon"></i> Ocupação de Unidades</a></li>
+                <li><a href="{{ route('pdf.access_control.selecionar') }}"><i class="fas fa-door-open icon"></i> Controle de Acesso</a></li>
+                <li><a href="{{ route('pdf.visitor_frequency.selecionar') }}"><i class="fas fa-user-friends icon"></i> Frequência de Visitantes</a></li>
+                <li><a href="{{ route('pdf.morador_demographics.selecionar') }}"><i class="fas fa-users icon"></i> Demografia de Moradores</a></li>
+                <li><a href="{{ route('pdf.funcionario_activity.selecionar') }}"><i class="fas fa-user-tie icon"></i> Atividade de Funcionários</a></li>
+            </ul>
+        </li>
         
 @endif
 @if(Auth::user()->tipo_usuario === 'funcionario')
-    <!-- Gestão de Pessoas -->
+    <!-- Gestão de Pessoas e Portaria -->
     <li class="divider" data-text="Gestão de Pessoas e Portaria"></li>
     
     <li>
@@ -111,28 +125,12 @@
             <i class="fas fa-angle-right icon-right"></i>
         </a>
         <ul class="side-dropdown">
-            <!-- <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
-            <li><a href="{{ route('admin.departamento.index') }}"><i class="fas fa-sitemap icon"></i> Departamentos</a></li>
-            <li><a href="{{ route('admin.funcionario.index') }}"><i class="fas fa-user-tie icon"></i> Funcionários</a></li>
-            <li><a href="{{ route('admin.morador.index') }}"><i class="fas fa-users icon"></i> Moradores</a></li> -->
             <li><a href="{{ route('portaria.index') }}"><i class="fas fa-user-friends icon"></i> Portaria</a></li>
             <li><a href="{{ route('admin.visitante.index') }}"><i class="fas fa-user-friends icon"></i> Visitantes</a></li>
             <li><a href="{{ route('admin.acesso.index') }}"><i class="fas fa-door-open icon"></i> Acessos</a></li>
         </ul>
     </li>
 @endif
-        <!-- <li>
-            <a href="#">
-                <i class="fas fa-cog icon"></i>
-                Configurações
-                <i class="fas fa-angle-right icon-right"></i>
-            </a>
-            <ul class="side-dropdown">
-                <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
-                <!-- <li><a href="#"><i class="fas fa-user-shield icon"></i> Perfis</a></li>
-                <li><a href="#"><i class="fas fa-key icon"></i> Permissões</a></li>
-                <li><a href="#"><i class="fas fa-sliders-h icon"></i> Configurações Gerais</a></li            </ul>
-        </li> -->
     </ul>
 </section>
 
