@@ -33,4 +33,9 @@ class Funcionario extends Model
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
     }
+
+    public function morador()
+    {
+        return $this->hasMany(Morador::class, 'entidade_id');
+    }
 }

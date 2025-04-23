@@ -19,8 +19,6 @@ class Visitante extends Model
         'telefone', 
         'motivo_visita', 
         'unidade_id', 
-        'data_entrada', 
-        'data_saida',
         'condominio_id'
     ];
 
@@ -32,5 +30,10 @@ class Visitante extends Model
     public function condominio()
     {
         return $this->belongsTo(Condominio::class, 'condominio_id');
+    }
+
+    public function morador()
+    {
+        return $this->hasMany(Morador::class, 'entidade_id');
     }
 }

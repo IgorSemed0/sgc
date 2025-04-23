@@ -38,8 +38,6 @@ class VisitanteController extends Controller
                 'motivo_visita' => 'required|string|max:255',
                 'unidade_id' => 'required|exists:unidades,id',
                 'condominio_id' => 'required|exists:condominios,id',
-                'data_entrada' => 'required|date',
-                'data_saida' => 'required|date|after_or_equal:data_entrada',
             ]);
 
             Visitante::create($validated);
@@ -76,8 +74,6 @@ class VisitanteController extends Controller
                 'motivo_visita' => 'required|string|max:255',
                 'unidade_id' => 'required|exists:unidades,id',
                 'condominio_id' => 'required|exists:condominios,id',
-                'data_entrada' => 'required|date',
-                'data_saida' => 'required|date|after_or_equal:data_entrada',
             ]);
 
             $visitante->update($validated);

@@ -35,4 +35,9 @@ class Morador extends Model
     {
         return $this->belongsTo(Unidade::class, 'unidade_id');
     }
+
+    public function morador()
+    {
+        return $this->hasMany(Morador::class, 'entidade_id');
+    }
 }

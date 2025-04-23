@@ -1,4 +1,3 @@
-```php
 @extends('admin.layouts.body')
 @section('title', 'Portaria')
 @section('conteudo')
@@ -36,15 +35,7 @@
                     @foreach ($acessos as $acesso)
                         <tr>
                             <td>{{ $acesso->id }}</td>
-                            <td>
-                                @if ($acesso->tipo_pessoa === 'morador')
-                                    {{ optional(Morador::find($acesso->entidade_id))->primeiro_nome }} {{ optional(Morador::find($acesso->entidade_id))->ultimo_nome }}
-                                @elseif ($acesso->tipo_pessoa === 'funcionario')
-                                    {{ optional(Funcionario::find($acesso->entidade_id))->primeiro_nome }} {{ optional(Funcionario::find($acesso->entidade_id))->ultimo_nome }}
-                                @elseif ($acesso->tipo_pessoa === 'visitante')
-                                    {{ optional(Visitante::find($acesso->entidade_id))->primeiro_nome }} {{ optional(Visitante::find($acesso->entidade_id))->ultimo_nome }}
-                                @endif
-                            </td>
+                            <td>{{ $acesso->nome_completo }}</td>
                             <td>{{ ucfirst($acesso->tipo_pessoa) }}</td>
                             <td>{{ $acesso->tipo }}</td>
                             <td>{{ $acesso->data_hora }}</td>

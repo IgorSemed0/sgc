@@ -16,9 +16,13 @@ class PortariaController extends Controller
 {
     public function index()
     {
-        $acessos = Acesso::orderBy('data_hora', 'desc')->take(10)->get();
+        $acessos = Acesso::orderBy('data_hora', 'desc')
+                        ->take(10)
+                        ->get();
+        
         $unidades = Unidade::all();
         $condominios = Condominio::all();
+        
         return view('portaria.index', compact('acessos', 'unidades', 'condominios'));
     }
 
@@ -56,13 +60,15 @@ class PortariaController extends Controller
             'tipo' => 'required|in:Entrada,Saida',
             'observacao' => 'nullable|string',
         ]);
+        
+        $validated['data_hora'] = now();
 
         try {
             Acesso::create([
                 'entidade_id' => $validated['entidade_id'],
                 'tipo_pessoa' => $validated['tipo_pessoa'],
                 'tipo' => $validated['tipo'],
-                'data_hora' => now(),
+                'data_hora' => $validated['data_hora'],
                 'observacao' => $validated['observacao'],
                 'rf_id' => null,
             ]);
@@ -86,6 +92,9 @@ class PortariaController extends Controller
             'unidade_id' => 'required|exists:unidades,id',
             'condominio_id' => 'required|exists:condominios,id',
         ]);
+
+        // Add data_entrada field with current date and time
+        $validated['data_entrada'] = now();
 
         try {
             $visitante = Visitante::create($validated);
