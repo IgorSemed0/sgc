@@ -4,7 +4,10 @@
 
 @section('conteudo')
 <div class="container py-4">
-    <!-- <h1 class="h3 mb-4 justify-center align-middle" width="100%">Perfil do Usuário</h1> -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+
+        <h1 class="h3 mb-3 mb-md-0"><i class="fas fa-newspaper text-primary me-2"></i>Perfil</h1>
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">

@@ -5,7 +5,7 @@
 @section('conteudo')
 <div class="container py-4">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-3 mb-md-0"><i class="fas fa-newspaper text-primary me-2"></i>Feed de Posts</h1>
+        <h1 class="h3 mb-3 mb-md-0"><i class="fas fa-newspaper text-primary me-2"></i>Feed de Comunicados</h1>
         
         <!-- Search Bar -->
         <form action="{{ route('morador.feed.search') }}" method="GET" class="d-flex">
