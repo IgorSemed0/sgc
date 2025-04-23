@@ -13,9 +13,10 @@
         <!-- Conteúdo Principal -->
         <main>
             @yield('conteudo')
-            <footer>
-                <p>&copy; 2025 CDCI. Todos os direitos reservados.</p>
-            </footer>
+            <hr>
+            <div class="align-middle justify-center">
+                <p>   &copy; 2025 PIGC. Todos os direitos reservados.</p>
+            </div>
         </main>
     </section>
 

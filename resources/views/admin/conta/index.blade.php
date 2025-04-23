@@ -15,7 +15,7 @@
             <tr>
                 <th>ID</th>
                 <th>Condomínio</th>
-                <th>Nome</th>
+                <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Saldo</th>
                 <th>Ações</th>

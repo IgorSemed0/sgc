@@ -62,11 +62,10 @@
             </a>
             <ul class="side-dropdown">
                 <li><a href="{{ route('admin.factura.index') }}"><i class="fas fa-file-invoice-dollar icon"></i> Faturas</a></li>
-                <li><a href="{{ route('admin.factura-item.index') }}"><i class="fas fa-file-invoice icon"></i> Itens de Fatura</a></li>
                 <li><a href="{{ route('admin.pagamento.index') }}"><i class="fas fa-hand-holding-usd icon"></i> Pagamentos</a></li>
                 <li><a href="{{ route('admin.despesa.index') }}"><i class="fas fa-shopping-cart icon"></i> Despesas</a></li>
                 <li><a href="{{ route('admin.conta.index') }}"><i class="fas fa-piggy-bank icon"></i> Contas</a></li>
-                <li><a href="{{ route('admin.movimento.index') }}"><i class="fas fa-exchange-alt icon"></i> Movimentos</a></li>
+                <!-- <li><a href="{{ route('admin.movimento.index') }}"><i class="fas fa-exchange-alt icon"></i> Movimentos</a></li> -->
                 <li><a href="{{ route('admin.rupe.index') }}"><i class="fas fa-coins icon"></i> Receitas</a></li>
             </ul>
         </li>

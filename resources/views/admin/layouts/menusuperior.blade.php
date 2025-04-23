@@ -2,8 +2,8 @@
     <i class="toggle-sidebar fas fa-bars icon"></i>
     <form action="#">
         <div class="form-group">
-            <input type="text" placeholder="Pesquisar">
-            <i class="fas fa-search icon"></i>
+            <!-- <input type="text" placeholder="Pesquisar"> -->
+            <!-- <i class="fas fa-search icon"></i> -->
         </div>
     </form>
     
