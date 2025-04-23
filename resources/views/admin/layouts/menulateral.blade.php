@@ -12,7 +12,7 @@
                 Dashboard
             </a>
         </li>
-        
+@if(Auth::user()->tipo_usuario === 'admin')
         <!-- Gestão de Propriedades -->
         <li class="divider" data-text="Gestão de Propriedades"></li>
         
@@ -99,7 +99,28 @@
             </ul>
         </li>
         
-   
+@endif
+@if(Auth::user()->tipo_usuario === 'funcionario')
+    <!-- Gestão de Pessoas -->
+    <li class="divider" data-text="Gestão de Pessoas e Portaria"></li>
+    
+    <li>
+        <a href="#">
+            <i class="fas fa-users icon"></i>
+            Pessoas
+            <i class="fas fa-angle-right icon-right"></i>
+        </a>
+        <ul class="side-dropdown">
+            <!-- <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
+            <li><a href="{{ route('admin.departamento.index') }}"><i class="fas fa-sitemap icon"></i> Departamentos</a></li>
+            <li><a href="{{ route('admin.funcionario.index') }}"><i class="fas fa-user-tie icon"></i> Funcionários</a></li>
+            <li><a href="{{ route('admin.morador.index') }}"><i class="fas fa-users icon"></i> Moradores</a></li> -->
+            <li><a href="{{ route('portaria.index') }}"><i class="fas fa-user-friends icon"></i> Portaria</a></li>
+            <li><a href="{{ route('admin.visitante.index') }}"><i class="fas fa-user-friends icon"></i> Visitantes</a></li>
+            <li><a href="{{ route('admin.acesso.index') }}"><i class="fas fa-door-open icon"></i> Acessos</a></li>
+        </ul>
+    </li>
+@endif
         <!-- <li>
             <a href="#">
                 <i class="fas fa-cog icon"></i>
