@@ -100,40 +100,6 @@
             margin-left: 8px;
         }
 
-        nav form {
-            max-width: 400px;
-            width: 100%;
-            margin-right: auto;
-        }
-
-        nav .form-group {
-            position: relative;
-        }
-
-        nav .form-group input {
-            max-width: 100%;
-            background: var(--grey);
-            border-radius: 5px;
-            border: none;
-            outline: none;
-            padding: 10px 36px 10px 16px;
-            transition: all .3s ease;
-        }
-
-        nav .form-group input:focus {
-            box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
-        }
-
-        nav .form-group .icon {
-            width: 10px;
-            height: 10px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 16px;
-            color: var(--dark-grey);
-        }
-
         nav .nav-link {
             position: relative;
         }
@@ -461,6 +427,41 @@
             padding: 6px 12px;
             border: 1px solid #ced4da;
             border-radius: 5px;
+        }
+            
+        /* Dropdown menu background */
+        .navbar .dropdown-menu {
+            background-color: #ffffff; /* White background for dropdown */
+            border: 1px solid #dee2e6; /* Light border for contrast */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+        }
+        
+        /* Non-hovered, non-selected nav items */
+        .navbar-light .navbar-nav .nav-link {
+            color: #333333; /* Dark gray for visibility against bg-light */
+        }
+        
+        /* Hovered nav items */
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #007bff; /* Bootstrap primary blue for hover */
+            background-color: #e9ecef; /* Light gray background on hover */
+        }
+        
+        /* Active/selected nav items */
+        .navbar-light .navbar-nav .nav-link.active {
+            color: #0056b3; /* Darker blue for active state */
+            font-weight: bold; /* Bold for emphasis */
+            background-color: #e9ecef; /* Light gray background for active */
+        }
+        
+        /* Dropdown menu items */
+        .navbar .dropdown-menu .dropdown-item {
+            color: #333333; /* Dark gray for dropdown items */
+        }
+        
+        .navbar .dropdown-menu .dropdown-item:hover {
+            color: #007bff; /* Blue for hovered dropdown items */
+            background-color: #f8f9fa; /* Light background for hovered dropdown items */
         }
     </style>
 
