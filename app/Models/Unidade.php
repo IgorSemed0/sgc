@@ -20,12 +20,12 @@ class Unidade extends Model
         'status'
     ];
 
-    public function factura()
+    public function facturas()
     {
         return $this->hasMany(Factura::class, 'unidade_id');
     }
 
-    public function visitante()
+    public function visitantes()
     {
         return $this->hasMany(Visitante::class, 'unidade_id');
     }
@@ -40,8 +40,13 @@ class Unidade extends Model
         return $this->belongsTo(Edificio::class, 'edificio_id');
     }
 
-    public function morador()
+    public function moradores()
     {
         return $this->hasMany(Morador::class, 'unidade_id');
+    }
+
+    public function condominio()
+    {
+        return $this->hasOneThrough(Condominio::class, Bloco::class, 'id', 'id', 'bloco_id', 'condominio_id');
     }
 }

@@ -20,55 +20,58 @@ class Condominio extends Model
         'email'
     ];
 
-    public function departamento()
+    public function departamentos()
     {
         return $this->hasMany(Departamento::class, 'condominio_id');
     }
 
-    public function bloco()
+    public function blocos()
     {
         return $this->hasMany(Bloco::class, 'condominio_id');
     }
 
-    public function conta()
+    public function contas()
     {
         return $this->hasMany(Conta::class, 'condominio_id');
     }
 
-    public function despesa()
+    public function despesas()
     {
         return $this->hasMany(Despesa::class, 'condominio_id');
     }
 
-    public function espaco_comum()
+    public function espacosComuns()
     {
         return $this->hasMany(EspacoComum::class, 'condominio_id');
     }
 
-    public function funcionario()
+    public function funcionarios()
     {
         return $this->hasMany(Funcionario::class, 'condominio_id');
     }
 
-    public function chatPost()
+    public function chatPosts()
     {
         return $this->hasMany(ChatPost::class, 'condominio_id');
     }
 
-    public function rupe()
+    public function rupes()
     {
         return $this->hasMany(Rupe::class, 'condominio_id');
     }
 
-    public function votacao()
+    public function votacoes()
     {
         return $this->hasMany(Votacao::class, 'condominio_id');
     }
 
-    
-    public function visitante()
+    public function visitantes()
     {
         return $this->hasMany(Visitante::class, 'condominio_id');
     }
 
+    public function unidades()
+    {
+        return $this->hasManyThrough(Unidade::class, Bloco::class, 'condominio_id', 'bloco_id');
+    }
 }

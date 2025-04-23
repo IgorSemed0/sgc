@@ -23,7 +23,7 @@ class Bloco extends Model
 
     public function edificio()
     {
-        return $this->hasMany(Edificio::class, 'edificio_id');
+        return $this->hasMany(Edificio::class, 'bloco_id');
     }
 
     public function unidade()

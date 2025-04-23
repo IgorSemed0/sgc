@@ -36,8 +36,8 @@ class Morador extends Model
         return $this->belongsTo(Unidade::class, 'unidade_id');
     }
 
-    public function morador()
+    public function acesso()
     {
-        return $this->hasMany(Morador::class, 'entidade_id');
+        return $this->hasMany(Acesso::class, 'entidade_id')->where('tipo_pessoa', 'morador');
     }
 }

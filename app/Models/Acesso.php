@@ -39,13 +39,13 @@ class Acesso extends Model
         
         switch ($this->tipo_pessoa) {
             case 'morador':
-                $pessoa = $this->belongsTo(Morador::class, 'entidade_id')->first();
+                $pessoa = Morador::find($this->entidade_id);
                 break;
             case 'funcionario':
-                $pessoa = $this->belongsTo(Funcionario::class, 'entidade_id')->first();
+                $pessoa = Funcionario::find($this->entidade_id);
                 break;
             case 'visitante':
-                $pessoa = $this->belongsTo(Visitante::class, 'entidade_id')->first();
+                $pessoa = Visitante::find($this->entidade_id);
                 break;
         }
         
