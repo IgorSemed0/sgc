@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Morador\PerfilController;
 
 Route::get('/', function () {
     return redirect(route('login'));
@@ -357,5 +358,17 @@ Route::middleware([
         Route::get('votacao/search', ['as' => 'morador.votacao.search', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@search']); // Nova rota
         Route::get('perfil', ['as' => 'morador.perfil', 'uses' => 'App\Http\Controllers\Morador\PerfilController@index']);
         Route::put('perfil/update', ['as' => 'morador.perfil.update', 'uses' => 'App\Http\Controllers\Morador\PerfilController@update']);
+    });
+    
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/morador/perfil', [PerfilController::class, 'index'])->name('morador.perfil');
+        Route::put('/morador/perfil', [PerfilController::class, 'update'])->name('morador.perfil.update');
+        Route::post('/morador/perfil/update-password', [PerfilController::class, 'updatePassword'])->name('morador.perfil.updatePassword');
+        Route::get('/morador/perfil/two-factor-qr-code', [PerfilController::class, 'twoFactorQrCode'])->name('morador.perfil.twoFactorQrCode');
+        Route::post('/morador/perfil/confirm-two-factor', [PerfilController::class, 'confirmTwoFactor'])->name('morador.perfil.confirmTwoFactor');
+        Route::post('/morador/perfil/show-recovery-codes', [PerfilController::class, 'showRecoveryCodes'])->name('morador.perfil.showRecoveryCodes');
+        Route::post('/morador/perfil/disable-two-factor', [PerfilController::class, 'disableTwoFactor'])->name('morador.perfil.disableTwoFactor');
+        Route::post('/morador/perfil/logout-other-sessions', [PerfilController::class, 'logoutOtherSessions'])->name('morador.perfil.logoutOtherSessions');
+        Route::post('/morador/perfil/delete-account', [PerfilController::class, 'deleteAccount'])->name('morador.perfil.deleteAccount');
     });
 });
