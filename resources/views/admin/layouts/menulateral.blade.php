@@ -100,7 +100,7 @@
         
         <li>
             <a href="#">
-                <i class="fas fa-file-alt icon"></i>
+                <!-- <i class="fas fa-file-alt icon"></i>
                 Relatórios
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
@@ -110,7 +110,7 @@
                 <li><a href="{{ route('pdf.visitor_frequency.selecionar') }}"><i class="fas fa-user-friends icon"></i> Frequência de Visitantes</a></li>
                 <li><a href="{{ route('pdf.morador_demographics.selecionar') }}"><i class="fas fa-users icon"></i> Demografia de Moradores</a></li>
                 <li><a href="{{ route('pdf.funcionario_activity.selecionar') }}"><i class="fas fa-user-tie icon"></i> Atividade de Funcionários</a></li>
-            </ul>
+            </ul> -->
         </li>
         
 @endif
