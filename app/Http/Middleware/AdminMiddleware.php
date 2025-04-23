@@ -10,7 +10,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->tipo_usuario === 'admin') {
+        if (Auth::check() && Auth::user()->tipo_usuario === 'admin' || Auth::user()->tipo_usuario === 'funcionario') {
             return $next($request);
         }
 
