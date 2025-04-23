@@ -13,7 +13,7 @@ class Acesso extends Model
     protected $fillable = [
         'entidade_id', 
         'tipo_pessoa', 
-        'data_entrada', 
+        'data_hora', 
         'tipo',
         'rf_id',  
         'observacao',

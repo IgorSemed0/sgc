@@ -93,9 +93,6 @@ class PortariaController extends Controller
             'condominio_id' => 'required|exists:condominios,id',
         ]);
 
-        // Add data_entrada field with current date and time
-        $validated['data_entrada'] = now();
-
         try {
             $visitante = Visitante::create($validated);
 

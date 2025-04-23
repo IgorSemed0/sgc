@@ -28,14 +28,6 @@
         <input type="text" class="form-control" id="motivo_visita" name="motivo_visita" value="{{ old('motivo_visita', $visitante->motivo_visita ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="data_entrada">Data de Entrada</label>
-        <input type="date" class="form-control" id="data_entrada" name="data_entrada" value="{{ old('data_entrada', $visitante->data_entrada ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
-        <label for="data_saida">Data de Saída</label>
-        <input type="date" class="form-control" id="data_saida" name="data_saida" value="{{ old('data_saida', $visitante->data_saida ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="unidade_id">Unidade</label>
         <select class="form-control select2" id="unidade_id" name="unidade_id" required>
             <option value="">Selecione uma unidade</option>

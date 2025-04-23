@@ -34,11 +34,12 @@ class AcessoController extends Controller
             $validated = $request->validate([
                 'entidade_id' => 'required|integer',
                 'tipo_pessoa' => 'required|string|in:Visitante,Morador,Funcionario',
-                'data_hora' => 'required|date',
                 'tipo' => 'required|string|in:Entrada,Saída',
                 'rf_id' => 'nullable|string|max:255',
                 'observacao' => 'nullable|string|max:255',
             ]);
+
+            $validated['data_hora'] = now();
 
             Acesso::create($validated);
 
@@ -68,11 +69,12 @@ class AcessoController extends Controller
             $validated = $request->validate([
                 'entidade_id' => 'required|integer',
                 'tipo_pessoa' => 'required|string|in:Visitante,Morador,Funcionario',
-                'data_hora' => 'required|date',
                 'tipo' => 'required|string|in:Entrada,Saída',
                 'rf_id' => 'nullable|string|max:255',
                 'observacao' => 'nullable|string|max:255',
             ]);
+
+            $validated['data_hora'] = now();
 
             $acesso->update($validated);
 
