@@ -7,7 +7,7 @@
 
     <div class="mb-3">
         <label>Condomínio:</label>
-        <select name="condominio_id" class="form-control">
+        <select name="condominio_id" class="form-control" id="condominio_id">
             <option value="">Todos</option>
             @foreach($condominios as $condominio)
                 <option value="{{ $condominio->id }}">{{ $condominio->nome }}</option>
@@ -17,17 +17,35 @@
 
     <div class="mb-3">
         <label>Bloco:</label>
-        <input type="text" name="bloco" placeholder="Ex: A" class="form-control">
-    </div>
-
-    <div class="mb-3">
-        <label>Tipo de Relatório:</label>
-        <div class="d-flex gap-3">
-            <div><input type="radio" name="tipo_relatorio" value="quantitativo" required> Quantitativo</div>
-            <div><input type="radio" name="tipo_relatorio" value="qualitativo" required> Qualitativo</div>
-        </div>
+        <select name="bloco_id" class="form-control" id="bloco_id">
+            <option value="">Todos</option>
+            @foreach($blocos as $bloco)
+                <option value="{{ $bloco->id }}" data-condominio="{{ $bloco->condominio_id }}">{{ $bloco->nome }}</option>
+            @endforeach
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Gerar Relatório</button>
 </form>
+
+<script>
+document.getElementById('condominio_id').addEventListener('change', function() {
+    const condominioId = this.value;
+    const blocoSelect = document.getElementById('bloco_id');
+    const options = blocoSelect.querySelectorAll('option');
+
+    options.forEach(option => {
+        if (option.value === '' || !condominioId || option.dataset.condominio === condominioId) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+
+    // Reset bloco selection if the current one is not valid
+    if (blocoSelect.value && blocoSelect.selectedOptions[0].style.display === 'none') {
+        blocoSelect.value = '';
+    }
+});
+</script>
 @endsection

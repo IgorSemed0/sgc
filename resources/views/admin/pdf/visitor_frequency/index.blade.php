@@ -1,3 +1,4 @@
+```php
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -21,9 +22,9 @@
 </head>
 <body>
     <div class="header">
-        <!-- <div class="logo">
+        <div class="logo">
             <img src="{{ public_path('assets/images/L.png') }}" alt="Logo" height="120px" width="120px">
-        </div> -->
+        </div>
         <div class="insignia">
             <img src="{{ public_path('assets/images/insignia.jpeg') }}" alt="Insígnia" height="60px" width="60px"><br>
             <div class="textos-cabecalho">
@@ -38,37 +39,15 @@
 
     <?php
     $descricaoFiltros = [];
-    function nomeMesPortugues($mesNumero) {
-        $meses = [1 => 'Janeiro', 2 => 'Fevereiro', 3 => 'Março', 4 => 'Abril', 5 => 'Maio', 6 => 'Junho',
-                  7 => 'Julho', 8 => 'Agosto', 9 => 'Setembro', 10 => 'Outubro', 11 => 'Novembro', 12 => 'Dezembro'];
-        return $meses[(int)$mesNumero] ?? 'Mês Inválido';
-    }
-    if (!empty($_POST['bi'])) {
-        $descricaoFiltros[] = "BI: " . $_POST['bi'];
-    }
+    if (!empty($_POST['bi'])) $descricaoFiltros[] = "BI: " . $_POST['bi'];
     if (!empty($_POST['condominio_id'])) {
         $condominio = \App\Models\Condominio::find($_POST['condominio_id']);
         $descricaoFiltros[] = "Condomínio: " . ($condominio ? $condominio->nome : 'Desconhecido');
     }
-    if (!empty($_POST['data'])) {
-        $data = date('d/m/Y', strtotime($_POST['data']));
-        $descricaoFiltros[] = "Data: " . $data;
-    }
-    if (!empty($_POST['data_inicio']) && !empty($_POST['data_fim'])) {
-        $dataInicio = date('d/m/Y', strtotime($_POST['data_inicio']));
-        $dataFim = date('d/m/Y', strtotime($_POST['data_fim']));
-        $descricaoFiltros[] = "Intervalo de Datas: " . $dataInicio . " a " . $dataFim;
-    }
-    if (!empty($_POST['mes'])) {
-        $mes = nomeMesPortugues($_POST['mes']);
-        $descricaoFiltros[] = "Mês: " . $mes;
-    }
-    if (!empty($_POST['ano'])) {
-        $descricaoFiltros[] = "Ano: " . $_POST['ano'];
-    }
-    if (!empty($_POST['tipo_relatorio'])) {
-        $descricaoFiltros[] = "Tipo: " . ucfirst($_POST['tipo_relatorio']);
-    }
+    if (!empty($_POST['data'])) $descricaoFiltros[] = "Data: " . $_POST['data'];
+    if (!empty($_POST['data_inicio']) && !empty($_POST['data_fim'])) $descricaoFiltros[] = "Período: " . $_POST['data_inicio'] . " a " . $_POST['data_fim'];
+    if (!empty($_POST['mes']) && !empty($_POST['ano'])) $descricaoFiltros[] = "Mês/Ano: " . $_POST['mes'] . "/" . $_POST['ano'];
+    $descricaoFiltros[] = "Tipo: " . $tipo_relatorio;
     ?>
 
     @if(!empty($descricaoFiltros))
@@ -82,41 +61,38 @@
             <thead>
                 <tr>
                     <th>Visitante</th>
-                    <th>Frequência</th>
+                    <th>Quantidade de Acessos</th>
+                    <th>Percentual</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($frequency as $entidade_id => $count)
+                    <?php $pessoa = \App\Models\Visitante::find($entidade_id); ?>
                     <tr>
-                        <td>{{ optional(\App\Models\Visitante::find($entidade_id))->primeiro_nome . ' ' . optional(\App\Models\Visitante::find($entidade_id))->ultimo_nome ?? '—' }}</td>
+                        <td>{{ $pessoa ? trim($pessoa->primeiro_nome . ' ' . ($pessoa->nomes_meio ?? '') . ' ' . $pessoa->ultimo_nome) : 'Desconhecido' }}</td>
                         <td>{{ $count }}</td>
+                        <td>{{ $total ? round(($count / $total) * 100, 2) : 0 }}%</td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>{{ $total }}</strong></td>
-                </tr>
             </tbody>
         </table>
     @else
         <table>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Visitante</th>
+                    <th>Nome</th>
                     <th>BI</th>
                     <th>Data/Hora</th>
-                    <th>Motivo da Visita</th>
+                    <th>Unidade Visitada</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($acessos as $index => $acesso)
+                @foreach($acessos as $acesso)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ optional($acesso->visitante)->primeiro_nome . ' ' . optional($acesso->visitante)->ultimo_nome ?? '—' }}</td>
-                        <td>{{ optional($acesso->visitante)->bi ?? '—' }}</td>
+                        <td>{{ $acesso->nome_completo }}</td>
+                        <td>{{ $acesso->pessoa->bi ?? '-' }}</td>
                         <td>{{ \Carbon\Carbon::parse($acesso->data_hora)->format('d/m/Y H:i') }}</td>
-                        <td>{{ optional($acesso->visitante)->motivo_visita ?? '—' }}</td>
+                        <td>{{ $acesso->pessoa->unidade->numero ?? '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -126,3 +102,4 @@
     <p class="footer">Gerado automaticamente - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>
+```
