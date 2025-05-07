@@ -79,10 +79,10 @@ class User extends Authenticatable
         return trim($this->primeiro_nome . ' ' . $this->nomes_meio . ' ' . $this->ultimo_nome);
     }
 
-    public function condominio(): BelongsTo
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio(): BelongsTo
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
     
     // public function acesso()
     // {

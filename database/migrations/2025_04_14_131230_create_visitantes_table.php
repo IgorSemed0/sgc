@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('bi')->unique();
             $table->string('email')->unique();
             $table->string('telefone');
-            $table->string('condominio_id');
             $table->string('motivo_visita');
             $table->unsignedBigInteger('unidade_id');
             $table->date('data_entrada');

@@ -60,21 +60,6 @@
                  </select>
              </div>
 
-             <!-- Condominio -->
-             <div class="mt-4">
-                 <x-label for="condominio_id" value="{{ __('Condomínio') }}" />
-                 <select id="condominio_id" name="condominio_id" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                    <option value="" disabled {{ old('condominio_id') ? '' : 'selected' }}>{{ __('Selecione o Condomínio...') }}</option>
-                    {{-- @foreach($condominios as $condominio) --}}
-                    {{-- <option value="{{ $condominio->id }}" {{ old('condominio_id') == $condominio->id ? 'selected' : '' }}>{{ $condominio->nome }}</option> --}}
-                    {{-- @endforeach --}}
-                     <option value="1" {{ old('condominio_id') == 1 ? 'selected' : '' }}>Copolo</option>
-                     <!-- <option value="2" {{ old('condominio_id') == 2 ? 'selected' : '' }}>Condomínio Exemplo 2</option> -->
-                 </select>
-                 <x-input-error for="condominio_id" class="mt-2" />
-             </div>
-
-
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />

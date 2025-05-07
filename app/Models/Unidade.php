@@ -45,8 +45,8 @@ class Unidade extends Model
         return $this->hasMany(Morador::class, 'unidade_id');
     }
 
-    public function condominio()
-    {
-        return $this->hasOneThrough(Condominio::class, Bloco::class, 'id', 'id', 'bloco_id', 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->hasOneThrough(Condominio::class, Bloco::class, 'id', 'id', 'bloco_id', 'condominio_id');
+    // }
 }
