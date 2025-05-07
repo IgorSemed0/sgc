@@ -16,9 +16,10 @@
             <th>Telefone</th>
             <th>BI</th>
             <th>Sexo</th>
+            <th>Tipo</th>
             <th>Cargo</th>
+            <th>Unidade</th>
             <th>Departamento</th>
-            <th>Condomínio</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -31,7 +32,9 @@
             <td>{{ $funcionario->telefone }}</td>
             <td>{{ $funcionario->bi }}</td>
             <td>{{ $funcionario->sexo }}</td>
-            <td>{{ $funcionario->cargo }}</td>
+            <td>{{ $funcionario->tipo }}</td>
+            <td>{{ $funcionario->cargo ?? '-' }}</td>
+            <td>{{ $funcionario->unidade ? $funcionario->unidade->tipo . ' - ' . $funcionario->unidade->numero : '-' }}</td>
             <td>{{ $funcionario->departamento->nome }}</td>
             <td>
                 <form id="restore-form-{{ $funcionario->id }}" action="{{ route('admin.funcionario.restore', $funcionario->id) }}" method="POST" style="display: none;">
