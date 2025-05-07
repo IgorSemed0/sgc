@@ -1,10 +1,10 @@
 @extends('admin.layouts.body')
-@section('title', 'Listar Blocos')
+@section('title', 'Listar Moradores')
 @section('conteudo')
-<h1 class="h3">Tabela de Blocos</h1>
+<h1 class="h3">Tabela de Moradores</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#blocoModal">Novo Bloco</button>
-    <a href="{{ route('admin.bloco.trash') }}" class="btn btn-secondary">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#moradorModal">Novo Morador</button>
+    <a href="{{ route('admin.morador.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
 </div>
@@ -14,32 +14,52 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Sigla</th>
-                <th>Descrição</th>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>BI</th>
+                <th>Cédula</th>
+                <th>Data de Nascimento</th>
+                <th>Sexo</th>
+                <th>Tipo</th>
+                <th>Processo</th>
+                <th>Unidade</th>
+                <th>Estado Residente</th>
+                <th>Dependente De</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($blocos as $bloco)
+            @foreach ($moradores as $morador)
             <tr>
-                <td>{{ $bloco->id }}</td>
-                <td>{{ $bloco->nome }}</td>
-                <td>{{ $bloco->descricao }}</td>
+                <td>{{ $morador->id }}</td>
+                <td>{{ $morador->primeiro_nome }} {{ $morador->nomes_meio }} {{ $morador->ultimo_nome }}</td>
+                <td>{{ $morador->email }}</td>
+                <td>{{ $morador->telefone }}</td>
+                <td>{{ $morador->bi }}</td>
+                <td>{{ $morador->cedula }}</td>
+                <td>{{ $morador->data_nascimento }}</td>
+                <td>{{ $morador->sexo }}</td>
+                <td>{{ $morador->tipo }}</td>
+                <td>{{ $morador->processo }}</td>
+                <td>{{ $morador->unidade->tipo }} - {{ $morador->unidade->numero }}</td>
+                <td>{{ $morador->estado_residente ? 'Sim' : 'Não' }}</td>
+                <td>{{ $morador->inquilino ? $morador->inquilino->primeiro_nome . ' ' . $morador->inquilino->ultimo_nome : '' }}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $bloco->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.bloco.destroy', $bloco->id) }}')">Deletar</a>
+                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $morador->id }}">Editar</a>
+                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.morador.destroy', $morador->id) }}')">Deletar</a>
                 </td>
             </tr>
 
-            <div class="modal fade" id="editar_modal{{ $bloco->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $bloco->id }}Label" aria-hidden="true">
+            <div class="modal fade" id="editar_modal{{ $morador->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $morador->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Bloco</h5>
+                            <h5 class="modal-title">Editar Morador</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            @include('admin.bloco.editar.index', ['bloco' => $bloco])
+                            @include('admin.morador.editar.index', ['morador' => $morador])
                         </div>
                     </div>
                 </div>
@@ -48,14 +68,14 @@
         </tbody>
     </table>
 
-    <div class="modal fade" id="blocoModal" tabindex="-1" aria-labelledby="blocoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="moradorModal" tabindex="-1" aria-labelledby="moradorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Bloco</h5>
+                    <h5 class="modal-title">Cadastro de Morador</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @include('admin.bloco.cadastrar.index')
+                @include('admin.morador.cadastrar.index')
             </div>
         </div>
     </div>
