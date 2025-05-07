@@ -16,10 +16,6 @@
         <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $funcionario->email ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $funcionario->username ?? '') }}">
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="telefone">Telefone*</label>
         <input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $funcionario->telefone ?? '') }}" required>
     </div>

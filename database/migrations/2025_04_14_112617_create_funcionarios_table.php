@@ -12,9 +12,8 @@ return new class extends Migration
             $table->string('primeiro_nome');
             $table->string('nomes_meio')->nullable();
             $table->string('ultimo_nome');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('tipo');
-            $table->string('username')->nullable();
             $table->string('telefone');
             $table->string('bi');
             $table->date('dt_nascimento');
