@@ -19,7 +19,9 @@
                 <th>Telefone</th>
                 <th>BI</th>
                 <th>Sexo</th>
+                <th>Tipo</th>
                 <th>Cargo</th>
+                <th>Unidade</th>
                 <th>Departamento</th>
                 <th>Ações</th>
             </tr>
@@ -33,7 +35,9 @@
                 <td>{{ $funcionario->telefone }}</td>
                 <td>{{ $funcionario->bi }}</td>
                 <td>{{ $funcionario->sexo }}</td>
-                <td>{{ $funcionario->cargo }}</td>
+                <td>{{ $funcionario->tipo }}</td>
+                <td>{{ $funcionario->cargo ?? '-' }}</td>
+                <td>{{ $funcionario->unidade ? $funcionario->unidade->tipo . ' - ' . $funcionario->unidade->numero : '-' }}</td>
                 <td>{{ $funcionario->departamento->nome }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $funcionario->id }}">Editar</a>
