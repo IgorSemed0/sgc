@@ -70,7 +70,7 @@
         <input type="text" class="form-control" id="bi" name="bi" value="{{ old('bi', $morador->bi ?? '') }}">
     </div>
     <div class="col-md-6 mb-3" id="cedula_div" style="display: none;">
-        <label for="cedula">Cédula(Caso não tenha um BI</label>
+        <label for="cedula">Cédula(Caso não tenha um BI)</label>
         <input type="text" class="form-control" id="cedula" name="cedula" value="{{ old('cedula', $morador->cedula ?? '') }}">
     </div>
 
