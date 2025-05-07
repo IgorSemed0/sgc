@@ -16,6 +16,10 @@
         <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $funcionario->email ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $funcionario->username ?? '') }}">
+    </div>
+    <div class="col-md-6 mb-3">
         <label for="telefone">Telefone*</label>
         <input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $funcionario->telefone ?? '') }}" required>
     </div>
@@ -81,12 +85,12 @@
 
         function adjustFields() {
             var tipo = $('#tipo').val();
-            if (tipo == 'Particular') {
+            if (tipo == 'Geral') {
                 $('#cargo_div').hide();
                 $('#unidade_div').hide();
                 $('#cargo').prop('required', false);
                 $('#unidade_id').prop('required', false);
-            } else if (tipo == 'Geral') {
+            } else if (tipo == 'Particular') {
                 $('#cargo_div').show();
                 $('#unidade_div').show();
                 $('#cargo').prop('required', true);
@@ -100,6 +104,6 @@
         }
 
         $('#tipo').change(adjustFields);
-        adjustFields(); // Inicializar
+        adjustFields();
     });
 </script>

@@ -41,8 +41,8 @@ class FuncionarioController extends Controller
                 'dt_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'tipo' => 'required|in:Particular,Geral',
-                'cargo' => 'required_if:tipo,Geral|string|max:255|nullable',
-                'unidade_id' => 'required_if:tipo,Geral|exists:unidades,id|nullable',
+                'cargo' => 'required_if:tipo,Particular|string|max:255|nullable',
+                'unidade_id' => 'required_if:tipo,Particular|exists:unidades,id|nullable',
                 'departamento_id' => 'required|exists:departamentos,id',
             ]);
 
@@ -81,8 +81,8 @@ class FuncionarioController extends Controller
                 'dt_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'tipo' => 'required|in:Particular,Geral',
-                'cargo' => 'required_if:tipo,Geral|string|max:255|nullable',
-                'unidade_id' => 'required_if:tipo,Geral|exists:unidades,id|nullable',
+                'cargo' => 'required_if:tipo,Particular|string|max:255|nullable',
+                'unidade_id' => 'required_if:tipo,Particular|exists:unidades,id|nullable',
                 'departamento_id' => 'required|exists:departamentos,id',
             ]);
 
