@@ -22,7 +22,6 @@
         @foreach ($condominios as $condominio)
         <tr>
             <td>{{ $condominio->id }}</td>
-            <td>{{ $condominio->nome }}</td>
             <td>{{ $condominio->endereco }}</td>
             <td>{{ $condominio->cidade }}</td>
             <td>{{ $condominio->estado }}</td>

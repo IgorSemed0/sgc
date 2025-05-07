@@ -23,7 +23,6 @@
             <td>{{ $departamento->id }}</td>
             <td>{{ $departamento->nome }}</td>
             <td>{{ $departamento->descricao }}</td>
-            <td>{{ $departamento->condominio->nome }}</td>
             <td>
                 <form id="restore-form-{{ $departamento->id }}" action="{{ route('admin.departamento.restore', $departamento->id) }}" method="POST" style="display: none;">
                     @csrf

@@ -31,7 +31,6 @@
                 <td>{{ $user->bi }}</td>
                 <td>{{ $user->telefone ?? '-' }}</td>
                 <td>{{ $user->tipo_usuario }}</td>
-                <td>{{ $user->condominio->nome ?? '-' }}</td>
                 <td>
                     <form id="restore-form-{{ $user->id }}" action="{{ route('admin.user.restore', $user->id) }}" method="POST" style="display: none;">
                         @csrf

@@ -25,7 +25,6 @@
         @foreach ($votacaos as $votacao)
         <tr>
             <td>{{ $votacao->id }}</td>
-            <td>{{ $votacao->condominio->nome }}</td>
             <td>{{ $votacao->titulo }}</td>
             <td>{{ $votacao->descricao }}</td>
             <td>{{ \Carbon\Carbon::parse($votacao->data_inicio)->format('d/m/Y H:i') }}</td>

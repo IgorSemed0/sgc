@@ -23,7 +23,6 @@
             <td>{{ $bloco->id }}</td>
             <td>{{ $bloco->nome }}</td>
             <td>{{ $bloco->descricao }}</td>
-            <td>{{ $bloco->condominio->nome }}</td>
             <td>
                 <form id="restore-form-{{ $bloco->id }}" action="{{ route('admin.bloco.restore', $bloco->id) }}" method="POST" style="display: none;">
                     @csrf

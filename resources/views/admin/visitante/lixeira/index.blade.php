@@ -35,7 +35,6 @@
             <td>{{ $visitante->data_entrada }}</td>
             <td>{{ $visitante->data_saida }}</td>
             <td>{{ $visitante->unidade->tipo }} - {{ $visitante->unidade->numero }}</td>
-            <td>{{ $visitante->condominio->nome }}</td>
             <td>
                 <form id="restore-form-{{ $visitante->id }}" action="{{ route('admin.visitante.restore', $visitante->id) }}" method="POST" style="display: none;">
                     @csrf

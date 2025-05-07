@@ -25,7 +25,6 @@
             @foreach ($rupes as $rupe)
             <tr>
                 <td>{{ $rupe->id }}</td>
-                <td>{{ $rupe->condominio->nome }}</td>
                 <td>{{ $rupe->descricao }}</td>
                 <td>{{ number_format($rupe->valor, 2, ',', '.') }}</td>
                 <td>{{ \Carbon\Carbon::parse($rupe->data_receita)->format('d/m/Y') }}</td>

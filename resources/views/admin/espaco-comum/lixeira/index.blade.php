@@ -23,7 +23,6 @@
         @foreach ($espacoComums as $espacoComum)
         <tr>
             <td>{{ $espacoComum->id }}</td>
-            <td>{{ $espacoComum->condominio->nome }}</td>
             <td>{{ $espacoComum->nome }}</td>
             <td>{{ $espacoComum->descricao ?? '-' }}</td>
             <td>{{ $espacoComum->capacidade }}</td>

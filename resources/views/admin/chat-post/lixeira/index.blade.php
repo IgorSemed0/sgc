@@ -24,7 +24,6 @@
         @foreach ($chatPosts as $chatPost)
         <tr>
             <td>{{ $chatPost->id }}</td>
-            <td>{{ $chatPost->condominio->nome }}</td>
             <td>{{ $chatPost->user->full_name }}</td>
             <td>{{ $chatPost->tipo_autor }}</td>
             <td>{{ $chatPost->titulo }}</td>

@@ -33,7 +33,6 @@
             <td>{{ $funcionario->sexo }}</td>
             <td>{{ $funcionario->cargo }}</td>
             <td>{{ $funcionario->departamento->nome }}</td>
-            <td>{{ $funcionario->condominio->nome }}</td>
             <td>
                 <form id="restore-form-{{ $funcionario->id }}" action="{{ route('admin.funcionario.restore', $funcionario->id) }}" method="POST" style="display: none;">
                     @csrf

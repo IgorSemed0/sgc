@@ -34,7 +34,6 @@
                     <td>{{ $user->bi }}</td>
                     <td>{{ $user->telefone ?? '-' }}</td>
                     <td>{{ $user->tipo_usuario }}</td>
-                    <td>{{ $user->condominio->nome ?? '-' }}</td>
                     <td>
                         <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $user->id }}">Editar</a>
                         <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.user.destroy', $user->id) }}')">Deletar</a>

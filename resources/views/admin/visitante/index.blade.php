@@ -38,7 +38,6 @@
                 <td>{{ $visitante->data_entrada }}</td>
                 <td>{{ $visitante->data_saida }}</td>
                 <td>{{ $visitante->unidade->tipo }} - {{ $visitante->unidade->numero }}</td>
-                <td>{{ $visitante->condominio->nome }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $visitante->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.visitante.destroy', $visitante->id) }}')">Deletar</a>

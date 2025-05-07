@@ -23,7 +23,6 @@
         @foreach ($despesas as $despesa)
         <tr>
             <td>{{ $despesa->id }}</td>
-            <td>{{ $despesa->condominio->nome }}</td>
             <td>{{ $despesa->categoria }}</td>
             <td>{{ $despesa->descricao }}</td>
             <td>{{ number_format($despesa->valor, 2, ',', '.') }}</td>

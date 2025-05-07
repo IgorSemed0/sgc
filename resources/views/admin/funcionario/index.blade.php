@@ -36,7 +36,6 @@
                 <td>{{ $funcionario->sexo }}</td>
                 <td>{{ $funcionario->cargo }}</td>
                 <td>{{ $funcionario->departamento->nome }}</td>
-                <td>{{ $funcionario->condominio->nome }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $funcionario->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.funcionario.destroy', $funcionario->id) }}')">Deletar</a>

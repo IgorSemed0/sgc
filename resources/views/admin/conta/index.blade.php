@@ -25,7 +25,6 @@
             @foreach ($contas as $conta)
             <tr>
                 <td>{{ $conta->id }}</td>
-                <td>{{ $conta->condominio->nome }}</td>
                 <td>{{ $conta->nome }}</td>
                 <td>{{ $conta->tipo }}</td>
                 <td>{{ number_format($conta->saldo, 2, ',', '.') }}</td>

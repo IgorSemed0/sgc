@@ -26,7 +26,6 @@
                 <td>{{ $bloco->id }}</td>
                 <td>{{ $bloco->nome }}</td>
                 <td>{{ $bloco->descricao }}</td>
-                <td>{{ $bloco->condominio->nome }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $bloco->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.bloco.destroy', $bloco->id) }}')">Deletar</a>
