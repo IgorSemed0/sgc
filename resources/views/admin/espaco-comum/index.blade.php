@@ -14,7 +14,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Condomínio</th>
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>Capacidade</th>

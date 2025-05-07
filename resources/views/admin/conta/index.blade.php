@@ -14,7 +14,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Condomínio</th>
                 <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Saldo</th>

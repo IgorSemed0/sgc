@@ -14,7 +14,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Condomínio</th>
                 <th>Autor</th>
                 <th>Tipo Autor</th>
                 <th>Título</th>

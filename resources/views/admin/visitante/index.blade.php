@@ -22,7 +22,6 @@
                 <th>Data Entrada</th>
                 <th>Data Saída</th>
                 <th>Unidade</th>
-                <th>Condomínio</th>
                 <th>Ações</th>
             </tr>
         </thead>

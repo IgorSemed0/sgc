@@ -21,7 +21,6 @@
                 <th>Sexo</th>
                 <th>Cargo</th>
                 <th>Departamento</th>
-                <th>Condomínio</th>
                 <th>Ações</th>
             </tr>
         </thead>

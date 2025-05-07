@@ -16,7 +16,6 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Descrição</th>
-                <th>Condomínio</th>
                 <th>Ações</th>
             </tr>
         </thead>

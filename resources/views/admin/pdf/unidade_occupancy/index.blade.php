@@ -89,8 +89,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Condomínio</th>
-                    <th>Bloco</th>
+                        <th>Bloco</th>
                     <th>Número</th>
                     <th>Status</th>
                     <th>Morador</th>

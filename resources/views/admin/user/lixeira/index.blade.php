@@ -17,7 +17,6 @@
                 <th>BI</th>
                 <th>Telefone</th>
                 <th>Tipo</th>
-                <th>Condomínio</th>
                 <th>Ações</th>
             </tr>
         </thead>

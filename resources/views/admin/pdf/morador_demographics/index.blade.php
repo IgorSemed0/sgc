@@ -98,8 +98,7 @@
                     <th>Sexo</th>
                     <th>Idade</th>
                     <th>Unidade</th>
-                    <th>Condomínio</th>
-                </tr>
+                    </tr>
             </thead>
             <tbody>
                 @foreach($moradores as $index => $morador)
