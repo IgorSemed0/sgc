@@ -11,8 +11,6 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Condomínio</th>
-            <th>Categoria</th>
             <th>Descrição</th>
             <th>Valor</th>
             <th>Data Despesa</th>

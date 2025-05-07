@@ -14,7 +14,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Categoria</th>
                 <th>Descrição</th>
                 <th>Valor</th>
                 <th>Data Despesa</th>
@@ -25,7 +24,6 @@
             @foreach ($despesas as $despesa)
             <tr>
                 <td>{{ $despesa->id }}</td>
-                <td>{{ $despesa->categoria }}</td>
                 <td>{{ $despesa->descricao }}</td>
                 <td>{{ number_format($despesa->valor, 2, ',', '.') }}</td>
                 <td>{{ \Carbon\Carbon::parse($despesa->data_despesa)->format('d/m/Y') }}</td>

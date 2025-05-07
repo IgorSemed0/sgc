@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('despesas', function (Blueprint $table) {
             $table->id();
-            $table->string('categoria');
             $table->string('descricao');
             $table->decimal('valor');
             $table->date('data_despesa');

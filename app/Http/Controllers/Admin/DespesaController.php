@@ -26,7 +26,6 @@ class DespesaController extends Controller
     {
         try {
             $validated = $request->validate([
-                'categoria' => 'required|string|max:255',
                 'descricao' => 'required|string|max:255',
                 'valor' => 'required|numeric|min:0',
                 'data_despesa' => 'required|date',
@@ -56,7 +55,6 @@ class DespesaController extends Controller
             $despesa = Despesa::findOrFail($id);
 
             $validated = $request->validate([
-                'categoria' => 'required|string|max:255',
                 'descricao' => 'required|string|max:255',
                 'valor' => 'required|numeric|min:0',
                 'data_despesa' => 'required|date',

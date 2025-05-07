@@ -12,7 +12,6 @@ class Despesa extends Model
 
     protected $fillable = [
          
-        'categoria', 
         'descricao', 
         'valor', 
         'data_despesa'

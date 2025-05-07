@@ -1,9 +1,5 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="categoria">Categoria</label>
-        <input type="text" class="form-control" id="categoria" name="categoria" value="{{ old('categoria', $despesa->categoria ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="descricao">Descrição</label>
         <input type="text" class="form-control" id="descricao" name="descricao" value="{{ old('descricao', $despesa->descricao ?? '') }}" required>
     </div>
