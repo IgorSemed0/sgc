@@ -4,19 +4,9 @@
         <select class="form-control select2" id="tipo" name="tipo" required>
             <option value="">Selecione o tipo</option>
             <option value="Apartamento" {{ old('tipo', $unidade->tipo ?? '') == 'Apartamento' ? 'selected' : '' }}>Apartamento</option>
-            <option value="Loja" {{ old('tipo', $unidade->tipo ?? '') == 'Loja' ? 'selected' : '' }}>Loja</option>
             <option value="Estacionamento" {{ old('tipo', $unidade->tipo ?? '') == 'Estacionamento' ? 'selected' : '' }}>Estacionamento</option>
             <option value="Casa" {{ old('tipo', $unidade->tipo ?? '') == 'Casa' ? 'selected' : '' }}>Casa</option>
-            <option value="Sala Comercial" {{ old('tipo', $unidade->tipo ?? '') == 'Sala Comercial' ? 'selected' : '' }}>Sala Comercial</option>
-            <option value="Depósito" {{ old('tipo', $unidade->tipo ?? '') == 'Depósito' ? 'selected' : '' }}>Depósito</option>
-            <option value="Kitnet" {{ old('tipo', $unidade->tipo ?? '') == 'Kitnet' ? 'selected' : '' }}>Kitnet</option>
-            <option value="Duplex" {{ old('tipo', $unidade->tipo ?? '') == 'Duplex' ? 'selected' : '' }}>Duplex</option>
-            <option value="Triplex" {{ old('tipo', $unidade->tipo ?? '') == 'Triplex' ? 'selected' : '' }}>Triplex</option>
-            <option value="Cobertura" {{ old('tipo', $unidade->tipo ?? '') == 'Cobertura' ? 'selected' : '' }}>Cobertura</option>
-            <option value="Studio" {{ old('tipo', $unidade->tipo ?? '') == 'Studio' ? 'selected' : '' }}>Studio</option>
-            <option value="Flat" {{ old('tipo', $unidade->tipo ?? '') == 'Flat' ? 'selected' : '' }}>Flat</option>
-            <option value="Galpão" {{ old('tipo', $unidade->tipo ?? '') == 'Galpão' ? 'selected' : '' }}>Galpão</option>
-            <option value="Terreno" {{ old('tipo', $unidade->tipo ?? '') == 'Terreno' ? 'selected' : '' }}>Terreno</option>
+            <option value="Sala Comercial" {{ old('tipo', $unidade->tipo ?? '') == 'Estabelecimento Comercial' ? 'selected' : '' }}>Estabelecimento Comercial</option>
         </select>
     </div>
 
@@ -63,8 +53,8 @@
         <label for="status">Status*</label>
         <select class="form-control select2" id="status" name="status" required>
             <option value="">Selecione o status</option>
-            <option value="alugada" {{ old('status', $unidade->status ?? '') == 'alugada' ? 'selected' : '' }}>Alugada</option>
-            <option value="disponivel" {{ old('status', $unidade->status ?? '') == 'disponivel' ? 'selected' : '' }}>Disponível</option>
+            <option value="alugada" {{ old('status', $unidade->status ?? '') == 'indisponivel' ? 'selected' : '' }}>Inisponível</option>
+            <option value="disponivel" {{ old('status', $unidade->status ?? '') == 'disponivel' ? 'selected' : '' }}>Disponzível</option>
         </select>
     </div>
 </div>
