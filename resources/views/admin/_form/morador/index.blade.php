@@ -66,11 +66,11 @@
 
     <!-- Campo BI ou Cédula -->
     <div class="col-md-6 mb-3" id="bi_div">
-        <label for="bi">BI*</label>
+        <label for="bi">BI</label>
         <input type="text" class="form-control" id="bi" name="bi" value="{{ old('bi', $morador->bi ?? '') }}">
     </div>
     <div class="col-md-6 mb-3" id="cedula_div" style="display: none;">
-        <label for="cedula">Cédula*</label>
+        <label for="cedula">Cédula(Caso não tenha um BI</label>
         <input type="text" class="form-control" id="cedula" name="cedula" value="{{ old('cedula', $morador->cedula ?? '') }}">
     </div>
 
