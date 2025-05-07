@@ -1,6 +1,6 @@
 <section id="sidebar">
     <a href="#" class="brand">
-        PIGC
+        __________SGC__________
     </a>
     <ul class="side-menu">
         <li>
