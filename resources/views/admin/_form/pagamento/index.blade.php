@@ -22,10 +22,6 @@
         <label for="metodo_pagamento">Método Pagamento</label>
         <input type="text" class="form-control" id="metodo_pagamento" name="metodo_pagamento" value="{{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') }}" required>
     </div>
-    <div class="col-md-6 mb-3">
-        <label for="transacao_id">Transação ID</label>
-        <input type="text" class="form-control" id="transacao_id" name="transacao_id" value="{{ old('transacao_id', $pagamento->transacao_id ?? '') }}">
-    </div>
 </div>
 
 <script>

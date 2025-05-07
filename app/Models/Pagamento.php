@@ -15,7 +15,6 @@ class Pagamento extends Model
         'data_pagamento', 
         'valor_pago', 
         'metodo_pagamento', 
-        'transacao_id'
     ];
 
     public function factura()

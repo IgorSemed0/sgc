@@ -30,7 +30,6 @@ class PagamentoController extends Controller
                 'data_pagamento' => 'required|date',
                 'valor_pago' => 'required|numeric|min:0',
                 'metodo_pagamento' => 'required|string|max:255',
-                'transacao_id' => 'nullable|string|max:255',
             ]);
 
             Pagamento::create($validated);
@@ -61,7 +60,6 @@ class PagamentoController extends Controller
                 'data_pagamento' => 'required|date',
                 'valor_pago' => 'required|numeric|min:0',
                 'metodo_pagamento' => 'required|string|max:255',
-                'transacao_id' => 'nullable|string|max:255',
             ]);
 
             $pagamento->update($validated);

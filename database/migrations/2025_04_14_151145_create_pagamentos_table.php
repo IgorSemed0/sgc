@@ -14,7 +14,6 @@ return new class extends Migration
             $table->date('data_pagamento');
             $table->decimal('valor_pago');
             $table->string('metodo_pagamento');
-            $table->string('transacao_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
