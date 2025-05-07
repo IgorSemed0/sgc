@@ -11,19 +11,19 @@ class Funcionario extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'primeiro_nome', 
-        'nomes_meio', 
-        'ultimo_nome', 
-        'email', 
+        'primeiro_nome',
+        'nomes_meio',
+        'ultimo_nome',
+        'email',
         'username',
         'telefone',
-        'unidade_id',
+        'bi',
         'dt_nascimento',
+        'sexo',
+        'cargo',
+        'unidade_id',
+        'departamento_id',
         'tipo',
-        'bi', 
-        'sexo', 
-        'cargo', 
-        'departamento_id', 
     ];
 
     public function unidade()
@@ -35,11 +35,6 @@ class Funcionario extends Model
     {
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
-
-    // public function condominio()
-    // {
-    //     return $this->belongsTo(Condominio::class, 'condominio_id');
-    // }
 
     public function morador()
     {
