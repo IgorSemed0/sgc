@@ -41,10 +41,6 @@
             <option value="dependente" {{ old('tipo', $morador->tipo ?? '') == 'dependente' ? 'selected' : '' }}>Dependente</option>
         </select>
     </div>
-    <div class="col-md-6 mb-3">
-        <label for="processo">Processo*</label>
-        <input type="text" class="form-control" id="processo" name="processo" value="{{ old('processo', $morador->processo ?? '') }}" required>
-    </div>
 
     <!-- Campo Estado Residente (apenas para proprietário) -->
     <div class="col-md-6 mb-3" id="estado_residente_div" style="display: none;">
