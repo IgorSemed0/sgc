@@ -34,7 +34,7 @@ class PagamentoController extends Controller
 
             $validated['valor_pago'] = $validated['factura_id']->valor_total; // Assuming valor_pago is the total amount of the factura,
 
-                Pagamento::create($validated);
+            Pagamento::create($validated);
             $conta = Conta::find(1);
             $conta->saldo += $validated['valor_pago'];
             $conta->save();

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('espaco_comums', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $$table->foreignId('bloco_id')->constrained('blocos')->onDelete('cascade');
+            $table->foreignId('bloco_id')->constrained('blocos')->onDelete('cascade');
             $table->text('descricao')->nullable();
             $table->text('regras')->nullable();
             $table->timestamps();
