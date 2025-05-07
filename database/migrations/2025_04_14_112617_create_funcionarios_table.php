@@ -13,11 +13,14 @@ return new class extends Migration
             $table->string('nomes_meio')->nullable();
             $table->string('ultimo_nome');
             $table->string('email');
+            $table->string('tipo');
             $table->string('username')->nullable();
             $table->string('telefone');
             $table->string('bi');
+            $table->date('dt_nascimento');
             $table->string('sexo');
             $table->string('cargo');
+            $table->foreignId('unidade_id')->constrained('unidades')->onDelete('cascade')->nullable();
             $table->unsignedBigInteger('departamento_id'); 
             $table->timestamps();
             $table->softDeletes();

@@ -16,12 +16,20 @@ class Funcionario extends Model
         'ultimo_nome', 
         'email', 
         'username',
-        'telefone', 
+        'telefone',
+        'unidade_id',
+        'dt_nascimento',
+        'tipo',
         'bi', 
         'sexo', 
         'cargo', 
         'departamento_id', 
     ];
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'unidade_id');
+    }
 
     public function departamento()
     {

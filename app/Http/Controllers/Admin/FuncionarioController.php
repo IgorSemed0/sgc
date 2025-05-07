@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Funcionario;
 use App\Models\Departamento;
 use App\Models\Condominio;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
 {
     public function index()
     {
+        $data['unidade'] = Unidade::all();
         $data['departamentos'] = Departamento::all();
         $data['condominios'] = Condominio::all();
         $data['funcionarios'] = Funcionario::with(['departamento', 'condominio'])->get();
@@ -36,9 +38,11 @@ class FuncionarioController extends Controller
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
                 'bi' => 'required|string|max:20',
+                'dt_nascimento' => 'nullable|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'cargo' => 'required|string|max:255',
+                'cargo' => 'nullable|string|max:255',
                 'departamento_id' => 'required|exists:departamentos,id',
+                'unidade_id' => 'nullable|exists:unidades,id',
             ]);
 
             Funcionario::create($validated);
@@ -72,6 +76,7 @@ class FuncionarioController extends Controller
                 'email' => 'required|email|max:255',
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
+                'dt_nascimento' => 'nullable|date',
                 'bi' => 'required|string|max:20',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'cargo' => 'required|string|max:255',
