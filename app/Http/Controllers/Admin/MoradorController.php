@@ -11,15 +11,18 @@ class MoradorController extends Controller
 {
     public function index()
     {
+        $data['inquilinos'] = Morador::where('tipo', 'inquilino')->with('unidade')->get();
+
         $data['unidades'] = Unidade::all();
-        $data['moradores'] = Morador::with(['unidade'])->get();
+        $data['moradores'] = Morador::with(['unidade', 'inquilino'])->get();
         return view('admin.morador.index', $data);
     }
 
     public function create()
     {
-        $unidades = Unidade::all();
-        return view('admin.morador.cadastrar.index', compact('unidades'));
+        $unidades = Unidade::where('status', 'disponivel')->get();
+        $inquilinos = Morador::where('tipo', 'inquilino')->with('unidade')->get();
+        return view('admin.morador.cadastrar.index', compact('unidades', 'inquilinos'));
     }
 
     public function store(Request $request)
@@ -32,13 +35,20 @@ class MoradorController extends Controller
                 'email' => 'required|email|max:255',
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
-                'bi' => 'required|string|max:20',
+                'bi' => 'nullable|string|max:20',
+                'cedula' => 'nullable|string|max:20',
                 'data_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'unidade_id' => 'required|exists:unidades,id',
-                'tipo' => 'required|string|max:255',
-                'processo' => 'required|string|max:255',
+                'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
+                'tipo' => 'required|in:proprietario,inquilino,dependente',
+                'estado_residente' => 'required_if:tipo,proprietario|boolean',
+                'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id',
             ]);
+
+            if ($request->tipo == 'dependente') {
+                $inquilino = Morador::find($request->dependente_de);
+                $validated['unidade_id'] = $inquilino->unidade_id;
+            }
 
             Morador::create($validated);
 
@@ -54,8 +64,9 @@ class MoradorController extends Controller
     public function edit($id)
     {
         $morador = Morador::findOrFail($id);
-        $unidades = Unidade::all();
-        return view('admin.morador.editar.index', compact('morador', 'unidades'));
+        $unidades = Unidade::where('status', 'disponivel')->get();
+        $inquilinos = Morador::where('tipo', 'inquilino')->with('unidade')->get();
+        return view('admin.morador.editar.index', compact('morador', 'unidades', 'inquilinos'));
     }
 
     public function update(Request $request, $id)
@@ -70,13 +81,20 @@ class MoradorController extends Controller
                 'email' => 'required|email|max:255',
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
-                'bi' => 'required|string|max:20',
+                'bi' => 'nullable|string|max:20',
+                'cedula' => 'nullable|string|max:20',
                 'data_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'unidade_id' => 'required|exists:unidades,id',
-                'tipo' => 'required|string|max:255',
-                'processo' => 'required|string|max:255',
+                'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
+                'tipo' => 'required|in:proprietario,inquilino,dependente',
+                'estado_residente' => 'required_if:tipo,proprietario|boolean',
+                'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id',
             ]);
+
+            if ($request->tipo == 'dependente') {
+                $inquilino = Morador::find($request->dependente_de);
+                $validated['unidade_id'] = $inquilino->unidade_id;
+            }
 
             $morador->update($validated);
 
@@ -106,7 +124,7 @@ class MoradorController extends Controller
     public function trash()
     {
         $data['unidades'] = Unidade::all();
-        $data['moradores'] = Morador::onlyTrashed()->with(['unidade'])->get();
+        $data['moradores'] = Morador::onlyTrashed()->with(['unidade', 'inquilino'])->get();
         return view('admin.morador.lixeira.index', $data);
     }
 
