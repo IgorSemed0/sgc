@@ -31,9 +31,12 @@ class PagamentoController extends Controller
                 'valor_pago' => 'required|numeric|min:0',
                 'metodo_pagamento' => 'required|string|max:255',
             ]);
-
+    
             Pagamento::create($validated);
-
+            $conta = Conta::find(1);
+            $conta->saldo += $validated['valor_pago'];
+            $conta->save();
+    
             return redirect()->route('admin.pagamento.index')
                 ->with('success', 'Pagamento registrado com sucesso.');
         } catch (\Exception $e) {

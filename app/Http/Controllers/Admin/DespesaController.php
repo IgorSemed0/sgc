@@ -30,9 +30,18 @@ class DespesaController extends Controller
                 'valor' => 'required|numeric|min:0',
                 'data_despesa' => 'required|date',
             ]);
-
+    
+            $conta = Conta::find(1);
+            if (!$conta || $conta->saldo < $validated['valor']) {
+                return redirect()->back()
+                    ->with('error', 'Saldo insuficiente para registrar a despesa.')
+                    ->withInput();
+            }
+    
             Despesa::create($validated);
-
+            $conta->saldo -= $validated['valor'];
+            $conta->save();
+    
             return redirect()->route('admin.despesa.index')
                 ->with('success', 'Despesa registrada com sucesso.');
         } catch (\Exception $e) {

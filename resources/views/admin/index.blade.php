@@ -6,7 +6,7 @@
     <!-- Totals Section -->
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-header">Total de Unidades</div>
                 <div class="card-body">
                     <h5 class="card-title mt-4 mb-4">{{ $totalUnidades }}</h5>
@@ -22,18 +22,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-white bg-warning">
-                <div class="card-header">Total de Funcionários</div>
-                <div class="card-body">
-                    <h5 class="card-title mt-4 mb-4">{{ $totalFuncionarios }}</h5>
+                <div class="card text-white bg-primary">
+                    <div class="card-header">Saldo Atual</div>
+                    <div class="card-body">
+                        <h5 class="card-title mt-4 mb-4">{{ number_format($saldoAtual, 2, ',', '.') }}</h5>
+                    </div>
                 </div>
             </div>
-        </div>
         <div class="col-md-3">
-            <div class="card text-white bg-danger">
-                <div class="card-header">Total de Reservas Ativas</div>
+            <div class="card text-white bg-info">
+                <div class="card-header">Inadimplência</div>
                 <div class="card-body">
-                    <h5 class="card-title mt-4 mb-4">{{ $totalReservas }}</h5>
+                    <h5 class="card-title mt-4 mb-4">{{ number_format($inadimplencia, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
@@ -77,6 +77,42 @@
                 <div class="card-header">Distribuição de Despesas por Categoria</div>
                 <div class="card-body">
                     <canvas id="graficoDoughnut"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Financial Data Section -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-header">Inadimplência</div>
+                <div class="card-body">
+                    <h5 class="card-title mt-4 mb-4">{{ number_format($inadimplencia, 2, ',', '.') }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger">
+                <div class="card-header">Despesas</div>
+                <div class="card-body">
+                    <h5 class="card-title mt-4 mb-4">{{ number_format($despesas, 2, ',', '.') }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-header">Receitas</div>
+                <div class="card-body">
+                    <h5 class="card-title mt-4 mb-4">{{ number_format($receitas, 2, ',', '.') }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-header">Saldo Atual</div>
+                <div class="card-body">
+                    <h5 class="card-title mt-4 mb-4">{{ number_format($saldoAtual, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
