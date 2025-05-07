@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('rupes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
             $table->string('descricao');
             $table->decimal('valor');
             $table->date('data_receita');

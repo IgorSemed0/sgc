@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('votacaos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
             $table->string('titulo');
             $table->text('descricao');
             $table->dateTime('data_inicio');

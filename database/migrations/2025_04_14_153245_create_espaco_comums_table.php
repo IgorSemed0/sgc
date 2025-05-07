@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('espaco_comums', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
             $table->string('nome');
             $table->text('descricao')->nullable();
             $table->integer('capacidade');

@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('contas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
             $table->string('nome');
             $table->string('tipo');
             $table->decimal('saldo', 10, 2)->default(0.00);

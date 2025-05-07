@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao')->nullable();
-            $table->unsignedBigInteger('condominio_id');
             $table->timestamps();
             $table->softDeletes();
         });

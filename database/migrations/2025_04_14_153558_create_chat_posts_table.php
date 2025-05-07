@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('chat_posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('condominio_id');
             $table->unsignedBigInteger('autor_id');
             $table->string('tipo_autor');
             $table->string('titulo');

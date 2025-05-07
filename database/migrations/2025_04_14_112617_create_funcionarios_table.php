@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('sexo');
             $table->string('cargo');
             $table->unsignedBigInteger('departamento_id'); 
-            $table->unsignedBigInteger('condominio_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
