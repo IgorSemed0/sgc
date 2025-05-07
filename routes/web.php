@@ -116,7 +116,7 @@ Route::middleware([
                 Route::post('restore/{id}', ['as' => 'admin.funcionario.restore', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@restore']);
                 Route::delete('purge/{id}', ['as' => 'admin.funcionario.purge', 'uses' => 'App\Http\Controllers\Admin\FuncionarioController@purge']);
             });
-    
+
             Route::prefix('morador')->group(function () {
                 Route::get('index', ['as' => 'admin.morador.index', 'uses' => 'App\Http\Controllers\Admin\MoradorController@index']);
                 Route::get('create', ['as' => 'admin.morador.create', 'uses' => 'App\Http\Controllers\Admin\MoradorController@create']);
@@ -128,7 +128,7 @@ Route::middleware([
                 Route::post('restore/{id}', ['as' => 'admin.morador.restore', 'uses' => 'App\Http\Controllers\Admin\MoradorController@restore']);
                 Route::delete('purge/{id}', ['as' => 'admin.morador.purge', 'uses' => 'App\Http\Controllers\Admin\MoradorController@purge']);
             });
-    
+
             Route::prefix('visitante')->group(function () {
                 Route::get('index', ['as' => 'admin.visitante.index', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@index']);
                 Route::get('create', ['as' => 'admin.visitante.create', 'uses' => 'App\Http\Controllers\Admin\VisitanteController@create']);

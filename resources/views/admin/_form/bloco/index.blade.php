@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="nome">Nome</label>
+        <label for="nome">Sigla</label>
         <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $bloco->nome ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">

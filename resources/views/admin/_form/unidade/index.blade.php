@@ -65,7 +65,6 @@
             <option value="">Selecione o status</option>
             <option value="alugada" {{ old('status', $unidade->status ?? '') == 'alugada' ? 'selected' : '' }}>Alugada</option>
             <option value="disponivel" {{ old('status', $unidade->status ?? '') == 'disponivel' ? 'selected' : '' }}>Disponível</option>
-            <option value="indisponivel" {{ old('status', $unidade->status ?? '') == 'indisponivel' ? 'selected' : '' }}>Indisponível</option>
         </select>
     </div>
 </div>
