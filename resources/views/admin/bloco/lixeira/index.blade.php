@@ -1,58 +1,39 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Moradores')
+@section('title', 'Lixeira de Blocos')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
-    <a href="{{ route('admin.morador.index') }}" class="btn btn-secondary">
+    <a href="{{ route('admin.bloco.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Moradores Apagados</h1>
+<h1 class="h3">Blocos Apagados</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nome Completo</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>BI</th>
-            <th>Cédula</th>
-            <th>Data de Nascimento</th>
-            <th>Sexo</th>
-            <th>Tipo</th>
-            <th>Processo</th>
-            <th>Unidade</th>
-            <th>Estado Residente</th>
-            <th>Dependente De</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Condomínio</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($moradores as $morador)
+        @foreach ($blocos as $bloco)
         <tr>
-            <td>{{ $morador->id }}</td>
-            <td>{{ $morador->primeiro_nome }} {{ $morador->nomes_meio }} {{ $morador->ultimo_nome }}</td>
-            <td>{{ $morador->email }}</td>
-            <td>{{ $morador->telefone }}</td>
-            <td>{{ $morador->bi }}</td>
-            <td>{{ $morador->cedula }}</td>
-            <td>{{ $morador->data_nascimento }}</td>
-            <td>{{ $morador->sexo }}</td>
-            <td>{{ $morador->tipo }}</td>
-            <td>{{ $morador->processo }}</td>
-            <td>{{ $morador->unidade->tipo }} - {{ $morador->unidade->numero }}</td>
-            <td>{{ $morador->estado_residente ? 'Sim' : 'Não' }}</td>
-            <td>{{ $morador->inquilino ? $morador->inquilino->primeiro_nome . ' ' . $morador->inquilino->ultimo_nome : '' }}</td>
+            <td>{{ $bloco->id }}</td>
+            <td>{{ $bloco->nome }}</td>
+            <td>{{ $bloco->descricao }}</td>
             <td>
-                <form id="restore-form-{{ $morador->id }}" action="{{ route('admin.morador.restore', $morador->id) }}" method="POST" style="display: none;">
+                <form id="restore-form-{{ $bloco->id }}" action="{{ route('admin.bloco.restore', $bloco->id) }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $morador->id }})">Restaurar</button>
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $bloco->id }})">Restaurar</button>
 
-                <form id="purge-form-{{ $morador->id }}" action="{{ route('admin.morador.purge', $morador->id) }}" method="POST" style="display: none;">
+                <form id="purge-form-{{ $bloco->id }}" action="{{ route('admin.bloco.purge', $bloco->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
-                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $morador->id }})">Excluir Permanentemente</button>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $bloco->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -85,7 +66,7 @@
     function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Deseja restaurar este morador?",
+            text: "Deseja restaurar este bloco?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -102,7 +83,7 @@
     function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação excluirá permanentemente o morador!",
+            text: "Esta ação excluirá permanentemente o bloco!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
