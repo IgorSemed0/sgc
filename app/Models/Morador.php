@@ -15,7 +15,6 @@ class Morador extends Model
         'nomes_meio',
         'ultimo_nome',
         'email',
-        'username',
         'telefone',
         'bi',
         'cedula',

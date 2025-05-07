@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('nomes_meio')->nullable();
             $table->string('ultimo_nome');
             $table->string('email');
-            $table->string('username')->nullable();
             $table->string('tipo');
             $table->boolean('estado_residente')->default(false);
             $table->string('telefone');

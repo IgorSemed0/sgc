@@ -41,7 +41,6 @@
                 <td>{{ $morador->data_nascimento }}</td>
                 <td>{{ $morador->sexo }}</td>
                 <td>{{ $morador->tipo }}</td>
-                <td>{{ $morador->processo }}</td>
                 <td>{{ $morador->unidade->tipo }} - {{ $morador->unidade->numero }}</td>
                 <td>{{ $morador->estado_residente ? 'Sim' : 'Não' }}</td>
                 <td>{{ $morador->inquilino ? $morador->inquilino->primeiro_nome . ' ' . $morador->inquilino->ultimo_nome : '' }}</td>

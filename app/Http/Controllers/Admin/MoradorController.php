@@ -12,7 +12,6 @@ class MoradorController extends Controller
     public function index()
     {
         $data['inquilinos'] = Morador::where('tipo', 'inquilino')->with('unidade')->get();
-
         $data['unidades'] = Unidade::all();
         $data['moradores'] = Morador::with(['unidade', 'inquilino'])->get();
         return view('admin.morador.index', $data);
@@ -33,7 +32,6 @@ class MoradorController extends Controller
                 'nomes_meio' => 'nullable|string|max:255',
                 'ultimo_nome' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
-                'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
                 'bi' => 'nullable|string|max:20',
                 'cedula' => 'nullable|string|max:20',
@@ -79,7 +77,6 @@ class MoradorController extends Controller
                 'nomes_meio' => 'nullable|string|max:255',
                 'ultimo_nome' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
-                'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
                 'bi' => 'nullable|string|max:20',
                 'cedula' => 'nullable|string|max:20',
