@@ -13,10 +13,10 @@ class FuncionarioController extends Controller
 {
     public function index()
     {
-        $data['unidade'] = Unidade::all();
+        $data['unidades'] = Unidade::all();
         $data['departamentos'] = Departamento::all();
         $data['condominios'] = Condominio::all();
-        $data['funcionarios'] = Funcionario::with(['departamento', 'condominio'])->get();
+        $data['funcionarios'] = Funcionario::with(['departamento', 'unidade'])->get();
         return view('admin.funcionario.index', $data);
     }
 
@@ -24,7 +24,8 @@ class FuncionarioController extends Controller
     {
         $departamentos = Departamento::all();
         $condominios = Condominio::all();
-        return view('admin.funcionario.cadastrar.index', compact('departamentos', 'condominios'));
+        $unidades = Unidade::where('status', 'disponivel')->get();
+        return view('admin.funcionario.cadastrar.index', compact('departamentos', 'condominios', 'unidades'));
     }
 
     public function store(Request $request)
@@ -38,11 +39,12 @@ class FuncionarioController extends Controller
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
                 'bi' => 'required|string|max:20',
-                'dt_nascimento' => 'nullable|date',
+                'dt_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'cargo' => 'nullable|string|max:255',
+                'tipo' => 'required|in:Particular,Geral',
+                'cargo' => 'required_if:tipo,Geral|string|max:255|nullable',
+                'unidade_id' => 'required_if:tipo,Geral|exists:unidades,id|nullable',
                 'departamento_id' => 'required|exists:departamentos,id',
-                'unidade_id' => 'nullable|exists:unidades,id',
             ]);
 
             Funcionario::create($validated);
@@ -61,7 +63,8 @@ class FuncionarioController extends Controller
         $funcionario = Funcionario::findOrFail($id);
         $departamentos = Departamento::all();
         $condominios = Condominio::all();
-        return view('admin.funcionario.editar.index', compact('funcionario', 'departamentos', 'condominios'));
+        $unidades = Unidade::where('status', 'disponivel')->get();
+        return view('admin.funcionario.editar.index', compact('funcionario', 'departamentos', 'condominios', 'unidades'));
     }
 
     public function update(Request $request, $id)
@@ -76,10 +79,12 @@ class FuncionarioController extends Controller
                 'email' => 'required|email|max:255',
                 'username' => 'nullable|string|max:255',
                 'telefone' => 'required|string|max:20',
-                'dt_nascimento' => 'nullable|date',
                 'bi' => 'required|string|max:20',
+                'dt_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'cargo' => 'required|string|max:255',
+                'tipo' => 'required|in:Particular,Geral',
+                'cargo' => 'required_if:tipo,Geral|string|max:255|nullable',
+                'unidade_id' => 'required_if:tipo,Geral|exists:unidades,id|nullable',
                 'departamento_id' => 'required|exists:departamentos,id',
             ]);
 
@@ -110,9 +115,10 @@ class FuncionarioController extends Controller
 
     public function trash()
     {
+        $data['unidades'] = Unidade::all();
         $data['departamentos'] = Departamento::all();
         $data['condominios'] = Condominio::all();
-        $data['funcionarios'] = Funcionario::onlyTrashed()->with(['departamento', 'condominio'])->get();
+        $data['funcionarios'] = Funcionario::onlyTrashed()->with(['departamento', 'unidade'])->get();
         return view('admin.funcionario.lixeira.index', $data);
     }
 
