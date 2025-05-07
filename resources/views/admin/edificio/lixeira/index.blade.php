@@ -13,7 +13,7 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
-            <th>Bloco</th>
+            <th>Bloco Sigla</th>
             <th>Ações</th>
         </tr>
     </thead>

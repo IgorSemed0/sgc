@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="bloco_id">Sigla do Bloco</label>
+        <label for="bloco_id">Bloco Sigla</label>
         <select class="form-control select2" id="bloco_id" name="bloco_id" required>
             <option value="">Selecione um bloco</option>
             @foreach ($blocos as $bloco)
@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="edificio_id">Sigla do Edifício</label>
+        <label for="edificio_id">Edifício Sigla</label>
         <select class="form-control select2" id="edificio_id" name="edificio_id" required>
             <option value="">Selecione um edifício</option>
             @foreach ($edificios as $edificio)

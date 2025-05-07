@@ -16,8 +16,8 @@
                 <th>ID</th>
                 <th>Tipo</th>
                 <th>Número</th>
-                <th>Sigla do Bloco</th>
-                <th>Sigla do Edifício</th>
+                <th>Bloco Sigla</th>
+                <th>Edifício Sigla</th>
                 <th>Área (m²)</th>
                 <th>Andar</th>
                 <th>Status</th>
