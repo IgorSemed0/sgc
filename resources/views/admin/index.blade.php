@@ -57,23 +57,23 @@
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-header">Unidades por Tipo</div>
-                <div class="card-body">
-                    <canvas id="graficoBarras"></canvas>
+                <div class="card-body" style="display: flex; justify-content: center; align-items: center; height: 400px;">
+                    <!-- Set explicit width and height for the canvas -->
+                    <canvas id="graficoBarras" style="max-width: 100%; max-height: 100%;"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-header">Moradores por Tipo</div>
-                <div class="card-body">
-                    <canvas id="graficoPizza"></canvas>
+                <div class="card-body" style="display: flex; justify-content: center; align-items: center; height: 400px;">
+                    <!-- Set explicit width and height for the canvas -->
+                    <canvas id="graficoPizza" style="max-width: 100%; max-height: 100%;"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Chart.js Inclusion and Chart Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Multi-line Chart: Revenues, Expenses, Balance
