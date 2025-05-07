@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pagamento;
+use App\Models\Conta;
 use App\Models\Factura;
 use Illuminate\Http\Request;
 
