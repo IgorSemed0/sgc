@@ -14,6 +14,7 @@ class EspacoComum extends Model
          
         'nome', 
         'descricao', 
+        'bloco_id',
         'regras'
     ];
 
@@ -21,4 +22,9 @@ class EspacoComum extends Model
     // {
     //     return $this->belongsTo(Condominio::class, 'condominio_id');
     // }
+
+    public function bloco()
+    {
+        return $this->belongsTo(Bloco::class, 'bloco_id');
+    }
 }

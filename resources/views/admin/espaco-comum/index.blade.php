@@ -18,6 +18,7 @@
                 <th>Descrição</th>
                 <th>Capacidade</th>
                 <th>Regras</th>
+                <th>Bloco Sigla</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
                 <td>{{ $espacoComum->descricao ?? '-' }}</td>
                 <td>{{ $espacoComum->capacidade }}</td>
                 <td>{{ $espacoComum->regras ?? '-' }}</td>
+                <td>{{ $espacoComum->bloco }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $espacoComum->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.espaco-comum.destroy', $espacoComum->id) }}')">Deletar</a>
@@ -39,7 +41,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Espaço Comum</h5>
+                            <h5 class="modal-title">Editar Outros Espaços</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -56,7 +58,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Espaço Comum</h5>
+                    <h5 class="modal-title">Cadastro de Outros Espaços</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 @include('admin.espaco-comum.cadastrar.index')

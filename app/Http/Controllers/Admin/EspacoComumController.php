@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\EspacoComum;
 use App\Models\Condominio;
+use App\Models\Bloco;
 use Illuminate\Http\Request;
 
 class EspacoComumController extends Controller
 {
     public function index()
     {
+        $data['blocos'] = Bloco::all();
         $data['condominios'] = Condominio::all();
         $data['espacoComums'] = EspacoComum::with(['condominio'])->get();
         return view('admin.espaco-comum.index', $data);
@@ -28,6 +30,7 @@ class EspacoComumController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
+                'bloco_id' => 'required|exists:blocos,id',
                 'regras' => 'nullable|string',
             ]);
 
@@ -57,6 +60,7 @@ class EspacoComumController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
+                'bloco_id' => 'required|exists:blocos,id',
                 'regras' => 'nullable|string',
             ]);
 

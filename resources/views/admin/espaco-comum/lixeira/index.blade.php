@@ -16,6 +16,7 @@
             <th>Descrição</th>
             <th>Capacidade</th>
             <th>Regras</th>
+            <th>Bloco Sigla</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -27,6 +28,7 @@
             <td>{{ $espacoComum->descricao ?? '-' }}</td>
             <td>{{ $espacoComum->capacidade }}</td>
             <td>{{ $espacoComum->regras ?? '-' }}</td>
+            <td>{{ $espacoComum->bloco }}</td>
             <td>
                 <form id="restore-form-{{ $espacoComum->id }}" action="{{ route('admin.espaco-comum.restore', $espacoComum->id) }}" method="POST" style="display: none;">
                     @csrf
