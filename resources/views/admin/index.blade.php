@@ -45,7 +45,7 @@
         <div class="col-12 mb-4">
             <div class="card">
                 <div class="card-header">Finanças por Mês</div>
-                <div class="card-body">
+                <div class="card-body" style="width: 100%; height: auto;">
                     <canvas id="graficoLinha"></canvas>
                 </div>
             </div>
