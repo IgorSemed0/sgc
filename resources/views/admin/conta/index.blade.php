@@ -1,13 +1,13 @@
 @extends('admin.layouts.body')
 @section('title', 'Listar Contas')
 @section('conteudo')
-<h1 class="h3">Tabela de Contas</h1>
-<div class="d-flex justify-content-between mb-3">
+<h1 class="h3">Tabela da Conta</h1>
+<!-- <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaModal">Nova Conta</button>
     <a href="{{ route('admin.conta.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
-</div>
+</div> -->
 
 <div class="card p-4">
     <table class="table table-striped myTable">

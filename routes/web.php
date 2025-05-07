@@ -376,7 +376,6 @@ Route::middleware([
 
     Route::prefix('pdf')->middleware(['auth', 'admin'])->group(function () {
         // Unidade Occupancy Report
-        Route::get('unidade_occupancy/selecionar', ['as' => 'pdf.unidade_occupancy.selecionar', 'uses' => 'App\Http\Controllers\Admin\PdfController@selecionarRelatorioUnidadeOccupancy']);
         Route::post('unidade_occupancy', ['as' => 'pdf.unidade_occupancy', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_unidade_occupancy']);
     
         // Access Control Report

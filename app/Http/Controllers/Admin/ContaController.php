@@ -12,7 +12,7 @@ class ContaController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['contas'] = Conta::with(['condominio'])->get();
+        $data['contas'] = Conta::all();
         return view('admin.conta.index', $data);
     }
 
