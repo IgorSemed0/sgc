@@ -31,7 +31,7 @@ class DepartamentoController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string|max:255',
-                'unidade_id' => 'nullable|exists:unidades,id',
+                // 'unidade_id' => 'nullable|exists:unidades,id',
             ]);
 
             Departamento::create($validated);
@@ -61,7 +61,7 @@ class DepartamentoController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string|max:255',
-                'unidade_id' => 'nullable|exists:unidades,id',
+                // 'unidade_id' => 'nullable|exists:unidades,id',
             ]);
 
             $departamento->update($validated);
