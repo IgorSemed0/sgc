@@ -36,7 +36,7 @@ class User extends Authenticatable
         'bi',
         'telefone',
         'tipo_usuario',
-        'condominio_id',
+        
     ];
 
     /**

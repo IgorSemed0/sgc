@@ -11,15 +11,15 @@ class EspacoComum extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'condominio_id', 
+         
         'nome', 
         'descricao', 
         'capacidade', 
         'regras'
     ];
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 }

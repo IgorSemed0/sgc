@@ -11,7 +11,7 @@ class ChatPost extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'condominio_id', 
+         
         'autor_id', 
         'tipo_autor', 
         'titulo', 
@@ -24,10 +24,10 @@ class ChatPost extends Model
         return $this->hasMany(ChatComentario::class, 'post_id');
     }
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 
     public function user()
     {

@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['users'] = User::with('condominio')->get();
+        $data['users'] = User::::all();
         return view('admin.user.index', $data);
     }
 

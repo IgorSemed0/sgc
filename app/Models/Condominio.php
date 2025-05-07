@@ -72,6 +72,6 @@ class Condominio extends Model
 
     public function unidades()
     {
-        return $this->hasManyThrough(Unidade::class, Bloco::class, 'condominio_id', 'bloco_id');
+        return $this->hasManyThrough(Unidade::class, Bloco::class,  'bloco_id');
     }
 }

@@ -10,7 +10,7 @@ class Votacao extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'condominio_id', 
+         
         'titulo', 
         'descricao', 
         'data_inicio', 
@@ -19,10 +19,10 @@ class Votacao extends Model
         'status'
     ];
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 
     public function voto()
     {

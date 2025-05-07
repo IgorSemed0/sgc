@@ -29,10 +29,10 @@ class Funcionario extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 
     public function morador()
     {

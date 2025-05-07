@@ -11,15 +11,15 @@ class Despesa extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'condominio_id', 
+         
         'categoria', 
         'descricao', 
         'valor', 
         'data_despesa'
     ];
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 }

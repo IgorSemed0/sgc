@@ -27,10 +27,10 @@ class Visitante extends Model
         return $this->belongsTo(Unidade::class, 'unidade_id');
     }
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 
     public function morador()
     {

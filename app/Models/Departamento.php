@@ -12,14 +12,14 @@ class Departamento extends Model
     protected $fillable = [
         'nome', 
         'descricao', 
-        'condominio_id',
+        
         'unidade_id'
     ];
 
-    public function condominio()
-    {
-        return $this->belongsTo(Condominio::class, 'condominio_id');
-    }
+    // public function condominio()
+    // {
+    //     return $this->belongsTo(Condominio::class, 'condominio_id');
+    // }
 
     public function funcionario()
     {

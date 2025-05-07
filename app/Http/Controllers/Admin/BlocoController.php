@@ -12,7 +12,7 @@ class BlocoController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['blocos'] = Bloco::with('condominio')->get();
+        $data['blocos'] = Bloco::all();
         return view('admin.bloco.index', $data);
     }
 
