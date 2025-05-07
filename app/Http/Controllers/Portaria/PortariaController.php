@@ -36,7 +36,7 @@ class PortariaController extends Controller
 
         $morador = Morador::where('bi', $bi)->first();
         if ($morador) {
-            return response()->json(['type' => 'morador', 'data' => $morador]);
+            return response()->json(['type' => 'morador', 'requireddata' => $morador]);
         }
 
         $funcionario = Funcionario::where('bi', $bi)->first();
@@ -88,7 +88,7 @@ class PortariaController extends Controller
             'email' => 'nullable|email|max:255',
             'telefone' => 'nullable|string|max:255',
             'motivo_visita' => 'required|string',
-            'unidade_id' => 'required|exists:unidades,id',
+            'unidade_id' => 'nullable|exists:unidades,id',
         ]);
 
         try {
