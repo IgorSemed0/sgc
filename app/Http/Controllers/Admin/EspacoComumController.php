@@ -26,7 +26,7 @@ class EspacoComumController extends Controller
     {
         try {
             $validated = $request->validate([
-                'condominio_id' => 'required|exists:condominios,id',
+                //'condominio_id' => 'required|exists:condominios,id',
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
                 'capacidade' => 'required|integer|min:1',
@@ -57,7 +57,7 @@ class EspacoComumController extends Controller
             $espacoComum = EspacoComum::findOrFail($id);
 
             $validated = $request->validate([
-                'condominio_id' => 'required|exists:condominios,id',
+                //'condominio_id' => 'required|exists:condominios,id',
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
                 'capacidade' => 'required|integer|min:1',

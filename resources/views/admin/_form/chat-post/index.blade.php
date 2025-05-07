@@ -1,16 +1,5 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="condominio_id">Condomínio</label>
-        <select class="form-control select2" id="condominio_id" name="condominio_id" required>
-            <option value="">Selecione um condomínio</option>
-            @foreach ($condominios as $condominio)
-                <option value="{{ $condominio->id }}" {{ old('condominio_id', $chatPost->condominio_id ?? '') == $condominio->id ? 'selected' : '' }}>
-                    {{ $condominio->nome }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="autor_id">Autor</label>
         <select class="form-control select2" id="autor_id" name="autor_id" required>
             <option value="">Selecione um usuário</option>

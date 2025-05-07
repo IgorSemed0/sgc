@@ -90,7 +90,7 @@ class PortariaController extends Controller
             'telefone' => 'nullable|string|max:255',
             'motivo_visita' => 'required|string',
             'unidade_id' => 'required|exists:unidades,id',
-            'condominio_id' => 'required|exists:condominios,id',
+            //'condominio_id' => 'required|exists:condominios,id',
         ]);
 
         try {

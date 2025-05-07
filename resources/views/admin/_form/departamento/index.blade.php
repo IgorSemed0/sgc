@@ -8,17 +8,6 @@
         <input type="text" class="form-control" id="descricao" name="descricao" value="{{ old('descricao', $departamento->descricao ?? '') }}">
     </div>
     <div class="col-md-6 mb-3">
-        <label for="condominio_id">Condomínio</label>
-        <select class="form-control select2" id="condominio_id" name="condominio_id" required>
-            <option value="">Selecione um condomínio</option>
-            @foreach ($condominios as $condominio)
-                <option value="{{ $condominio->id }}" {{ old('condominio_id', $departamento->condominio_id ?? '') == $condominio->id ? 'selected' : '' }}>
-                    {{ $condominio->nome }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="unidade_id">Unidade (Opcional)</label>
         <select class="form-control select2" id="unidade_id" name="unidade_id">
             <option value="">Selecione uma unidade</option>

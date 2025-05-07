@@ -26,7 +26,7 @@ class ContaController extends Controller
     {
         try {
             $validated = $request->validate([
-                'condominio_id' => 'required|exists:condominios,id',
+                //'condominio_id' => 'required|exists:condominios,id',
                 'nome' => 'required|string|max:255',
                 'tipo' => 'required|string|max:255',
                 'saldo' => 'required|numeric',
@@ -56,7 +56,7 @@ class ContaController extends Controller
             $conta = Conta::findOrFail($id);
 
             $validated = $request->validate([
-                'condominio_id' => 'required|exists:condominios,id',
+                //'condominio_id' => 'required|exists:condominios,id',
                 'nome' => 'required|string|max:255',
                 'tipo' => 'required|string|max:255',
                 'saldo' => 'required|numeric',
