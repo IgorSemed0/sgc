@@ -42,7 +42,7 @@
                 <li><a href="{{ route('admin.user.index') }}"><i class="fas fa-users-cog icon"></i> Usuários</a></li>
                 <li><a href="{{ route('admin.departamento.index') }}"><i class="fas fa-sitemap icon"></i> Departamentos</a></li>
                 <li><a href="{{ route('admin.funcionario.index') }}"><i class="fas fa-user-tie icon"></i> Funcionários</a></li>
-                <li><a href="{{ route('admin.morador.index') }}"><i class="fas fa-users icon"></i> Moradores</a></li>
+                <li><a href="{{ route('admin.morador.index') }}"><i class="fas fa-users icon"></i> Pessoas</a></li>
                 <li><a href="{{ route('admin.visitante.index') }}"><i class="fas fa-user-friends icon"></i> Visitantes</a></li>
                 <li><a href="{{ route('admin.acesso.index') }}"><i class="fas fa-door-open icon"></i> Acessos</a></li>
             </ul>
