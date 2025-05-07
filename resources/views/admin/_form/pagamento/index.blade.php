@@ -15,10 +15,6 @@
         <input type="date" class="form-control" id="data_pagamento" name="data_pagamento" value="{{ old('data_pagamento', $pagamento->data_pagamento ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="valor_pago">Valor Pago</label>
-        <input type="number" step="0.01" class="form-control" id="valor_pago" name="valor_pago" value="{{ old('valor_pago', $pagamento->valor_pago ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="metodo_pagamento">Método Pagamento</label>
         <select class="form-control select2" id="metodo_pagamento" name="metodo_pagamento" required>
             <option value="">Selecione um método de pagamento</option>

@@ -28,11 +28,12 @@ class PagamentoController extends Controller
             $validated = $request->validate([
                 'factura_id' => 'required|exists:facturas,id',
                 'data_pagamento' => 'required|date',
-                'valor_pago' => 'required|numeric|min:0',
                 'metodo_pagamento' => 'required|string|max:255',
             ]);
-    
-            Pagamento::create($validated);
+
+            $validated['valor_pago'] = $validated['factura_id']->valor_total; // Assuming valor_pago is the total amount of the factura,
+
+                Pagamento::create($validated);
             $conta = Conta::find(1);
             $conta->saldo += $validated['valor_pago'];
             $conta->save();
