@@ -3,7 +3,6 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use App\Models\Condominio;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -31,7 +30,6 @@ class CreateNewUser implements CreatesNewUsers
             'bi' => ['required', 'string', 'max:14'],
             'telefone' => ['nullable', 'string', 'max:9'],
             'tipo_usuario' => ['required', 'string'],
-            'condominio_id' => ['integer', Rule::exists('condominios', 'id')],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ],
         [
@@ -49,7 +47,6 @@ class CreateNewUser implements CreatesNewUsers
             'bi' => $input['bi'],
             'telefone' => $input['telefone'] ?? null,
             'tipo_usuario' => $input['tipo_usuario'],
-            'condominio_id' => $input['condominio_id'],
         ]);
     }
 }
