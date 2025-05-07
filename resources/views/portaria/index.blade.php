@@ -96,15 +96,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="condominio_id">Condomínio</label>
-                                <select class="form-control select2" id="condominio_id" name="condominio_id" required>
-                                    <option value="">Selecione um condomínio</option>
-                                    @foreach ($condominios as $condominio)
-                                        <option value="{{ $condominio->id }}">{{ $condominio->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Registrar Visitante</button>
                     </form>
