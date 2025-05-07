@@ -1,7 +1,7 @@
 @extends('admin.layouts.body')
 @section('title', 'Listar Espaços Comuns')
 @section('conteudo')
-<h1 class="h3">Tabela de Espaços Comuns</h1>
+<h1 class="h3">Tabela de Outros Espaços</h1>
 <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#espacoComumModal">Novo Espaço Comum</button>
     <a href="{{ route('admin.espaco-comum.trash') }}" class="btn btn-secondary">

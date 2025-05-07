@@ -24,7 +24,7 @@
                 <li><a href="{{ route('admin.bloco.index') }}"><i class="fas fa-th-large icon"></i> Blocos</a></li>
                 <li><a href="{{ route('admin.edificio.index') }}"><i class="fas fa-building icon"></i> Edifícios</a></li>
                 <li><a href="{{ route('admin.unidade.index') }}"><i class="fas fa-home icon"></i> Unidades</a></li>
-                <li><a href="{{ route('admin.espaco-comum.index') }}"><i class="fas fa-vector-square icon"></i> Espaços Comuns</a></li>
+                <li><a href="{{ route('admin.espaco-comum.index') }}"><i class="fas fa-vector-square icon"></i> Outros Espaços</a></li>
                 <li><a href="{{ route('admin.espaco-reserva.index') }}"><i class="fas fa-calendar-check icon"></i> Reservas de Espaços</a></li>
             </ul>
         </li>
