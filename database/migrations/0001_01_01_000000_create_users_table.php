@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('bi');
-            $table->string('telefone')->nullable();
+            $table->string('bi')->unique();
+            $table->string('telefone')->nullable()->unique();
             $table->string('tipo_usuario')->default('admin');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

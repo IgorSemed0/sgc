@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('bairro')->nullable();
             $table->string('cidade');
             $table->string('estado');
-            $table->string('telefone')->nullable();
-            $table->string('email')->nullable();
+            $table->string('telefone')->nullable()->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -13,12 +13,12 @@ return new class extends Migration
             $table->string('primeiro_nome');
             $table->string('nomes_meio')->nullable();
             $table->string('ultimo_nome');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('tipo');
             $table->boolean('estado_residente')->default(false);
-            $table->string('telefone');
-            $table->string('bi')->nullable();
-            $table->string('cedula')->nullable();
+            $table->string('telefone')->unique();
+            $table->string('bi')->nullable()->unique();
+            $table->string('cedula')->nullable()->unique();
             $table->date('data_nascimento');
             $table->string('sexo');
             $table->unsignedBigInteger('unidade_id');
