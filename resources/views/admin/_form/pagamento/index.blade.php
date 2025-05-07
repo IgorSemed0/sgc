@@ -20,7 +20,15 @@
     </div>
     <div class="col-md-6 mb-3">
         <label for="metodo_pagamento">Método Pagamento</label>
-        <input type="text" class="form-control" id="metodo_pagamento" name="metodo_pagamento" value="{{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') }}" required>
+        <select class="form-control select2" id="metodo_pagamento" name="metodo_pagamento" required>
+            <option value="">Selecione um método de pagamento</option>
+            <option value="dinheiro" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'dinheiro' ? 'selected' : '' }}>Dinheiro</option>
+            <option value="transferencia_bancaria" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'transferencia_bancaria' ? 'selected' : '' }}>Transferência Bancária</option>
+            <option value="cartao_credito" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'cartao_credito' ? 'selected' : '' }}>Cartão de Crédito</option>
+            <option value="multicaixa" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'multicaixa' ? 'selected' : '' }}>Multicaixa</option>
+            <option value="paypal" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'transferencia-express' ? 'selected' : '' }}>Transferência Express</option>
+            <option value="outro" {{ old('metodo_pagamento', $pagamento->metodo_pagamento ?? '') == 'outro' ? 'selected' : '' }}>Outro</option>
+        </select>
     </div>
 </div>
 
