@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="tipo">Tipo</label>
+        <label for="tipo">Tipo*</label>
         <select class="form-control select2" id="tipo" name="tipo" required>
             <option value="">Selecione o tipo</option>
             <option value="Apartamento" {{ old('tipo', $unidade->tipo ?? '') == 'Apartamento' ? 'selected' : '' }}>Apartamento</option>
@@ -21,12 +21,12 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="numero">Número</label>
+        <label for="numero">Número*</label>
         <input type="text" class="form-control" id="numero" name="numero" value="{{ old('numero', $unidade->numero ?? '') }}" required>
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="bloco_id">Bloco Sigla</label>
+        <label for="bloco_id">Bloco Sigla*</label>
         <select class="form-control select2" id="bloco_id" name="bloco_id" required>
             <option value="">Selecione um bloco</option>
             @foreach ($blocos as $bloco)
@@ -39,7 +39,7 @@
 
     <div class="col-md-6 mb-3">
         <label for="edificio_id">Edifício Sigla</label>
-        <select class="form-control select2" id="edificio_id" name="edificio_id" required>
+        <select class="form-control select2" id="edificio_id" name="edificio_id" >
             <option value="">Selecione um edifício</option>
             @foreach ($edificios as $edificio)
                 <option value="{{ $edificio->id }}" {{ old('edificio_id', $unidade->edificio_id ?? '') == $edificio->id ? 'selected' : '' }}>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="area_m2">Área (m²)</label>
+        <label for="area_m2">Área (m²)*</label>
         <input type="number" step="0.01" class="form-control" id="area_m2" name="area_m2" value="{{ old('area_m2', $unidade->area_m2 ?? '') }}" required>
     </div>
 
@@ -60,7 +60,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="status">Status</label>
+        <label for="status">Status*</label>
         <select class="form-control select2" id="status" name="status" required>
             <option value="">Selecione o status</option>
             <option value="alugada" {{ old('status', $unidade->status ?? '') == 'alugada' ? 'selected' : '' }}>Alugada</option>

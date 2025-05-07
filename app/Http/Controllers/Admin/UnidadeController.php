@@ -32,7 +32,7 @@ class UnidadeController extends Controller
                 'tipo' => 'required|string|max:255',
                 'numero' => 'required|string|max:255',
                 'bloco_id' => 'required|exists:blocos,id',
-                'edificio_id' => 'required|exists:edificios,id',
+                'edificio_id' => 'nullable|exists:edificios,id',
                 'area_m2' => 'required|numeric',
                 'andar' => 'nullable|integer',
                 'status' => 'required|string|max:255',

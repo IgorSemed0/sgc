@@ -12,7 +12,7 @@ return new class extends Migration
             $table->string('tipo');
             $table->string('numero');
             $table->foreignId('bloco_id')->constrained('blocos')->onDelete('cascade')->nullable(); 
-            $table->foreignId('edificio_id')->references('id')->on('edificios')->onDelete('cascade'); 
+            $table->foreignId('edificio_id')->references('id')->on('edificios')->onDelete('cascade')->nullable(); 
             $table->decimal('area_m2');
             $table->integer('andar')->nullable();
             $table->string('status')->nullable();
