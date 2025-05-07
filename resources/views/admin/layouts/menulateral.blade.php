@@ -20,7 +20,7 @@
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
             <ul class="side-dropdown">
-                <li><a href="{{ route('admin.condominio.index') }}"><i class="fas fa-building icon"></i> Condomínio</a></li>
+                <!-- <li><a href="{{ route('admin.condominio.index') }}"><i class="fas fa-building icon"></i> Condomínio</a></li> -->
                 <li><a href="{{ route('admin.bloco.index') }}"><i class="fas fa-th-large icon"></i> Blocos</a></li>
                 <li><a href="{{ route('admin.edificio.index') }}"><i class="fas fa-building icon"></i> Edifícios</a></li>
                 <li><a href="{{ route('admin.unidade.index') }}"><i class="fas fa-home icon"></i> Unidades</a></li>
