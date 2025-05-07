@@ -1,4 +1,4 @@
-extends('admin.layouts.body')
+@extends('admin.layouts.body')
 @section('title', 'Listar Blocos')
 @section('conteudo')
 <h1 class="h3">Tabela de Blocos</h1>
