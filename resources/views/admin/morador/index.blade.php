@@ -1,7 +1,7 @@
 @extends('admin.layouts.body')
 @section('title', 'Listar Moradores')
 @section('conteudo')
-<h1 class="h3">Tabela de Moradores</h1>
+<h1 class="h3">Tabela de Pessoas</h1>
 <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#moradorModal">Novo Morador</button>
     <a href="{{ route('admin.morador.trash') }}" class="btn btn-secondary">
