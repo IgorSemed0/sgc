@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Sigla</th>
                 <th>Descrição</th>
                 <th>Bloco</th>
                 <th>Ações</th>
