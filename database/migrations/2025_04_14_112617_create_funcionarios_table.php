@@ -23,7 +23,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
-            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 

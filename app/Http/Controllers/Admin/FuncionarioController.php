@@ -39,7 +39,6 @@ class FuncionarioController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'cargo' => 'required|string|max:255',
                 'departamento_id' => 'required|exists:departamentos,id',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             Funcionario::create($validated);
@@ -77,7 +76,6 @@ class FuncionarioController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'cargo' => 'required|string|max:255',
                 'departamento_id' => 'required|exists:departamentos,id',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             $funcionario->update($validated);

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 

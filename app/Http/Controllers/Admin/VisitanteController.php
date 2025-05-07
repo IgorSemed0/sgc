@@ -37,7 +37,6 @@ class VisitanteController extends Controller
                 'telefone' => 'required|string|max:20',
                 'motivo_visita' => 'required|string|max:255',
                 'unidade_id' => 'required|exists:unidades,id',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             Visitante::create($validated);
@@ -73,7 +72,6 @@ class VisitanteController extends Controller
                 'telefone' => 'required|string|max:20',
                 'motivo_visita' => 'required|string|max:255',
                 'unidade_id' => 'required|exists:unidades,id',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             $visitante->update($validated);

@@ -36,7 +36,6 @@ class UserController extends Controller
                 'bi' => 'required|string|max:255|unique:users',
                 'telefone' => 'nullable|string|max:255',
                 'tipo_usuario' => 'required|in:admin,morador,funcionario',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             // // Define prefixes for processo based on tipo_usuario
@@ -88,7 +87,6 @@ class UserController extends Controller
                 'bi' => 'required|string|max:255|unique:users,bi,' . $id,
                 'telefone' => 'nullable|string|max:255',
                 'tipo_usuario' => 'required|in:admin,morador,funcionario',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             // // Regenerate processo if tipo_usuario changes

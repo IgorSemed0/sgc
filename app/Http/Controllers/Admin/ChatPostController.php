@@ -31,7 +31,6 @@ class ChatPostController extends Controller
     {
         try {
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'autor_id' => 'required|exists:users,id',
                 'tipo_autor' => 'required|string|max:255',
                 'titulo' => 'required|string|max:255',
@@ -64,7 +63,6 @@ class ChatPostController extends Controller
             $chatPost = ChatPost::findOrFail($id);
 
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'autor_id' => 'required|exists:users,id',
                 'tipo_autor' => 'required|string|max:255',
                 'titulo' => 'required|string|max:255',

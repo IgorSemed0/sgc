@@ -26,7 +26,6 @@ class VotacaoController extends Controller
     {
         try {
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'titulo' => 'required|string|max:255',
                 'descricao' => 'required|string',
                 'data_inicio' => 'required|date',
@@ -59,7 +58,6 @@ class VotacaoController extends Controller
             $votacao = Votacao::findOrFail($id);
 
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'titulo' => 'required|string|max:255',
                 'descricao' => 'required|string',
                 'data_inicio' => 'required|date',

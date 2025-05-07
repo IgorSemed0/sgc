@@ -31,12 +31,10 @@ class CreateNewUser implements CreatesNewUsers
             'bi' => ['required', 'string', 'max:14'],
             'telefone' => ['nullable', 'string', 'max:9'],
             'tipo_usuario' => ['required', 'string'],
-            // 'condominio_id' => ['integer', Rule::exists('condominios', 'id')],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ],
         [
             'password.required' => 'A senha é obrigatória.',
-            'condominio_id.exists' => 'O condomínio selecionado é inválido.',
         ])->validate();
 
         return User::create([
@@ -49,7 +47,6 @@ class CreateNewUser implements CreatesNewUsers
             'bi' => $input['bi'],
             'telefone' => $input['telefone'] ?? null,
             'tipo_usuario' => $input['tipo_usuario'],
-            // 'condominio_id' => $input['condominio_id'],
         ]);
     }
 }

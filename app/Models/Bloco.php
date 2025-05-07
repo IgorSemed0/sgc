@@ -13,7 +13,6 @@ class Bloco extends Model
     protected $fillable = [
         'nome', 
         'descricao', 
-        'condominio_id'
     ];
     
     // public function condominio()

@@ -19,7 +19,6 @@ class Visitante extends Model
         'telefone', 
         'motivo_visita', 
         'unidade_id', 
-        'condominio_id'
     ];
 
     public function unidade()

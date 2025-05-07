@@ -26,7 +26,6 @@ class RupeController extends Controller
     {
         try {
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'descricao' => 'required|string|max:255',
                 'valor' => 'required|numeric|min:0',
                 'data_receita' => 'required|date',
@@ -56,7 +55,6 @@ class RupeController extends Controller
             $rupe = Rupe::findOrFail($id);
 
             $validated = $request->validate([
-                //'condominio_id' => 'required|exists:condominios,id',
                 'descricao' => 'required|string|max:255',
                 'valor' => 'required|numeric|min:0',
                 'data_receita' => 'required|date',

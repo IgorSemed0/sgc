@@ -28,7 +28,6 @@ class BlocoController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string|max:255',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             Bloco::create($validated);
@@ -57,7 +56,6 @@ class BlocoController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string|max:255',
-                //'condominio_id' => 'required|exists:condominios,id',
             ]);
 
             $bloco->update($validated);

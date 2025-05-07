@@ -21,7 +21,6 @@ class Funcionario extends Model
         'sexo', 
         'cargo', 
         'departamento_id', 
-        'condominio_id'
     ];
 
     public function departamento()

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('unidade_id')->constrained('unidades')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('condominio_id')->references('id')->on('condominios')->onDelete('cascade');
         });
     }
 
