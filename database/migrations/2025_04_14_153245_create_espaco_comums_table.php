@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->text('descricao')->nullable();
-            $table->integer('capacidade');
             $table->text('regras')->nullable();
             $table->timestamps();
             $table->softDeletes();

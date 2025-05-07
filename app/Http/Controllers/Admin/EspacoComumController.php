@@ -28,7 +28,6 @@ class EspacoComumController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
-                'capacidade' => 'required|integer|min:1',
                 'regras' => 'nullable|string',
             ]);
 
@@ -58,7 +57,6 @@ class EspacoComumController extends Controller
             $validated = $request->validate([
                 'nome' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
-                'capacidade' => 'required|integer|min:1',
                 'regras' => 'nullable|string',
             ]);
 

@@ -14,7 +14,6 @@ class EspacoComum extends Model
          
         'nome', 
         'descricao', 
-        'capacidade', 
         'regras'
     ];
 

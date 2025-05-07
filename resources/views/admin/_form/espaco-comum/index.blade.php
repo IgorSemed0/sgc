@@ -8,10 +8,6 @@
         <textarea class="form-control" id="descricao" name="descricao">{{ old('descricao', $espacoComum->descricao ?? '') }}</textarea>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="capacidade">Capacidade</label>
-        <input type="number" class="form-control" id="capacidade" name="capacidade" value="{{ old('capacidade', $espacoComum->capacidade ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="regras">Regras</label>
         <textarea class="form-control" id="regras" name="regras">{{ old('regras', $espacoComum->regras ?? '') }}</textarea>
     </div>
