@@ -11,18 +11,20 @@ class Morador extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'primeiro_nome', 
-        'nomes_meio', 
-        'ultimo_nome', 
-        'email', 
-        'username', 
-        'telefone', 
-        'bi', 
-        'data_nascimento', 
-        'sexo', 
-        'unidade_id', 
+        'primeiro_nome',
+        'nomes_meio',
+        'ultimo_nome',
+        'email',
+        'username',
+        'telefone',
+        'bi',
+        'cedula',
+        'data_nascimento',
+        'sexo',
+        'unidade_id',
         'tipo',
-        'processo',
+        'estado_residente',
+        'dependente_de',
     ];
 
     public function chatComentario()
@@ -38,5 +40,10 @@ class Morador extends Model
     public function acesso()
     {
         return $this->hasMany(Acesso::class, 'entidade_id')->where('tipo_pessoa', 'morador');
+    }
+
+    public function inquilino()
+    {
+        return $this->belongsTo(Morador::class, 'dependente_de');
     }
 }
