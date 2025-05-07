@@ -22,7 +22,6 @@ class Morador extends Model
         'sexo', 
         'unidade_id', 
         'tipo',
-        'rf_id',
         'processo',
     ];
 

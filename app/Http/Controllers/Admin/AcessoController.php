@@ -35,7 +35,6 @@ class AcessoController extends Controller
                 'entidade_id' => 'required|integer',
                 'tipo_pessoa' => 'required|string|in:Visitante,Morador,Funcionario',
                 'tipo' => 'required|string|in:Entrada,Saída',
-                'rf_id' => 'nullable|string|max:255',
                 'observacao' => 'nullable|string|max:255',
             ]);
 
@@ -70,7 +69,6 @@ class AcessoController extends Controller
                 'entidade_id' => 'required|integer',
                 'tipo_pessoa' => 'required|string|in:Visitante,Morador,Funcionario',
                 'tipo' => 'required|string|in:Entrada,Saída',
-                'rf_id' => 'nullable|string|max:255',
                 'observacao' => 'nullable|string|max:255',
             ]);
 

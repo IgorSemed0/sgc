@@ -37,7 +37,6 @@ class MoradorController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required|exists:unidades,id',
                 'tipo' => 'required|string|max:255',
-                'rf_id' => 'required|string|max:255',
                 'processo' => 'required|string|max:255',
             ]);
 
@@ -76,7 +75,6 @@ class MoradorController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required|exists:unidades,id',
                 'tipo' => 'required|string|max:255',
-                'rf_id' => 'required|string|max:255',
                 'processo' => 'required|string|max:255',
             ]);
 

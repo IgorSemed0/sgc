@@ -70,7 +70,6 @@ class PortariaController extends Controller
                 'tipo' => $validated['tipo'],
                 'data_hora' => $validated['data_hora'],
                 'observacao' => $validated['observacao'],
-                'rf_id' => null,
             ]);
 
             return redirect()->route('portaria.index')->with('success', 'Acesso registrado com sucesso.');
@@ -101,7 +100,6 @@ class PortariaController extends Controller
                 'tipo' => 'Entrada',
                 'data_hora' => now(),
                 'observacao' => 'Novo visitante registrado.',
-                'rf_id' => null,
             ]);
 
             return redirect()->route('portaria.index')->with('success', 'Visitante registrado e acesso de entrada criado.');

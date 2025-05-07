@@ -15,7 +15,6 @@
             <th>Tipo Pessoa</th>
             <th>Data e Hora</th>
             <th>Tipo</th>
-            <th>RF ID</th>
             <th>Observação</th>
             <th>Ações</th>
         </tr>
@@ -28,7 +27,6 @@
             <td>{{ $acesso->tipo_pessoa }}</td>
             <td>{{ $acesso->data_hora }}</td>
             <td>{{ $acesso->tipo }}</td>
-            <td>{{ $acesso->rf_id }}</td>
             <td>{{ $acesso->observacao }}</td>
             <td>
                 <form id="restore-form-{{ $acesso->id }}" action="{{ route('admin.acesso.restore', $acesso->id) }}" method="POST" style="display: none;">

@@ -45,10 +45,6 @@
         <input type="text" class="form-control" id="tipo" name="tipo" value="{{ old('tipo', $morador->tipo ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="rf_id">RF ID</label>
-        <input type="text" class="form-control" id="rf_id" name="rf_id" value="{{ old('rf_id', $morador->rf_id ?? '') }}" required>
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="processo">Processo</label>
         <input type="text" class="form-control" id="processo" name="processo" value="{{ old('processo', $morador->processo ?? '') }}" required>
     </div>

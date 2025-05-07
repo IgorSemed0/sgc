@@ -42,10 +42,6 @@
         </select>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="rf_id">RF ID</label>
-        <input type="text" class="form-control" id="rf_id" name="rf_id" value="{{ old('rf_id', $acesso->rf_id ?? '') }}">
-    </div>
-    <div class="col-md-6 mb-3">
         <label for="observacao">Observação</label>
         <textarea class="form-control" id="observacao" name="observacao">{{ old('observacao', $acesso->observacao ?? '') }}</textarea>
     </div>

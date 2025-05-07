@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('username')->nullable();
             $table->string('processo');
             $table->string('tipo');
-            $table->string('rf_id');
             $table->string('telefone');
             $table->string('bi');
             $table->date('data_nascimento');

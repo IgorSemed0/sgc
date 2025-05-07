@@ -15,7 +15,6 @@ class Acesso extends Model
         'tipo_pessoa', 
         'data_hora', 
         'tipo',
-        'rf_id',  
         'observacao',
     ];
 

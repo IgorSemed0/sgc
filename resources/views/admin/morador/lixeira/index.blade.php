@@ -18,7 +18,6 @@
             <th>Data de Nascimento</th>
             <th>Sexo</th>
             <th>Tipo</th>
-            <th>RF ID</th>
             <th>Processo</th>
             <th>Unidade</th>
             <th>Ações</th>
@@ -35,7 +34,6 @@
             <td>{{ $morador->data_nascimento }}</td>
             <td>{{ $morador->sexo }}</td>
             <td>{{ $morador->tipo }}</td>
-            <td>{{ $morador->rf_id }}</td>
             <td>{{ $morador->processo }}</td>
             <td>{{ $morador->unidade->tipo }} - {{ $morador->unidade->numero }}</td>
             <td>
