@@ -376,5 +376,12 @@ Route::middleware([
 
     Route::prefix('pdf')->middleware(['auth', 'admin'])->group(function () {
         Route::get('index', ['as' => 'pdf.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@index']);
+        Route::get('morador', ['as' => 'pdf.morador.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@morador']);
+        Route::get('unidade', ['as' => 'pdf.unidade.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@unidade']);
+        Route::get('acesso', ['as' => 'pdf.acesso.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@acesso']);
+        Route::get('despesa', ['as' => 'pdf.despesa.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@despesa']);
+        Route::get('inadimplencia', ['as' => 'pdf.inadimplencia.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@inadimplencia']);
+        Route::get('pagamento', ['as' => 'pdf.pagamento.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@pagamento']);
+        Route::get('visitante', ['as' => 'pdf.visitante.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@visitante']);
     });
 });

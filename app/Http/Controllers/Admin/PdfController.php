@@ -30,7 +30,7 @@ class PdfController extends Controller
         $moradores = Morador::with('unidade')->get();
         $moradoresPorTipo = $moradores->groupBy('tipo');
         $totalMoradores = $moradores->count();
-        $html = View::make('admin.pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores'))->render();
+        $html = View::make('pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_moradores.pdf', 'D');
@@ -40,7 +40,7 @@ class PdfController extends Controller
     {
         $blocos = Bloco::with('unidade')->get();
         $totalUnidades = Unidade::count();
-        $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades'))->render();
+        $html = View::make('pdf.unidade.index', compact('blocos', 'totalUnidades'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_unidades.pdf', 'D');
@@ -50,7 +50,7 @@ class PdfController extends Controller
     {
         $acessos = Acesso::with('pessoa')->get();
         $totalAcessos = $acessos->count();
-        $html = View::make('admin.pdf.acesso.index', compact('acessos', 'totalAcessos'))->render();
+        $html = View::make('pdf.acesso.index', compact('acessos', 'totalAcessos'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_acessos.pdf', 'D');
@@ -60,7 +60,7 @@ class PdfController extends Controller
     {
         $despesas = Despesa::all();
         $totalDespesas = $despesas->sum('valor');
-        $html = View::make('admin.pdf.despesa.index', compact('despesas', 'totalDespesas'))->render();
+        $html = View::make('pdf.despesa.index', compact('despesas', 'totalDespesas'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_despesas.pdf', 'D');
@@ -70,7 +70,7 @@ class PdfController extends Controller
     {
         $facturas = Factura::where('status', 'Pendente')->with('unidade')->get();
         $totalInadimplencia = $facturas->sum('valor_total');
-        $html = View::make('admin.pdf.inadimplencia.index', compact('facturas', 'totalInadimplencia'))->render();
+        $html = View::make('pdf.inadimplencia.index', compact('facturas', 'totalInadimplencia'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_inadimplencia.pdf', 'D');
@@ -80,7 +80,7 @@ class PdfController extends Controller
     {
         $pagamentos = Pagamento::with('factura')->get();
         $totalPagamentos = $pagamentos->sum('valor_pago');
-        $html = View::make('admin.pdf.pagamento.index', compact('pagamentos', 'totalPagamentos'))->render();
+        $html = View::make('pdf.pagamento.index', compact('pagamentos', 'totalPagamentos'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_pagamentos.pdf', 'D');
@@ -90,7 +90,7 @@ class PdfController extends Controller
     {
         $visitantes = Visitante::with('unidade')->get();
         $totalVisitantes = $visitantes->count();
-        $html = View::make('admin.pdf.visitante.index', compact('visitantes', 'totalVisitantes'))->render();
+        $html = View::make('pdf.visitante.index', compact('visitantes', 'totalVisitantes'))->render();
         $mpdf = new Mpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_visitantes.pdf', 'D');
