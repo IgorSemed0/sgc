@@ -34,7 +34,6 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
-        'processo',
         'bi',
         'telefone',
         'tipo_usuario',

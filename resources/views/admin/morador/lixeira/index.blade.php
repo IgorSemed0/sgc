@@ -18,7 +18,6 @@
             <th>Data de Nascimento</th>
             <th>Sexo</th>
             <th>Tipo</th>
-            <th>Processo</th>
             <th>Unidade</th>
             <th>Ações</th>
         </tr>
@@ -34,7 +33,6 @@
             <td>{{ $morador->data_nascimento }}</td>
             <td>{{ $morador->sexo }}</td>
             <td>{{ $morador->tipo }}</td>
-            <td>{{ $morador->processo }}</td>
             <td>{{ $morador->unidade->tipo }} - {{ $morador->unidade->numero }}</td>
             <td>
                 <form id="restore-form-{{ $morador->id }}" action="{{ route('admin.morador.restore', $morador->id) }}" method="POST" style="display: none;">
