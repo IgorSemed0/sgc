@@ -10,7 +10,6 @@ class Votacao extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-         
         'titulo', 
         'descricao', 
         'data_inicio', 
