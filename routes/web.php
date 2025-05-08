@@ -384,5 +384,6 @@ Route::middleware([
         Route::get('pagamento', ['as' => 'pdf.pagamento.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@pagamento']);
         Route::get('visitante', ['as' => 'pdf.visitante.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@visitante']);
         Route::get('funcionario', ['as' => 'pdf.funcionario', 'uses' => 'App\Http\Controllers\Admin\PdfController@funcionario']);
+        Route::get('bloco', ['as' => 'pdf.bloco', 'uses' => 'App\Http\Controllers\Admin\PdfController@bloco']);
     });
 });
