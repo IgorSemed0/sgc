@@ -80,6 +80,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Blocos</h5>
+                                <p class="card-text">Informações sobre os blocos e suas unidades</p>
+                                <a href="{{ route('pdf.bloco') }}" target="_blank" class="btn btn-primary btn-block">Gerar Relatório</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
