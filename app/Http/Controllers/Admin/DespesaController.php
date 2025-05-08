@@ -13,7 +13,7 @@ class DespesaController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['despesas'] = Despesa::with(['condominio'])->get();
+        $data['despesas'] = Despesa::all();
         return view('admin.despesa.index', $data);
     }
 
