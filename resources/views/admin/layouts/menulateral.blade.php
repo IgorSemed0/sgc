@@ -105,8 +105,7 @@
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
             <ul class="side-dropdown">
-                <li><a href="#"><i class="fas fa-home icon"></i> Ocupação de Unidades</a></li>
-                <li><a href="#"><i class="fas fa-door-open icon"></i> Controle de Acesso</a></li>
+                <li><a href="{{ route('pdf.index') }}"><i class="fas fa-home icon"></i> Relatórios</a></li>
             </ul>
         </li>
         
