@@ -25,15 +25,34 @@ class PdfController extends Controller
         return view('admin.pdf.index');
     }
 
+    /**
+     * Configure MPdf to open PDF in browser
+     */
+    private function configureMpdf()
+    {
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_left' => 15,
+            'margin_right' => 15,
+            'margin_top' => 16,
+            'margin_bottom' => 16,
+            'margin_header' => 9,
+            'margin_footer' => 9,
+        ]);
+        $mpdf->SetTitle('Sistema de Gestão de Condomínios');
+        return $mpdf;
+    }
+
     public function morador()
     {
         $moradores = Morador::with('unidade')->get();
         $moradoresPorTipo = $moradores->groupBy('tipo');
         $totalMoradores = $moradores->count();
         $html = View::make('admin.pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_moradores.pdf', 'D');
+        return $mpdf->Output('relatorio_moradores.pdf', 'I');
     }
 
     public function unidade()
@@ -41,9 +60,9 @@ class PdfController extends Controller
         $blocos = Bloco::with('unidade')->get();
         $totalUnidades = Unidade::count();
         $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_unidades.pdf', 'D');
+        return $mpdf->Output('relatorio_unidades.pdf', 'I');
     }
 
     public function acesso()
@@ -51,9 +70,9 @@ class PdfController extends Controller
         $acessos = Acesso::with('pessoa')->get();
         $totalAcessos = $acessos->count();
         $html = View::make('admin.pdf.acesso.index', compact('acessos', 'totalAcessos'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_acessos.pdf', 'D');
+        return $mpdf->Output('relatorio_acessos.pdf', 'I');
     }
 
     public function despesa()
@@ -61,9 +80,9 @@ class PdfController extends Controller
         $despesas = Despesa::all();
         $totalDespesas = $despesas->sum('valor');
         $html = View::make('admin.pdf.despesa.index', compact('despesas', 'totalDespesas'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_despesas.pdf', 'D');
+        return $mpdf->Output('relatorio_despesas.pdf', 'I');
     }
 
     public function inadimplencia()
@@ -71,9 +90,9 @@ class PdfController extends Controller
         $facturas = Factura::where('status', 'Pendente')->with('unidade')->get();
         $totalInadimplencia = $facturas->sum('valor_total');
         $html = View::make('admin.pdf.inadimplencia.index', compact('facturas', 'totalInadimplencia'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_inadimplencia.pdf', 'D');
+        return $mpdf->Output('relatorio_inadimplencia.pdf', 'I');
     }
 
     public function pagamento()
@@ -81,9 +100,9 @@ class PdfController extends Controller
         $pagamentos = Pagamento::with('factura')->get();
         $totalPagamentos = $pagamentos->sum('valor_pago');
         $html = View::make('admin.pdf.pagamento.index', compact('pagamentos', 'totalPagamentos'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_pagamentos.pdf', 'D');
+        return $mpdf->Output('relatorio_pagamentos.pdf', 'I');
     }
 
     public function visitante()
@@ -91,9 +110,9 @@ class PdfController extends Controller
         $visitantes = Visitante::with('unidade')->get();
         $totalVisitantes = $visitantes->count();
         $html = View::make('admin.pdf.visitante.index', compact('visitantes', 'totalVisitantes'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_visitantes.pdf', 'D');
+        return $mpdf->Output('relatorio_visitantes.pdf', 'I');
     }
 
     public function funcionario()
@@ -102,8 +121,8 @@ class PdfController extends Controller
         $funcionariosPorTipo = $funcionarios->groupBy('tipo');
         $totalFuncionarios = $funcionarios->count();
         $html = View::make('admin.pdf.funcionario.index', compact('funcionariosPorTipo', 'totalFuncionarios'))->render();
-        $mpdf = new Mpdf();
+        $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_funcionarios.pdf', 'D');
+        return $mpdf->Output('relatorio_funcionarios.pdf', 'I');
     }
 }
