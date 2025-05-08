@@ -125,4 +125,20 @@ class PdfController extends Controller
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_funcionarios.pdf', 'I');
     }
+
+    public function bloco()
+    {
+        $blocos = Bloco::with(['unidade' => function ($query) {
+            $query->orderBy('tipo');
+        }])->get();
+        $totalBlocos = $blocos->count();
+        $totalUnidades = Unidade::count();
+        $blocos->each(function ($bloco) {
+            $bloco->unidadesPorTipo = $bloco->unidade->groupBy('tipo');
+        });
+        $html = View::make('admin.pdf.bloco.index', compact('blocos', 'totalBlocos', 'totalUnidades'))->render();
+        $mpdf = $this->configureMpdf();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('relatorio_blocos.pdf', 'I');
+    }
 }
