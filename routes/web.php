@@ -375,23 +375,6 @@ Route::middleware([
     });
 
     Route::prefix('pdf')->middleware(['auth', 'admin'])->group(function () {
-        // Unidade Occupancy Report
-        Route::post('unidade_occupancy', ['as' => 'pdf.unidade_occupancy', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_unidade_occupancy']);
-    
-        // Access Control Report
-        Route::get('access_control/selecionar', ['as' => 'pdf.access_control.selecionar', 'uses' => 'App\Http\Controllers\Admin\PdfController@selecionarRelatorioAccessControl']);
-        Route::post('access_control', ['as' => 'pdf.access_control', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_access_control']);
-    
-        // Visitor Frequency Report
-        Route::get('visitor_frequency/selecionar', ['as' => 'pdf.visitor_frequency.selecionar', 'uses' => 'App\Http\Controllers\Admin\PdfController@selecionarRelatorioVisitorFrequency']);
-        Route::post('visitor_frequency', ['as' => 'pdf.visitor_frequency', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_visitor_frequency']);
-    
-        // Morador Demographics Report
-        Route::get('morador_demographics/selecionar', ['as' => 'pdf.morador_demographics.selecionar', 'uses' => 'App\Http\Controllers\Admin\PdfController@selecionarRelatorioMoradorDemographics']);
-        Route::post('morador_demographics', ['as' => 'pdf.morador_demographics', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_morador_demographics']);
-    
-        // Funcionario Activity Report
-        Route::get('funcionario_activity/selecionar', ['as' => 'pdf.funcionario_activity.selecionar', 'uses' => 'App\Http\Controllers\Admin\PdfController@selecionarRelatorioFuncionarioActivity']);
-        Route::post('funcionario_activity', ['as' => 'pdf.funcionario_activity', 'uses' => 'App\Http\Controllers\Admin\PdfController@pdf_funcionario_activity']);
+        Route::get('index', ['as' => 'pdf.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@index']);
     });
 });

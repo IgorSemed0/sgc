@@ -1,4 +1,3 @@
-```php
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -102,4 +101,3 @@
     <p class="footer">Gerado automaticamente - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>
-```

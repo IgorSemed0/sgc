@@ -19,4 +19,8 @@ use Illuminate\Support\Facades\View;
 class PdfController extends Controller
 {
 
+    public function index()
+    {
+        return view('admin.pdf.index');
+    }
 }
