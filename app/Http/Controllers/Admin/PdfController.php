@@ -95,4 +95,15 @@ class PdfController extends Controller
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_visitantes.pdf', 'D');
     }
+
+    public function funcionario()
+    {
+        $funcionarios = Funcionario::with('departamento')->get();
+        $funcionariosPorTipo = $funcionarios->groupBy('tipo');
+        $totalFuncionarios = $funcionarios->count();
+        $html = View::make('admin.pdf.funcionario.index', compact('funcionariosPorTipo', 'totalFuncionarios'))->render();
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('relatorio_funcionarios.pdf', 'D');
+    }
 }

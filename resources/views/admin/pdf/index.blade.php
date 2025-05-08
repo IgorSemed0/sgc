@@ -24,5 +24,8 @@
         <div class="col-md-4">
             <a href="{{ route('pdf.visitante.index') }}" target="_blank" class="btn btn-primary btn-block">Relatório de Visitantes</a>
         </div>
+        <div class="col-md-4">
+            <a href="{{ route('pdf.funcionario') }}" target="_blank" class="btn btn-primary btn-block">Relatório de Funcionários</a>
+        </div>
     </div>
 @endsection

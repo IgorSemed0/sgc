@@ -383,5 +383,6 @@ Route::middleware([
         Route::get('inadimplencia', ['as' => 'pdf.inadimplencia.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@inadimplencia']);
         Route::get('pagamento', ['as' => 'pdf.pagamento.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@pagamento']);
         Route::get('visitante', ['as' => 'pdf.visitante.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@visitante']);
+        Route::get('funcionario', ['as' => 'pdf.funcionario', 'uses' => 'App\Http\Controllers\Admin\PdfController@funcionario']);
     });
 });
