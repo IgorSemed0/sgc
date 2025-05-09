@@ -13,10 +13,10 @@ class AcessoController extends Controller
 {
     public function index()
     {
-        $data['visitantes'] = Visitante::all();
-        $data['moradores'] = Morador::all();
-        $data['funcionarios'] = Funcionario::all();
-        $data['acessos'] = Acesso::all();
+        $data['visitantes'] = Visitante::paginate(15);
+        $data['moradores'] = Morador::paginate(15);
+        $data['funcionarios'] = Funcionario::paginate(15);
+        $data['acessos'] = Acesso::paginate(15);
         return view('admin.acesso.index', $data);
     }
 
@@ -101,7 +101,7 @@ class AcessoController extends Controller
 
     public function trash()
     {
-        $data['acessos'] = Acesso::onlyTrashed()->get();
+        $data['acessos'] = Acesso::onlyTrashed()->paginate(15);
         return view('admin.acesso.lixeira.index', $data);
     }
 

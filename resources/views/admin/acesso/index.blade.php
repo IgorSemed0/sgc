@@ -54,6 +54,11 @@
         </tbody>
     </table>
 
+    <!-- Pagination Links -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $acessos->links() }}
+    </div>
+
     <div class="modal fade" id="acessoModal" tabindex="-1" aria-labelledby="acessoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
