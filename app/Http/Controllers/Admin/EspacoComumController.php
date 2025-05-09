@@ -92,7 +92,7 @@ class EspacoComumController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['espacoComums'] = EspacoComum::onlyTrashed()->with(['condominio'])->get();
+        $data['espacoComums'] = EspacoComum::onlyTrashed()->all();
         return view('admin.espaco-comum.lixeira.index', $data);
     }
 

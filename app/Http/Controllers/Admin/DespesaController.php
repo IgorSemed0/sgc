@@ -98,7 +98,7 @@ class DespesaController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['despesas'] = Despesa::onlyTrashed()->with(['condominio'])->get();
+        $data['despesas'] = Despesa::onlyTrashed()->all();
         return view('admin.despesa.lixeira.index', $data);
     }
 

@@ -12,7 +12,7 @@ class RupeController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['rupes'] = Rupe::with(['condominio'])->get();
+        $data['rupes'] = Rupe::all();
         return view('admin.rupe.index', $data);
     }
 
@@ -88,7 +88,7 @@ class RupeController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['rupes'] = Rupe::onlyTrashed()->with(['condominio'])->get();
+        $data['rupes'] = Rupe::onlyTrashed()->all();
         return view('admin.rupe.lixeira.index', $data);
     }
 

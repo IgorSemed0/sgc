@@ -88,7 +88,7 @@ class ContaController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['contas'] = Conta::onlyTrashed()->with(['condominio'])->get();
+        $data['contas'] = Conta::onlyTrashed()->all();
         return view('admin.conta.lixeira.index', $data);
     }
 

@@ -99,7 +99,7 @@ class ChatPostController extends Controller
     {
         $data['condominios'] = Condominio::all();
         $data['users'] = User::all();
-        $data['chatPosts'] = ChatPost::onlyTrashed()->with(['condominio'])->get();
+        $data['chatPosts'] = ChatPost::onlyTrashed()->all();
         return view('admin.chat-post.lixeira.index', $data);
     }
 

@@ -12,7 +12,7 @@ class VotacaoController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['votacaos'] = Votacao::with(['condominio'])->get();
+        $data['votacaos'] = Votacao::all();
         return view('admin.votacao.index', $data);
     }
 
@@ -94,7 +94,7 @@ class VotacaoController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['votacaos'] = Votacao::onlyTrashed()->with(['condominio'])->get();
+        $data['votacaos'] = Votacao::onlyTrashed()->all();
         return view('admin.votacao.lixeira.index', $data);
     }
 
