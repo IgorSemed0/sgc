@@ -136,7 +136,7 @@ class UserController extends Controller
     public function trash()
     {
         $data['condominios'] = Condominio::all();
-        $data['users'] = User::onlyTrashed()->with('condominio')->get();
+        $data['users'] = User::onlyTrashed()->get();
         return view('admin.user.lixeira.index', $data);
     }
 

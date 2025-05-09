@@ -3,13 +3,13 @@
         __________PIGC__________
     </a>
     <ul class="side-menu">
+@if(Auth::user()->tipo_usuario === 'admin')
         <li>
             <a href="{{ route('admin.home.index') }}" class="active">
                 <i class="fas fa-home icon"></i>
                 Dashboard
             </a>
         </li>
-@if(Auth::user()->tipo_usuario === 'admin')
         <!-- Gestão de Propriedades -->
         <li class="divider" data-text="Gestão de Propriedades"></li>
         
@@ -122,8 +122,8 @@
         </a>
         <ul class="side-dropdown">
             <li><a href="{{ route('portaria.index') }}"><i class="fas fa-user-friends icon"></i> Portaria</a></li>
-            <li><a href="{{ route('admin.visitante.index') }}"><i class="fas fa-user-friends icon"></i> Visitantes</a></li>
-            <li><a href="{{ route('admin.acesso.index') }}"><i class="fas fa-door-open icon"></i> Acessos</a></li>
+            <!-- <li><a href="{{ route('admin.visitante.index') }}"><i class="fas fa-user-friends icon"></i> Visitantes</a></li>
+            <li><a href="{{ route('admin.acesso.index') }}"><i class="fas fa-door-open icon"></i> Acessos</a></li> -->
         </ul>
     </li>
 @endif
