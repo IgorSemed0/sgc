@@ -20,7 +20,6 @@
                 <th>BI</th>
                 <th>Data de Nascimento</th>
                 <th>Sexo</th>
-                <th>Tipo</th>
                 <th>Processo</th>
                 <th>Unidade</th>
                 <th>Ações</th>

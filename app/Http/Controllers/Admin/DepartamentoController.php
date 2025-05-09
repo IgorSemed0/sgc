@@ -93,7 +93,7 @@ class DepartamentoController extends Controller
     {
         $data['condominios'] = Condominio::all();
         $data['unidades'] = Unidade::all();
-        $data['departamentos'] = Departamento::onlyTrashed()->all();
+        $data['departamentos'] = Departamento::onlyTrashed()->get();
         return view('admin.departamento.lixeira.index', $data);
     }
 

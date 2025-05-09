@@ -35,6 +35,7 @@ class CondominioSeeder extends Seeder
 {
     /**
      * Executa a sementeira para o sistema de gestão.
+     * Reduzido para 70% dos registros originais.
      *
      * @return void
      */
@@ -42,16 +43,16 @@ class CondominioSeeder extends Seeder
     {
         $faker = Faker::create('pt_PT');
 
-        // 1. Criar Blocos
+        // 1. Criar Blocos (Reduzido de 6 para 4)
         $blocos = [];
-        for ($i = 1; $i <= 6; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $blocos[] = Bloco::create([
                 'nome' => "Bloco {$i}",
                 'descricao' => "Bloco {$i} residencial",
             ]);
         }
 
-        // 2. Criar Edifícios
+        // 2. Criar Edifícios (2 por bloco mantido)
         $edificios = [];
         foreach ($blocos as $bloco) {
             for ($i = 1; $i <= 2; $i++) {
@@ -63,12 +64,12 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 3. Criar Unidades
+        // 3. Criar Unidades (Reduzido de 10 para 7 por edifício)
         $unidades = [];
         $tiposUnidade = ['Casa', 'Apartamento', 'Estacionamento'];
         foreach ($edificios as $edificio) {
             $bloco = Bloco::find($edificio->bloco_id);
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 7; $i++) {
                 $unidades[] = Unidade::create([
                     'tipo' => $faker->randomElement($tiposUnidade),
                     'numero' => "U{$i}",
@@ -81,10 +82,10 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 4. Criar Usuários
+        // 4. Criar Usuários (Reduzido de 20 para 14)
         $users = [];
         $tiposUsuario = ['Administrador', 'Morador', 'Funcionário'];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 14; $i++) {
             $users[] = User::create([
                 'primeiro_nome' => $faker->firstName,
                 'nomes_meio' => $faker->optional()->firstName,
@@ -98,7 +99,7 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 5. Criar Departamentos
+        // 5. Criar Departamentos (Mantido os 4 departamentos essenciais)
         $departamentos = [];
         $nomesDepartamentos = ['Administração', 'Segurança', 'Limpeza', 'Manutenção'];
         foreach ($nomesDepartamentos as $nome) {
@@ -108,11 +109,11 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 6. Criar Moradores
+        // 6. Criar Moradores (Reduzido de até 3 para até 2 por unidade)
         $moradores = [];
         $tiposMorador = ['Proprietário', 'Inquilino', 'Dependente'];
         foreach ($unidades as $unidade) {
-            for ($i = 1; $i <= $faker->numberBetween(1, 3); $i++) {
+            for ($i = 1; $i <= $faker->numberBetween(1, 2); $i++) {
                 $morador = Morador::create([
                     'primeiro_nome' => $faker->firstName,
                     'nomes_meio' => $faker->optional()->firstName,
@@ -132,11 +133,11 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 7. Criar Funcionários
+        // 7. Criar Funcionários (Reduzido de 3 para 2 por departamento)
         $funcionarios = [];
         $tiposFuncionario = ['Administrador', 'Segurança', 'Limpeza'];
         foreach ($departamentos as $departamento) {
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 2; $i++) {
                 $funcionarios[] = Funcionario::create([
                     'primeiro_nome' => $faker->firstName,
                     'nomes_meio' => $faker->optional()->firstName,
@@ -154,24 +155,22 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 8. Criar Visitantes
+        // 8. Criar Visitantes (Reduzido de 2 para 1 por unidade)
         $visitantes = [];
         foreach ($unidades as $unidade) {
-            for ($i = 1; $i <= 2; $i++) {
-                $visitantes[] = Visitante::create([
-                    'primeiro_nome' => $faker->firstName,
-                    'nomes_meio' => $faker->optional()->firstName,
-                    'ultimo_nome' => $faker->lastName,
-                    'bi' => $faker->numerify('##########LA#'),
-                    'email' => $faker->safeEmail,
-                    'telefone' => '+244' . $faker->numerify('9########'),
-                    'motivo_visita' => $faker->sentence,
-                    'unidade_id' => $unidade->id,
-                ]);
-            }
+            $visitantes[] = Visitante::create([
+                'primeiro_nome' => $faker->firstName,
+                'nomes_meio' => $faker->optional()->firstName,
+                'ultimo_nome' => $faker->lastName,
+                'bi' => $faker->numerify('##########LA#'),
+                'email' => $faker->safeEmail,
+                'telefone' => '+244' . $faker->numerify('9########'),
+                'motivo_visita' => $faker->sentence,
+                'unidade_id' => $unidade->id,
+            ]);
         }
 
-        // 9. Criar Acessos
+        // 9. Criar Acessos (Reduzido até 5 para até 3 por entidade)
         $tiposPessoa = ['morador', 'funcionario', 'visitante'];
         foreach ($tiposPessoa as $tipo) {
             $entidades = match ($tipo) {
@@ -181,7 +180,7 @@ class CondominioSeeder extends Seeder
                 'obeservacao' => $visitantes,
             };
             foreach ($entidades as $entidade) {
-                for ($i = 1; $i <= $faker->numberBetween(1, 5); $i++) {
+                for ($i = 1; $i <= $faker->numberBetween(1, 3); $i++) {
                     Acesso::create([
                         'entidade_id' => $entidade->id,
                         'tipo_pessoa' => $tipo,
@@ -193,9 +192,9 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 10. Criar Contas
+        // 10. Criar Contas (Reduzido de 5 para 3)
         $contas = [];
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $contas[] = Conta::create([
                 'nome' => "Conta {$i}",
                 'tipo' => 'Corrente',
@@ -203,9 +202,9 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 11. Criar Movimentos
+        // 11. Criar Movimentos (Reduzido de 10 para 7 por conta)
         foreach ($contas as $conta) {
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 7; $i++) {
                 Movimento::create([
                     'conta_id' => $conta->id,
                     'tipo' => $faker->randomElement(['Crédito', 'Débito']),
@@ -216,8 +215,8 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 12. Criar Despesas
-        for ($i = 1; $i <= 30; $i++) {
+        // 12. Criar Despesas (Reduzido de 30 para 21)
+        for ($i = 1; $i <= 21; $i++) {
             Despesa::create([
                 'descricao' => $faker->sentence,
                 'valor' => $faker->numberBetween(500, 10000),
@@ -225,8 +224,8 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 13. Criar Rupes (Receitas)
-        for ($i = 1; $i <= 20; $i++) {
+        // 13. Criar Rupes (Receitas) (Reduzido de 20 para 14)
+        for ($i = 1; $i <= 14; $i++) {
             Rupe::create([
                 'descricao' => $faker->sentence,
                 'valor' => $faker->numberBetween(1000, 20000),
@@ -234,10 +233,10 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 14. Criar Facturas
+        // 14. Criar Facturas (Reduzido de 3 para 2 por unidade)
         $facturas = [];
         foreach ($unidades as $unidade) {
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 2; $i++) {
                 $facturas[] = Factura::create([
                     'unidade_id' => $unidade->id,
                     'referencia' => $faker->numerify('F#####'),
@@ -250,7 +249,7 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 15. Criar Factura Items
+        // 15. Criar Factura Items (Mantido 2 por factura)
         foreach ($facturas as $factura) {
             for ($i = 1; $i <= 2; $i++) {
                 FacturaItem::create([
@@ -262,7 +261,7 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 16. Criar Pagamentos
+        // 16. Criar Pagamentos (Mantido para facturas pagas)
         foreach ($facturas as $factura) {
             if ($factura->status === 'Pago') {
                 Pagamento::create([
@@ -274,7 +273,7 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 17. Criar Espaços Comuns
+        // 17. Criar Espaços Comuns (Mantido 1 por bloco)
         $espacosComuns = [];
         foreach ($blocos as $bloco) {
             $espacosComuns[] = EspacoComum::create([
@@ -285,9 +284,9 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 18. Criar Reservas de Espaços
+        // 18. Criar Reservas de Espaços (Reduzido de 5 para 3 por espaço)
         foreach ($espacosComuns as $espaco) {
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= 3; $i++) {
                 EspacoReserva::create([
                     'espaco_id' => $espaco->id,
                     'user_id' => $faker->randomElement($users)->id,
@@ -300,23 +299,21 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 19. Criar Chat Posts
+        // 19. Criar Chat Posts (Reduzido de 2 para 1 por usuário)
         $chatPosts = [];
         foreach ($users as $user) {
-            for ($i = 1; $i <= 2; $i++) {
-                $chatPosts[] = ChatPost::create([
-                    'autor_id' => $user->id,
-                    'tipo_autor' => $user->tipo_usuario,
-                    'titulo' => $faker->sentence,
-                    'conteudo' => $faker->paragraph,
-                    'data_publicacao' => $faker->dateTimeBetween('-1 year', 'now'),
-                ]);
-            }
+            $chatPosts[] = ChatPost::create([
+                'autor_id' => $user->id,
+                'tipo_autor' => $user->tipo_usuario,
+                'titulo' => $faker->sentence,
+                'conteudo' => $faker->paragraph,
+                'data_publicacao' => $faker->dateTimeBetween('-1 year', 'now'),
+            ]);
         }
 
-        // 20. Criar Chat Comentários
+        // 20. Criar Chat Comentários (Reduzido de 3 para 2 por post)
         foreach ($chatPosts as $post) {
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 2; $i++) {
                 ChatComentario::create([
                     'post_id' => $post->id,
                     'user_id' => $faker->randomElement($users)->id,
@@ -326,9 +323,9 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 21. Criar Notificações
+        // 21. Criar Notificações (Reduzido de 5 para 3 por usuário)
         foreach ($users as $user) {
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= 3; $i++) {
                 Notificacao::create([
                     'user_id' => $user->id,
                     'tipo' => $faker->randomElement(['Aviso', 'Factura', 'Evento']),
@@ -340,9 +337,9 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 22. Criar Votações
+        // 22. Criar Votações (Reduzido de 4 para 3)
         $votacoes = [];
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $votacoes[] = Votacao::create([
                 'titulo' => $faker->sentence,
                 'descricao' => $faker->paragraph,
@@ -353,7 +350,7 @@ class CondominioSeeder extends Seeder
             ]);
         }
 
-        // 23. Criar Opções de Votação
+        // 23. Criar Opções de Votação (Mantido 3 por votação)
         $opcoes = [];
         foreach ($votacoes as $votacao) {
             for ($i = 1; $i <= 3; $i++) {
@@ -364,10 +361,10 @@ class CondominioSeeder extends Seeder
             }
         }
 
-        // 24. Criar Votos
+        // 24. Criar Votos (Reduzido probabilidade de 50% para 35%)
         foreach ($votacoes as $votacao) {
             foreach ($users as $user) {
-                if ($faker->boolean(50)) { // 50% chance de votar
+                if ($faker->boolean(35)) { // 35% chance de votar (reduzido de 50%)
                     Voto::create([
                         'votacao_id' => $votacao->id,
                         'user_id' => $user->id,

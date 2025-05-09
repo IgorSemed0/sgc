@@ -14,7 +14,7 @@ class VisitanteController extends Controller
     {
         $data['unidades'] = Unidade::all();
         $data['condominios'] = Condominio::all();
-        $data['visitantes'] = Visitante::with(['unidade', 'condominio'])->get();
+        $data['visitantes'] = Visitante::with(['unidade'])->get();
         return view('admin.visitante.index', $data);
     }
 
