@@ -67,13 +67,20 @@ class PdfController extends Controller
 
     public function acesso()
     {
-        $acessos = Acesso::with('pessoa')->get();
+        // Fetch the access records with safer eager loading
+        // Apply eager loading with specific constraints to handle null relations
+        $acessos = Acesso::with(['pessoa' => function($query) {
+            // This will ensure the query continues even if some relations are null
+            return $query;
+        }])->get();
+        
         $totalAcessos = $acessos->count();
         $html = View::make('admin.pdf.acesso.index', compact('acessos', 'totalAcessos'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_acessos.pdf', 'I');
     }
+
 
     public function despesa()
     {

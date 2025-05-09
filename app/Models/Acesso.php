@@ -20,16 +20,20 @@ class Acesso extends Model
 
     public function pessoa()
     {
-        switch ($this->tipo_pessoa) {
-            case 'morador':
-                return $this->belongsTo(Morador::class, 'entidade_id');
-            case 'funcionario':
-                return $this->belongsTo(Funcionario::class, 'entidade_id');
-            case 'visitante':
-                return $this->belongsTo(Visitante::class, 'entidade_id');
-            default:
-                return null;
+        // Convert tipo_pessoa to lowercase to match case in if/else logic
+        $tipoPessoa = strtolower($this->tipo_pessoa);
+        
+        if ($tipoPessoa === 'morador') {
+            return $this->belongsTo(Morador::class, 'entidade_id');
+        } elseif ($tipoPessoa === 'funcionario') {
+            return $this->belongsTo(Funcionario::class, 'entidade_id');
+        } elseif ($tipoPessoa === 'visitante') {
+            return $this->belongsTo(Visitante::class, 'entidade_id');
         }
+        
+        // Instead of returning null, return a "null relation" using morphTo
+        // This ensures that the relation methods are always available
+        return $this->morphTo('pessoa', 'tipo_pessoa', 'entidade_id')->whereNull('id');
     }
 
     public function getNomeCompletoAttribute()
