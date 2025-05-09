@@ -14,7 +14,7 @@ class EspacoComumController extends Controller
     {
         $data['blocos'] = Bloco::all();
         $data['condominios'] = Condominio::all();
-        $data['espacoComums'] = EspacoComum::with(['condominio'])->get();
+        $data['espacoComums'] = EspacoComum::all();
         return view('admin.espaco-comum.index', $data);
     }
 

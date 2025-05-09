@@ -17,7 +17,7 @@
                 <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Saldo</th>
-                <th>Ações</th>
+                <!-- <th>Ações</th> -->
             </tr>
         </thead>
         <tbody>
@@ -27,10 +27,10 @@
                 <td>{{ $conta->nome }}</td>
                 <td>{{ $conta->tipo }}</td>
                 <td>{{ number_format($conta->saldo, 2, ',', '.') }}</td>
-                <td>
+                <!-- <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $conta->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.conta.destroy', $conta->id) }}')">Deletar</a>
-                </td>
+                </td> -->
             </tr>
 
             <div class="modal fade" id="editar_modal{{ $conta->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $conta->id }}Label" aria-hidden="true">
