@@ -45,6 +45,11 @@
     </tbody>
 </table>
 
+<!-- Pagination Links -->
+<div class="d-flex justify-content-center mt-4">
+    {{ $acessos->links() }}
+</div>
+
 @if (session('success'))
 <script>
     Swal.fire({
