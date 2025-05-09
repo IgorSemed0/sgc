@@ -174,10 +174,10 @@ class CondominioSeeder extends Seeder
         $tiposPessoa = ['morador', 'funcionario', 'visitante'];
         foreach ($tiposPessoa as $tipo) {
             $entidades = match ($tipo) {
-                'morador' => $moradores,
-                'funcionario' => $funcionarios,
-                'visitante' => $visitantes,
-                'obeservacao' => $visitantes,
+                'Morador' => $moradores,
+                'Funcionario' => $funcionarios,
+                'Visitante' => $visitantes,
+                'Obeservacao' => $visitantes,
             };
             foreach ($entidades as $entidade) {
                 for ($i = 1; $i <= $faker->numberBetween(1, 3); $i++) {
