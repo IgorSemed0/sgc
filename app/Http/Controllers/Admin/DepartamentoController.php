@@ -14,7 +14,7 @@ class DepartamentoController extends Controller
     {
         $data['condominios'] = Condominio::all();
         $data['unidades'] = Unidade::all();
-        $data['departamentos'] = Departamento::with(['condominio'])->get();
+        $data['departamentos'] = Departamento::all();
         return view('admin.departamento.index', $data);
     }
 
