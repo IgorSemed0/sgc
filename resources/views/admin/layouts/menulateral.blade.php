@@ -91,7 +91,7 @@
             <ul class="side-dropdown">
                 <li><a href="{{ route('admin.chat-post.index') }}"><i class="fas fa-comments icon"></i> Posts de Chat</a></li>
                 <li><a href="{{ route('admin.chat-comentario.index') }}"><i class="fas fa-comment-dots icon"></i> Comentários</a></li>
-                <li><a href="{{ route('admin.notificacao.index') }}"><i class="fas fa-bell icon"></i> Notificações</a></li>
+                <!-- <li><a href="{{ route('admin.notificacao.index') }}"><i class="fas fa-bell icon"></i> Notificações</a></li> -->
             </ul>
         </li>
 
