@@ -11,6 +11,7 @@ use App\Models\Unidade;
 use App\Models\Condominio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PortariaController extends Controller
 {
@@ -36,7 +37,7 @@ class PortariaController extends Controller
 
         $morador = Morador::where('bi', $bi)->first();
         if ($morador) {
-            return response()->json(['type' => 'morador', 'requireddata' => $morador]);
+            return response()->json(['type' => 'morador', 'data' => $morador]);
         }
 
         $funcionario = Funcionario::where('bi', $bi)->first();
@@ -50,6 +51,41 @@ class PortariaController extends Controller
         }
 
         return response()->json(['type' => 'not_found', 'message' => 'Pessoa não encontrada. Registre como novo visitante.']);
+    }
+
+    public function searchMorador(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|min:3',
+        ]);
+
+        $name = $validated['name'];
+
+        // Search for moradores where tipo is "Morador" or "Dependente"
+        $moradores = Morador::where(function($query) {
+                $query->where('tipo', 'Morador')
+                      ->orWhere('tipo', 'Dependente');
+            })
+            ->where(function($query) use ($name) {
+                $query->where('primeiro_nome', 'like', "%{$name}%")
+                      ->orWhere('nomes_meio', 'like', "%{$name}%")
+                      ->orWhere('ultimo_nome', 'like', "%{$name}%");
+            })
+            ->with('unidade')
+            ->take(10)
+            ->get();
+
+        // Add unidade info to each morador
+        $moradores = $moradores->map(function($morador) {
+            if ($morador->unidade) {
+                $morador->unidade_info = $morador->unidade->numero . ' - ' . $morador->unidade->bloco;
+            } else {
+                $morador->unidade_info = 'Não associado';
+            }
+            return $morador;
+        });
+
+        return response()->json(['moradores' => $moradores]);
     }
 
     public function registerAccess(Request $request)
@@ -105,6 +141,22 @@ class PortariaController extends Controller
             return redirect()->route('portaria.index')->with('success', 'Visitante registrado e acesso de entrada criado.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao registrar visitante: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function confirmVisit(Request $request)
+    {
+        $validated = $request->validate([
+            'morador_id' => 'required|integer|exists:moradors,id',
+        ]);
+
+        try {
+            // You can add any additional logic here to record that the visit was confirmed
+            // For example, you might want to add an entry to a visits log or update a status
+
+            return response()->json(['success' => true, 'message' => 'Visita confirmada com sucesso.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 }
