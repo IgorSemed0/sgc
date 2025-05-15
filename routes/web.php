@@ -346,6 +346,9 @@ Route::middleware([
                 Route::delete('purge/{id}', ['as' => 'admin.notificacao.purge', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@purge']);
             });
 
+            Route::prefix('ocorrencia')->group(function () {
+                Route::get('index', ['as' => 'admin.ocorrencia.index', 'uses' => 'App\Http\Controllers\Admin\OcorrenciaController@index']);
+            });
         });
     });
 
@@ -355,7 +358,7 @@ Route::middleware([
         Route::get('feed/search', ['as' => 'morador.feed.search', 'uses' => 'App\Http\Controllers\Morador\FeedController@search']);
         Route::get('votacao', ['as' => 'morador.votacao', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@index']);
         Route::post('votacao/vote', ['as' => 'morador.votacao.vote', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@vote']);
-        Route::get('votacao/search', ['as' => 'morador.votacao.search', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@search']); // Nova rota
+        Route::get('votacao/search', ['as' => 'morador.votacao.search', 'uses' => 'App\Http\Controllers\Morador\VotacaoController@search']);
         Route::get('/morador/perfil', [PerfilController::class, 'index'])->name('morador.perfil');
         Route::put('/morador/perfil', [PerfilController::class, 'update'])->name('morador.perfil.update');
         Route::post('/morador/perfil/update-password', [PerfilController::class, 'updatePassword'])->name('morador.perfil.updatePassword');
