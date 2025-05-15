@@ -1,4 +1,3 @@
-<!-- First, update the view file -->
 @extends('admin.layouts.body')
 @section('title', 'Portaria')
 @section('conteudo')

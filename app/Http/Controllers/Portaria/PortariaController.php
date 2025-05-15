@@ -61,7 +61,6 @@ class PortariaController extends Controller
 
         $name = $validated['name'];
 
-        // Search for moradores where tipo is "Morador" or "Dependente"
         $moradores = Morador::where(function($query) {
                 $query->where('tipo', 'Morador')
                       ->orWhere('tipo', 'Dependente');
@@ -71,14 +70,15 @@ class PortariaController extends Controller
                       ->orWhere('nomes_meio', 'like', "%{$name}%")
                       ->orWhere('ultimo_nome', 'like', "%{$name}%");
             })
-            ->with('unidade')
+            ->with(['unidade.bloco'])
             ->take(10)
             ->get();
 
-        // Add unidade info to each morador
         $moradores = $moradores->map(function($morador) {
             if ($morador->unidade) {
-                $morador->unidade_info = $morador->unidade->numero . ' - ' . $morador->unidade->bloco;
+                // Access bloco name properly through the relationship
+                $blocoName = $morador->unidade->bloco ? $morador->unidade->bloco->nome : 'N/A';
+                $morador->unidade_info = "U{$morador->unidade->numero} - {$blocoName}";
             } else {
                 $morador->unidade_info = 'Não associado';
             }
