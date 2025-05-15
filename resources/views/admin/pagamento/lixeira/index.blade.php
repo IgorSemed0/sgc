@@ -15,7 +15,6 @@
             <th>Data Pagamento</th>
             <th>Valor Pago</th>
             <th>Método Pagamento</th>
-            <th>Transação ID</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -27,7 +26,6 @@
             <td>{{ \Carbon\Carbon::parse($pagamento->data_pagamento)->format('d/m/Y') }}</td>
             <td>{{ number_format($pagamento->valor_pago, 2, ',', '.') }}</td>
             <td>{{ $pagamento->metodo_pagamento }}</td>
-            <td>{{ $pagamento->transacao_id ?? '-' }}</td>
             <td>
                 <form id="restore-form-{{ $pagamento->id }}" action="{{ route('admin.pagamento.restore', $pagamento->id) }}" method="POST" style="display: none;">
                     @csrf

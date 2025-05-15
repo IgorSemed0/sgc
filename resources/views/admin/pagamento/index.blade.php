@@ -18,7 +18,6 @@
                 <th>Data Pagamento</th>
                 <th>Valor Pago</th>
                 <th>Método Pagamento</th>
-                <th>Transação ID</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -30,7 +29,6 @@
                 <td>{{ \Carbon\Carbon::parse($pagamento->data_pagamento)->format('d/m/Y') }}</td>
                 <td>{{ number_format($pagamento->valor_pago, 2, ',', '.') }}</td>
                 <td>{{ $pagamento->metodo_pagamento }}</td>
-                <td>{{ $pagamento->transacao_id ?? '-' }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $pagamento->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.pagamento.destroy', $pagamento->id) }}')">Deletar</a>
