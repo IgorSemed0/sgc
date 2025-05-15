@@ -79,6 +79,7 @@
                 <li><a href="{{ route('admin.votacao.index') }}"><i class="fas fa-vote-yea icon"></i> Votações</a></li>
                 <li><a href="{{ route('admin.opcao-votacao.index') }}"><i class="fas fa-list-ul icon"></i> Opções de Votação</a></li>
                 <li><a href="{{ route('admin.voto.index') }}"><i class="fas fa-ballot-check icon"></i> Votos</a></li>
+                <li><a href="{{ route('admin.ocorrencia.index') }}"><i class="fas fa-exclamation-circle icon"></i> Ocorrências</a></li>
             </ul>
         </li>
 
