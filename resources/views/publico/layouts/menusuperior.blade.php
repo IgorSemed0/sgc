@@ -13,7 +13,7 @@
           <a class="nav-link {{ request()->routeIs('morador.votacao') ? 'active' : '' }}" href="{{ route('morador.votacao') }}">Votação</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('morador.ocorrencia.index') ? 'active' : '' }}" href="{{ route('morador.votacao') }}"> Minhas Ocorrências</a>
+          <a class="nav-link {{ request()->routeIs('morador.ocorrencia.index') ? 'active' : '' }}" href="{{ route('morador.ocorrencia.index') }}"> Minhas Ocorrências</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('morador.perfil') ? 'active' : '' }}" href="{{ route('morador.perfil') }}">Perfil</a>
