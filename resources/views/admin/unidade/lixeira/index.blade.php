@@ -1,12 +1,12 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Unidades')
+@section('title', 'Lixeira de Imóveis')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
     <a href="{{ route('admin.unidade.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Unidades Apagadas</h1>
+<h1 class="h3">Imóveis Apagadas</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>
@@ -75,7 +75,7 @@
     function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Deseja restaurar esta unidade?",
+            text: "Deseja restaurar este imóvel?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -92,7 +92,7 @@
     function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação excluirá permanentemente a unidade!",
+            text: "Esta ação excluirá permanentemente o imóvel!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

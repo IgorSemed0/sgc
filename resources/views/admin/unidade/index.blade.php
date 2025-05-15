@@ -1,9 +1,9 @@
 @extends('admin.layouts.body')
 @section('title', 'Listar Unidades')
 @section('conteudo')
-<h1 class="h3">Tabela de Unidades</h1>
+<h1 class="h3">Tabela de Imóveis</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#unidadeModal">Nova Unidade</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#unidadeModal">Novo Imóvel</button>
     <a href="{{ route('admin.unidade.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
@@ -18,7 +18,6 @@
                 <th>Número</th>
                 <th>Bloco Sigla</th>
                 <th>Edifício Sigla</th>
-                <th>Área (m²)</th>
                 <th>Andar</th>
                 <th>Status</th>
                 <th>Ações</th>
@@ -32,7 +31,6 @@
                 <td>{{ $unidade->numero }}</td>
                 <td>{{ $unidade->bloco->nome }}</td>
                 <td>{{ $unidade->edificio->nome }}</td>
-                <td>{{ $unidade->area_m2 }}</td>
                 <td>{{ $unidade->andar }}</td>
                 <td>{{ $unidade->status }}</td>
                 <td>
@@ -45,7 +43,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Unidade</h5>
+                            <h5 class="modal-title">Editar Imóvel</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -62,7 +60,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Unidade</h5>
+                    <h5 class="modal-title">Cadastro de Imóvel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 @include('admin.unidade.cadastrar.index')

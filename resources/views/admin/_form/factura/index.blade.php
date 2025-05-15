@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="unidade_id">Unidade</label>
+        <label for="unidade_id">Imóvel</label>
         <select class="form-control select2" id="unidade_id" name="unidade_id" required>
-            <option value="">Selecione uma unidade</option>
+            <option value="">Selecione um imóvel</option>
             @foreach ($unidades as $unidade)
                 <option value="{{ $unidade->id }}" {{ old('unidade_id', $factura->unidade_id ?? '') == $unidade->id ? 'selected' : '' }}>
                     {{ $unidade->tipo }} - {{ $unidade->numero }}

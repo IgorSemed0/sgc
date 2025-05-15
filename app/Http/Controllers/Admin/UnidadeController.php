@@ -31,20 +31,23 @@ class UnidadeController extends Controller
             $validated = $request->validate([
                 'tipo' => 'required|string|max:255',
                 'numero' => 'required|string|max:255',
-                'bloco_id' => 'required|exists:blocos,id',
                 'edificio_id' => 'nullable|exists:edificios,id',
-                'area_m2' => 'required|numeric',
                 'andar' => 'nullable|integer',
                 'status' => 'required|string|max:255',
             ]);
-
+    
+            if (!empty($validated['edificio_id'])) {
+                $edificio = Edificio::findOrFail($validated['edificio_id']);
+                $validated['bloco_id'] = $edificio->bloco_id;
+            }
+    
             Unidade::create($validated);
-
+    
             return redirect()->route('admin.unidade.index')
-                ->with('success', 'Unidade registrada com sucesso.');
+                ->with('success', 'Imóvel registrada com sucesso.');
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Erro ao registrar unidade: ' . $e->getMessage())
+                ->with('error', 'Erro ao registrar imóvel: ' . $e->getMessage())
                 ->withInput();
         }
     }
@@ -61,24 +64,25 @@ class UnidadeController extends Controller
     {
         try {
             $unidade = Unidade::findOrFail($id);
-
+    
             $validated = $request->validate([
                 'tipo' => 'required|string|max:255',
                 'numero' => 'required|string|max:255',
-                'bloco_id' => 'required|exists:blocos,id',
                 'edificio_id' => 'required|exists:edificios,id',
-                'area_m2' => 'required|numeric',
                 'andar' => 'nullable|integer',
                 'status' => 'required|string|max:255',
             ]);
 
+            $edificio = Edificio::findOrFail($validated['edificio_id']);
+            $validated['bloco_id'] = $edificio->bloco_id;
+            
             $unidade->update($validated);
-
+    
             return redirect()->route('admin.unidade.index')
-                ->with('success', 'Unidade atualizada com sucesso.');
+                ->with('success', 'Imóvel atualizada com sucesso.');
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Erro ao atualizar unidade: ' . $e->getMessage())
+                ->with('error', 'Erro ao atualizar imóvel: ' . $e->getMessage())
                 ->withInput();
         }
     }
@@ -90,10 +94,10 @@ class UnidadeController extends Controller
             $unidade->delete();
 
             return redirect()->route('admin.unidade.index')
-                ->with('success', 'Unidade excluída com sucesso.');
+                ->with('success', 'Imóvel excluída com sucesso.');
         } catch (\Exception $e) {
             return redirect()->route('admin.unidade.index')
-                ->with('error', 'Erro ao excluir unidade: ' . $e->getMessage());
+                ->with('error', 'Erro ao excluir imóvel: ' . $e->getMessage());
         }
     }
 
@@ -111,9 +115,9 @@ class UnidadeController extends Controller
             $unidade = Unidade::onlyTrashed()->findOrFail($id);
             $unidade->restore();
 
-            return redirect()->back()->with('success', 'Unidade restaurada com sucesso.');
+            return redirect()->back()->with('success', 'Imóvel restaurada com sucesso.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erro ao restaurar unidade: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Erro ao restaurar imóvel: ' . $e->getMessage());
         }
     }
 
@@ -123,9 +127,9 @@ class UnidadeController extends Controller
             $unidade = Unidade::onlyTrashed()->findOrFail($id);
             $unidade->forceDelete();
 
-            return redirect()->back()->with('success', 'Unidade excluída permanentemente.');
+            return redirect()->back()->with('success', 'Imóvel excluída permanentemente.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erro ao excluir unidade permanentemente: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Erro ao excluir imóvel permanentemente: ' . $e->getMessage());
         }
     }
 }

@@ -13,21 +13,10 @@
     <table class="table table-striped myTable">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($departamentos as $departamento)
-            <tr>
-                <td>{{ $departamento->id }}</td>
-                <td>{{ $departamento->nome }}</td>
-                <td>{{ $departamento->descricao }}</td>
+
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $departamento->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.departamento.destroy', $departamento->id) }}')">Deletar</a>
+                    <a class="btn btn-danger btn-sm" onclick="confir?mDelete('{{ route('admin.departamento.destroy', $departamento->id) }}')">Deletar</a>
                 </td>
             </tr>
 
