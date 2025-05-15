@@ -66,7 +66,7 @@ class CondominioSeeder extends Seeder
 
         // 3. Criar Unidades (Reduzido de 7 para 5 por edifício)
         $unidades = [];
-        $tiposUnidade = ['Estabelecimento Comercial', 'Apartamento', 'Estacionamento'];
+        $tiposUnidade = ['Estabelecimento Comercial', 'Apartamento'];
         foreach ($edificios as $edificio) {
             $bloco = Bloco::find($edificio->bloco_id);
             for ($i = 1; $i <= 5; $i++) {
