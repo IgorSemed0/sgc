@@ -4,9 +4,8 @@
         <select class="form-control select2" id="tipo" name="tipo" required>
             <option value="">Selecione o tipo</option>
             <option value="Apartamento" {{ old('tipo', $unidade->tipo ?? '') == 'Apartamento' ? 'selected' : '' }}>Apartamento</option>
-            <option value="Estacionamento" {{ old('tipo', $unidade->tipo ?? '') == 'Estacionamento' ? 'selected' : '' }}>Estacionamento</option>
-            <option value="Casa" {{ old('tipo', $unidade->tipo ?? '') == 'Casa' ? 'selected' : '' }}>Casa</option>
             <option value="Sala Comercial" {{ old('tipo', $unidade->tipo ?? '') == 'Estabelecimento Comercial' ? 'selected' : '' }}>Estabelecimento Comercial</option>
+            <option value="Casa" {{ old('tipo', $unidade->tipo ?? '') == 'Casa' ? 'selected' : '' }}>Casa</option>
         </select>
     </div>
 
