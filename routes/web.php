@@ -368,6 +368,14 @@ Route::middleware([
         Route::post('/morador/perfil/disable-two-factor', [PerfilController::class, 'disableTwoFactor'])->name('morador.perfil.disableTwoFactor');
         Route::post('/morador/perfil/logout-other-sessions', [PerfilController::class, 'logoutOtherSessions'])->name('morador.perfil.logoutOtherSessions');
         Route::post('/morador/perfil/delete-account', [PerfilController::class, 'deleteAccount'])->name('morador.perfil.deleteAccount');
+        Route::prefix('ocorrencia')->group(function () {
+            Route::get('index', ['as' => 'morador.ocorrencia.index', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@index']);
+            Route::get('create', ['as' => 'morador.ocorrencia.create', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@create']);
+            Route::post('store', ['as' => 'morador.ocorrencia.store', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@store']);
+            Route::get('edit/{id}', ['as' => 'morador.ocorrencia.edit', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@edit']);
+            Route::put('update/{id}', ['as' => 'morador.ocorrencia.update', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@update']);
+            Route::get('destroy/{id}', ['as' => 'morador.ocorrencia.destroy', 'uses' => 'App\Http\Controllers\Morador\OcorrenciaController@destroy']);
+        });
     });
 
     Route::prefix('portaria')->middleware(['auth', 'admin'])->group(function () {
