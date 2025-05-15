@@ -62,16 +62,26 @@ class PagamentoController extends Controller
     {
         try {
             $pagamento = Pagamento::findOrFail($id);
-
+    
+            // Validate the request, excluding valor_pago since we'll fetch it from the Factura
             $validated = $request->validate([
                 'factura_id' => 'required|exists:facturas,id',
                 'data_pagamento' => 'required|date',
-                'valor_pago' => 'required|numeric|min:0',
                 'metodo_pagamento' => 'required|string|max:255',
             ]);
-
+    
+            $factura = Factura::findOrFail($validated['factura_id']);
+    
+            $oldValorPago = $pagamento->valor_pago;
+            $validated['valor_pago'] = $factura->valor_total;
+    
             $pagamento->update($validated);
-
+    
+            $conta = Conta::find(1);
+            $conta->saldo -= $oldValorPago;
+            $conta->saldo += $validated['valor_pago'];
+            $conta->save();
+    
             return redirect()->route('admin.pagamento.index')
                 ->with('success', 'Pagamento atualizado com sucesso.');
         } catch (\Exception $e) {
@@ -80,7 +90,6 @@ class PagamentoController extends Controller
                 ->withInput();
         }
     }
-
     public function destroy($id)
     {
         try {
