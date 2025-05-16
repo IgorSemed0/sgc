@@ -43,18 +43,18 @@
     </div>
 
     <!-- Campo Estado Residente (apenas para proprietário) -->
-    <div class="col-md-6 mb-3" id="estado_residente_div" style="display: none;">
+    <div class="col-md-6 mb-3 estado-residente-div" style="display: none;">
         <label for="estado_residente">Residente*</label>
-        <select class="form-control select2" id="estado_residente" name="estado_residente" required>
+        <select class="form-control select2" name="estado_residente">
             <option value="1" {{ old('estado_residente', $morador->estado_residente ?? '') == '1' ? 'selected' : '' }}>Sim</option>
             <option value="0" {{ old('estado_residente', $morador->estado_residente ?? '') == '0' ? 'selected' : '' }}>Não</option>
         </select>
     </div>
 
     <!-- Campo Dependente De (apenas para dependente) -->
-    <div class="col-md-6 mb-3" id="dependente_de_div" style="display: none;">
+    <div class="col-md-6 mb-3 dependente-de-div" style="display: none;">
         <label for="dependente_de">Dependente de (Inquilino)*</label>
-        <select class="form-control select2" id="dependente_de" name="dependente_de" required>
+        <select class="form-control select2" name="dependente_de">
             <option value="">Selecione o inquilino</option>
             @foreach ($inquilinos as $inquilino)
                 <option value="{{ $inquilino->id }}" {{ old('dependente_de', $morador->dependente_de ?? '') == $inquilino->id ? 'selected' : '' }}>
@@ -65,19 +65,19 @@
     </div>
 
     <!-- Campo BI ou Cédula -->
-    <div class="col-md-6 mb-3" id="bi_div">
+    <div class="col-md-6 mb-3 bi-div">
         <label for="bi">BI</label>
-        <input type="text" class="form-control" id="bi" name="bi" value="{{ old('bi', $morador->bi ?? '') }}">
+        <input type="text" class="form-control" name="bi" value="{{ old('bi', $morador->bi ?? '') }}">
     </div>
-    <div class="col-md-6 mb-3" id="cedula_div" style="display: none;">
-        <label for="cedula">Cédula(Caso não tenha um BI)</label>
-        <input type="text" class="form-control" id="cedula" name="cedula" value="{{ old('cedula', $morador->cedula ?? '') }}">
+    <div class="col-md-6 mb-3 cedula-div" style="display: none;">
+        <label for="cedula">Cédula (Caso não tenha um BI)</label>
+        <input type="text" class="form-control" name="cedula" value="{{ old('cedula', $morador->cedula ?? '') }}">
     </div>
 
     <!-- Campo Unidade (não para dependente) -->
-    <div class="col-md-6 mb-3" id="unidade_div">
+    <div class="col-md-6 mb-3 unidade-div">
         <label for="unidade_id">Unidade*</label>
-        <select class="form-control select2" id="unidade_id" name="unidade_id" required>
+        <select class="form-control select2" name="unidade_id">
             <option value="">Selecione uma unidade</option>
             @foreach ($unidades as $unidade)
                 <option value="{{ $unidade->id }}" {{ old('unidade_id', $morador->unidade_id ?? '') == $unidade->id ? 'selected' : '' }}>
@@ -89,60 +89,93 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.select2').select2({
+$(document).ready(function() {
+    $('.modal').on('shown.bs.modal', function() {
+        var modal = $(this);
+        var form = modal.find('form');
+
+        // Initialize Select2 on the form's select elements
+        form.find('.select2').select2({
             placeholder: 'Selecione uma opção',
             width: '100%'
         });
 
-        function adjustFields() {
-            var tipo = $('#tipo').val();
-            if (tipo == 'proprietario') {
-                $('#estado_residente_div').show();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').show();
-                $('#bi_div').show();
-                $('#cedula_div').hide();
-                $('#bi').prop('required', true);
-                $('#cedula').prop('required', false);
-            } else if (tipo == 'inquilino') {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').show();
-                $('#bi_div').show();
-                $('#cedula_div').hide();
-                $('#bi').prop('required', true);
-                $('#cedula').prop('required', false);
-            } else if (tipo == 'dependente') {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').show();
-                $('#unidade_div').hide();
-                $('#bi_div').show();
-                $('#cedula_div').hide();
-                $('#bi').prop('required', false);
-                $('#bi').on('input', function() {
-                    if ($(this).val().length > 0) {
-                        $('#cedula_div').hide();
-                        $('#cedula').prop('required', false);
-                    } else {
-                        $('#cedula_div').show();
-                        $('#cedula').prop('required', true);
-                    }
-                });
-                if ($('#bi').val().length == 0) {
-                    $('#cedula_div').show();
-                    $('#cedula').prop('required', true);
-                }
-            } else {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').hide();
-                $('#bi_div').hide();
-                $('#cedula_div').hide();
-            }
-        }
+        // Adjust fields initially
+        adjustFields(form);
 
-        $('#tipo').change(adjustFields);
-        adjustFields(); // Inicializar
+        // Bind change event to tipo
+        form.find('[name="tipo"]').change(function() {
+            adjustFields(form);
+        });
+
+        // Bind input event to bi for dependente type
+        form.find('[name="bi"]').on('input', function() {
+            if (form.find('[name="tipo"]').val() === 'dependente') {
+                if ($(this).val().length > 0) {
+                    form.find('.cedula-div').hide();
+                    form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+                } else {
+                    form.find('.cedula-div').show();
+                    form.find('[name="cedula"]').prop('disabled', false).prop('required', true);
+                }
+            }
+        });
     });
+});
+
+function adjustFields(form) {
+    var tipo = form.find('[name="tipo"]').val();
+
+    if (tipo === 'proprietario') {
+        form.find('.estado-residente-div').show();
+        form.find('[name="estado_residente"]').prop('disabled', false).prop('required', true);
+        form.find('.dependente-de-div').hide();
+        form.find('[name="dependente_de"]').prop('disabled', true).prop('required', false);
+        form.find('.unidade-div').show();
+        form.find('[name="unidade_id"]').prop('disabled', false).prop('required', true);
+        form.find('.bi-div').show();
+        form.find('[name="bi"]').prop('disabled', false).prop('required', true);
+        form.find('.cedula-div').hide();
+        form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+    } else if (tipo === 'inquilino') {
+        form.find('.estado-residente-div').hide();
+        form.find('[name="estado_residente"]').prop('disabled', true).prop('required', false);
+        form.find('.dependente-de-div').hide();
+        form.find('[name="dependente_de"]').prop('disabled', true).prop('required', false);
+        form.find('.unidade-div').show();
+        form.find('[name="unidade_id"]').prop('disabled', false).prop('required', true);
+        form.find('.bi-div').show();
+        form.find('[name="bi"]').prop('disabled', false).prop('required', true);
+        form.find('.cedula-div').hide();
+        form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+    } else if (tipo === 'dependente') {
+        form.find('.estado-residente-div').hide();
+        form.find('[name="estado_residente"]').prop('disabled', true).prop('required', false);
+        form.find('.dependente-de-div').show();
+        form.find('[name="dependente_de"]').prop('disabled', false).prop('required', true);
+        form.find('.unidade-div').hide();
+        form.find('[name="unidade_id"]').prop('disabled', true).prop('required', false);
+        form.find('.bi-div').show();
+        form.find('[name="bi"]').prop('disabled', false).prop('required', false);
+        if (form.find('[name="bi"]').val().length === 0) {
+            form.find('.cedula-div').show();
+            form.find('[name="cedula"]').prop('disabled', false).prop('required', true);
+        } else {
+            form.find('.cedula-div').hide();
+            form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+        }
+    } else {
+        // If no tipo is selected, disable all conditional fields
+        form.find('.estado-residente-div').hide();
+        form.find('[name="estado_residente"]').prop('disabled', true).prop('required', false);
+        form.find('.dependente-de-div').hide();
+        form.find('[name="dependente_de"]').prop('disabled', true).prop('required', false);
+        form.find('.unidade-div').hide();
+        form.find('[name="unidade_id"]').prop('disabled', true).prop('required', false);
+        form.find('.bi-div').hide();
+        form.find('[name="bi"]').prop('disabled', true).prop('required', false);
+        form.find('.cedula-div').hide();
+        form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+    }
+}
 </script>

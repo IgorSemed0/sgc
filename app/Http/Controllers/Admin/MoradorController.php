@@ -31,25 +31,42 @@ class MoradorController extends Controller
                 'primeiro_nome' => 'required|string|max:255',
                 'nomes_meio' => 'nullable|string|max:255',
                 'ultimo_nome' => 'required|string|max:255',
-                'email' => 'unique|required|email|max:255',
+                'email' => 'required|email|max:255|unique:moradors,email',
                 'telefone' => 'required|string|max:20',
-                'bi' => 'unique|nullable|string|max:20',
-                'cedula' => 'unique|nullable|string|max:20',
+                'bi' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,bi',
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (in_array($request->tipo, ['proprietario', 'inquilino']) && empty($value)) {
+                            $fail('O campo BI é obrigatório para proprietários e inquilinos.');
+                        } elseif ($request->tipo == 'dependente' && empty($value) && empty($request->cedula)) {
+                            $fail('Para dependentes, é necessário fornecer BI ou Cédula.');
+                        }
+                    },
+                ],
+                'cedula' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,cedula',
+                ],
                 'data_nascimento' => 'required|date',
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
                 'tipo' => 'required|in:proprietario,inquilino,dependente',
                 'estado_residente' => 'required_if:tipo,proprietario|boolean',
-                'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id',
+                'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id'
             ]);
 
             if ($request->tipo == 'dependente') {
                 $inquilino = Morador::find($request->dependente_de);
                 $validated['unidade_id'] = $inquilino->unidade_id;
             }
-
+    
             Morador::create($validated);
-
+    
             return redirect()->route('admin.morador.index')
                 ->with('success', 'Morador registrado com sucesso.');
         } catch (\Exception $e) {
@@ -71,30 +88,47 @@ class MoradorController extends Controller
     {
         try {
             $morador = Morador::findOrFail($id);
-
+    
             $validated = $request->validate([
                 'primeiro_nome' => 'required|string|max:255',
                 'nomes_meio' => 'nullable|string|max:255',
                 'ultimo_nome' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|max:255|unique:moradors,email,' . $id,
                 'telefone' => 'required|string|max:20',
-                'bi' => 'nullable|string|max:20',
-                'cedula' => 'nullable|string|max:20',
+                'bi' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,bi,' . $id,
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (in_array($request->tipo, ['proprietario', 'inquilino']) && empty($value)) {
+                            $fail('O campo BI é obrigatório para proprietários e inquilinos.');
+                        } elseif ($request->tipo == 'dependente' && empty($value) && empty($request->cedula)) {
+                            $fail('Para dependentes, é necessário fornecer BI ou Cédula.');
+                        }
+                    },
+                ],
+                'cedula' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,cedula,' . $id,
+                ],
                 'data_nascimento' => 'required|date',
-                'sexo' => 'required| string|in:Masculino,Feminino,Outro',
+                'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
                 'tipo' => 'required|in:proprietario,inquilino,dependente',
                 'estado_residente' => 'required_if:tipo,proprietario|boolean',
                 'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id',
             ]);
-
+    
             if ($request->tipo == 'dependente') {
                 $inquilino = Morador::find($request->dependente_de);
                 $validated['unidade_id'] = $inquilino->unidade_id;
             }
-
+    
             $morador->update($validated);
-
+    
             return redirect()->route('admin.morador.index')
                 ->with('success', 'Morador atualizado com sucesso.');
         } catch (\Exception $e) {
