@@ -639,7 +639,7 @@
     </style>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="user-type" content="{{ Auth::user()->vc_tipo }}">
+    <meta name="user-type" content="{{ Auth::user()->vc_tipo ?? '' }}">
     <script>
         window.REVERB_APP_ID = '{{ config('reverb.apps.0.id') }}';
         window.REVERB_APP_KEY = '{{ config('reverb.apps.0.key') }}';

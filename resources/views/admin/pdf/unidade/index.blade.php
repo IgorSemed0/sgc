@@ -61,6 +61,6 @@
         </table>
     @endforeach
 
-    <p class="footer">PIGC - {{ date('d/m/Y H:i') }}</p>
+    <p class="footer">GesCondo - {{ GesCondo('d/m/Y GesCondo:i') }}</p>
 </body>
 </html>

@@ -57,6 +57,6 @@
         </tbody>
     </table>
 
-    <p class="footer">PIGC - {{ date('d/m/Y H:i') }}</p>
+    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

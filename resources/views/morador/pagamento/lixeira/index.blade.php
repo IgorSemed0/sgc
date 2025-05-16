@@ -1,38 +1,42 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Blocos')
+@section('title', 'Lixeira de Pagamentos')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
-    <a href="{{ route('admin.bloco.index') }}" class="btn btn-secondary">
+    <a href="{{ route('admin.pagamento.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Blocos Apagados</h1>
+<h1 class="h3">Pagamentos Apagados</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
+            <th>Fatura</th>
+            <th>Data Pagamento</th>
+            <th>Valor Pago</th>
+            <th>Método Pagamento</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($blocos as $bloco)
+        @foreach ($pagamentos as $pagamento)
         <tr>
-            <td>{{ $bloco->id }}</td>
-            <td>{{ $bloco->nome }}</td>
-            <td>{{ $bloco->descricao }}</td>
+            <td>{{ $pagamento->id }}</td>
+            <td>{{ $pagamento->factura->referencia }}</td>
+            <td>{{ \Carbon\Carbon::parse($pagamento->data_pagamento)->format('d/m/Y') }}</td>
+            <td>{{ number_format($pagamento->valor_pago, 2, ',', '.') }}</td>
+            <td>{{ $pagamento->metodo_pagamento }}</td>
             <td>
-                <form id="restore-form-{{ $bloco->id }}" action="{{ route('admin.bloco.restore', $bloco->id) }}" method="POST" style="display: none;">
+                <form id="restore-form-{{ $pagamento->id }}" action="{{ route('admin.pagamento.restore', $pagamento->id) }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $bloco->id }})">Restaurar</button>
+                <button class="btn btn-success btn-sm" onclick="confirmRestore({{ $pagamento->id }})">Restaurar</button>
 
-                <form id="purge-form-{{ $bloco->id }}" action="{{ route('admin.bloco.purge', $bloco->id) }}" method="POST" style="display: none;">
+                <form id="purge-form-{{ $pagamento->id }}" action="{{ route('admin.pagamento.purge', $pagamento->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
-                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $bloco->id }})">Excluir Permanentemente</button>
+                <button class="btn btn-danger btn-sm" onclick="confirmPurge({{ $pagamento->id }})">Excluir Permanentemente</button>
             </td>
         </tr>
         @endforeach
@@ -65,7 +69,7 @@
     function confirmRestore(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Deseja restaurar este bloco?",
+            text: "Deseja restaurar este pagamento?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -82,7 +86,7 @@
     function confirmPurge(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação excluirá permanentemente o bloco!",
+            text: "Esta ação excluirá permanentemente o pagamento!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

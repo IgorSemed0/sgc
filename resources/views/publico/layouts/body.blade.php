@@ -15,7 +15,7 @@
             @yield('conteudo')
             <hr>
             <div class="align-middle justify-center">
-                <p>   &copy; 2025 PIGC. Todos os direitos reservados.</p>
+                <p>   &copy; 2025 GesCondo. Todos os direitos reservados.</pGesCondo
             </div>
         </main>
     </section>

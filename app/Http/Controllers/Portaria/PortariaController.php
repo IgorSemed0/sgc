@@ -20,7 +20,7 @@ class PortariaController extends Controller
         $acessos = Acesso::orderBy('data_hora', 'desc')
                         ->take(10)
                         ->get();
-        
+
         $unidades = Unidade::all();
         $condominios = Condominio::all();
         
@@ -76,7 +76,6 @@ class PortariaController extends Controller
 
         $moradores = $moradores->map(function($morador) {
             if ($morador->unidade) {
-                // Access bloco name properly through the relationship
                 $blocoName = $morador->unidade->bloco ? $morador->unidade->bloco->nome : 'N/A';
                 $morador->unidade_info = "U{$morador->unidade->numero} - {$blocoName}";
             } else {
