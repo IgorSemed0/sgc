@@ -89,60 +89,55 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: 'Selecione uma opção',
-            width: '100%'
-        });
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: 'Selecione uma opção',
+        width: '100%'
+    });
 
-        function adjustFields() {
-            var tipo = $('#tipo').val();
-            if (tipo == 'proprietario') {
-                $('#estado_residente_div').show();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').show();
-                $('#bi_div').show();
+    function adjustFields() {
+        var tipo = $('#tipo').val();
+        // Reset all fields to not required and hide them initially
+        $('#estado_residente_div, #dependente_de_div, #unidade_div, #bi_div, #cedula_div').hide();
+        $('#estado_residente, #dependente_de, #unidade_id, #bi, #cedula').prop('required', false);
+
+        if (tipo === 'proprietario') {
+            $('#estado_residente_div').show();
+            $('#unidade_div').show();
+            $('#bi_div').show();
+            $('#estado_residente').prop('required', true);
+            $('#unidade_id').prop('required', true);
+            $('#bi').prop('required', true);
+        } else if (tipo === 'inquilino') {
+            $('#unidade_div').show();
+            $('#bi_div').show();
+            $('#unidade_id').prop('required', true);
+            $('#bi').prop('required', true);
+        } else if (tipo === 'dependente') {
+            $('#dependente_de_div').show();
+            $('#bi_div').show();
+            $('#dependente_de').prop('required', true);
+
+            // Handle BI or Cédula for dependente
+            if ($('#bi').val().length > 0) {
                 $('#cedula_div').hide();
-                $('#bi').prop('required', true);
                 $('#cedula').prop('required', false);
-            } else if (tipo == 'inquilino') {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').show();
-                $('#bi_div').show();
-                $('#cedula_div').hide();
-                $('#bi').prop('required', true);
-                $('#cedula').prop('required', false);
-            } else if (tipo == 'dependente') {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').show();
-                $('#unidade_div').hide();
-                $('#bi_div').show();
-                $('#cedula_div').hide();
-                $('#bi').prop('required', false);
-                $('#bi').on('input', function() {
-                    if ($(this).val().length > 0) {
-                        $('#cedula_div').hide();
-                        $('#cedula').prop('required', false);
-                    } else {
-                        $('#cedula_div').show();
-                        $('#cedula').prop('required', true);
-                    }
-                });
-                if ($('#bi').val().length == 0) {
-                    $('#cedula_div').show();
-                    $('#cedula').prop('required', true);
-                }
             } else {
-                $('#estado_residente_div').hide();
-                $('#dependente_de_div').hide();
-                $('#unidade_div').hide();
-                $('#bi_div').hide();
-                $('#cedula_div').hide();
+                $('#cedula_div').show();
+                $('#cedula').prop('required', true);
             }
         }
 
-        $('#tipo').change(adjustFields);
-        adjustFields(); // Inicializar
-    });
+        // Ensure hidden fields are not required
+        $(':input[required]').each(function() {
+            if ($(this).closest('.col-md-6').is(':hidden')) {
+                $(this).prop('required', false);
+            }
+        });
+    }
+
+    $('#tipo').change(adjustFields);
+    $('#bi').on('input', adjustFields); // Update when BI changes
+    adjustFields(); // Initialize on page load
+});
 </script>
