@@ -23,7 +23,7 @@
                 <!-- <li><a href="{{ route('admin.condominio.index') }}"><i class="fas fa-building icon"></i> Condomínio</a></li> -->
                 <li><a href="{{ route('admin.bloco.index') }}"><i class="fas fa-th-large icon"></i> Blocos</a></li>
                 <li><a href="{{ route('admin.edificio.index') }}"><i class="fas fa-building icon"></i> Edifícios</a></li>
-                <li><a href="{{ route('admin.unidade.index') }}"><i class="fas fa-home icon"></i> Unidades</a></li>
+                <li><a href="{{ route('admin.unidade.index') }}"><i class="fas fa-home icon"></i> Imóveis</a></li>
                 <li><a href="{{ route('admin.espaco-comum.index') }}"><i class="fas fa-vector-square icon"></i> Outros Espaços</a></li>
                 <!-- <li><a href="{{ route('admin.espaco-reserva.index') }}"><i class="fas fa-calendar-check icon"></i> Reservas de Espaços</a></li> -->
             </ul>
@@ -58,7 +58,7 @@
                 <i class="fas fa-angle-right icon-right"></i>
             </a>
             <ul class="side-dropdown">
-                <li><a href="{{ route('admin.factura.index') }}"><i class="fas fa-file-invoice-dollar icon"></i> Faturas</a></li>
+                <li><a href="{{ route('admin.factura.index') }}"><i class="fas fa-file-invoice-dollar icon"></i> Cobrança</a></li>
                 <li><a href="{{ route('admin.pagamento.index') }}"><i class="fas fa-hand-holding-usd icon"></i> Pagamentos</a></li>
                 <li><a href="{{ route('admin.despesa.index') }}"><i class="fas fa-shopping-cart icon"></i> Despesas</a></li>
                 <li><a href="{{ route('admin.conta.index') }}"><i class="fas fa-piggy-bank icon"></i> Contas</a></li>
