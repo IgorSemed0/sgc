@@ -1,9 +1,9 @@
 @extends('admin.layouts.body')
-@section('title', 'Listar Faturas')
+@section('title', 'Listar Cobranças')
 @section('conteudo')
-<h1 class="h3">Tabela de Faturas</h1>
+<h1 class="h3">Tabela de Cobranças</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#facturaModal">Nova Fatura</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#facturaModal">Nova Cobrança</button>
     <a href="{{ route('admin.factura.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
@@ -45,7 +45,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar Fatura</h5>
+                            <h5 class="modal-title">Editar Cobrança</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -62,7 +62,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Fatura</h5>
+                    <h5 class="modal-title">Cadastro de Cobrança</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 @include('admin.factura.cadastrar.index')

@@ -1,12 +1,12 @@
 @extends('admin.layouts.body')
-@section('title', 'Lixeira de Faturas')
+@section('title', 'Lixeira de Cobranças')
 @section('conteudo')
 <div class="d-flex justify-content-between mb-3">
     <a href="{{ route('admin.factura.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
 </div>
-<h1 class="h3">Faturas Apagadas</h1>
+<h1 class="h3">Cobranças Apagadas</h1>
 <table class="table table-striped myTable">
     <thead>
         <tr>

@@ -63,7 +63,6 @@ class PagamentoController extends Controller
         try {
             $pagamento = Pagamento::findOrFail($id);
     
-            // Validate the request, excluding valor_pago since we'll fetch it from the Factura
             $validated = $request->validate([
                 'factura_id' => 'required|exists:facturas,id',
                 'data_pagamento' => 'required|date',

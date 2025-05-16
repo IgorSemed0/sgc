@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="factura_id">Fatura</label>
+        <label for="factura_id">Cobrança</label>
         <select class="form-control select2" id="factura_id" name="factura_id" required>
             <option value="">Selecione uma fatura</option>
             @foreach ($facturas as $factura)
