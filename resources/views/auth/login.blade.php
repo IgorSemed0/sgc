@@ -91,9 +91,9 @@
                         </div>
                     </form>
                     
-                    <hr class="my-4">
+                    <hr class="my-4" hidden>
                     
-                    <div class="text-center">
+                    <div class="text-center" hidden>
                         <p>Não tem uma conta ainda? <a href="{{ route('register') }}" class="text-decoration-none fw-bold">Cadastre-se</a></p>
                     </div>
                 </div>

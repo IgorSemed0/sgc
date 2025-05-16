@@ -25,9 +25,6 @@ class PdfController extends Controller
         return view('admin.pdf.index');
     }
 
-    /**
-     * Configure MPdf to open PDF in browser
-     */
     private function configureMpdf()
     {
         $mpdf = new Mpdf([
@@ -44,93 +41,164 @@ class PdfController extends Controller
         return $mpdf;
     }
 
-    public function morador()
+    /**
+     * Apply date filter to a query based on request parameters
+     */
+    private function applyDateFilter($query, Request $request, $dateField)
+    {
+        if ($request->has('start') && $request->has('end')) {
+            $start = Carbon::parse($request->query('start'));
+            $end = Carbon::parse($request->query('end'));
+            $query->whereBetween($dateField, [$start, $end]);
+        } elseif ($request->has('period') && $request->query('period') !== 'all') {
+            $period = $request->query('period');
+            if ($period === 'week') {
+                $start = now()->startOfWeek();
+                $end = now()->endOfWeek();
+                $query->whereBetween($dateField, [$start, $end]);
+            } elseif ($period === 'month') {
+                $start = now()->startOfMonth();
+                $end = now()->endOfMonth();
+                $query->whereBetween($dateField, [$start, $end]);
+            } elseif ($period === 'year') {
+                $start = now()->startOfYear();
+                $end = now()->endOfYear();
+                $query->whereBetween($dateField, [$start, $end]);
+            }
+        }
+        // If 'all' or no period specified, no filter is applied
+    }
+
+    /**
+     * Generate text describing the selected period
+     */
+    private function getPeriodText(Request $request)
+    {
+        if ($request->has('start') && $request->has('end')) {
+            $start = Carbon::parse($request->query('start'));
+            $end = Carbon::parse($request->query('end'));
+            return 'De ' . $start->format('d/m/Y') . ' a ' . $end->format('d/m/Y');
+        } elseif ($request->has('period') && $request->query('period') !== 'all') {
+            $period = $request->query('period');
+            if ($period === 'week') {
+                $start = now()->startOfWeek();
+                $end = now()->endOfWeek();
+                return 'Última Semana: ' . $start->format('d/m/Y') . ' a ' . $end->format('d/m/Y');
+            } elseif ($period === 'month') {
+                $start = now()->startOfMonth();
+                $end = now()->endOfMonth();
+                return 'Último Mês: ' . $start->format('d/m/Y') . ' a ' . $end->format('d/m/Y');
+            } elseif ($period === 'year') {
+                $start = now()->startOfYear();
+                $end = now()->endOfYear();
+                return 'Último Ano: ' . $start->format('d/m/Y') . ' a ' . $end->format('d/m/Y');
+            }
+        }
+        return 'Todos os Períodos';
+    }
+
+    public function morador(Request $request)
     {
         $moradores = Morador::with('unidade')->get();
         $moradoresPorTipo = $moradores->groupBy('tipo');
         $totalMoradores = $moradores->count();
-        $html = View::make('admin.pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores'))->render();
+        $periodText = $this->getPeriodText($request); // Included for consistency, though no filter applied
+        $html = View::make('admin.pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_moradores.pdf', 'I');
     }
 
-    public function unidade()
+    public function unidade(Request $request)
     {
         $blocos = Bloco::with('unidade')->get();
         $totalUnidades = Unidade::count();
-        $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades'))->render();
+        $periodText = $this->getPeriodText($request); // Included for consistency, though no filter applied
+        $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_unidades.pdf', 'I');
     }
 
-    public function acesso()
+    public function acesso(Request $request)
     {
-        // Fetch the access records with safer eager loading
-        // Apply eager loading with specific constraints to handle null relations
-        $acessos = Acesso::with(['pessoa' => function($query) {
-            // This will ensure the query continues even if some relations are null
+        $query = Acesso::with(['pessoa' => function($query) {
             return $query;
-        }])->get();
-        
+        }]);
+        $this->applyDateFilter($query, $request, 'data_hora');
+        $acessos = $query->get();
         $totalAcessos = $acessos->count();
-        $html = View::make('admin.pdf.acesso.index', compact('acessos', 'totalAcessos'))->render();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.acesso.index', compact('acessos', 'totalAcessos', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_acessos.pdf', 'I');
     }
 
-
-    public function despesa()
+    public function despesa(Request $request)
     {
-        $despesas = Despesa::all();
+        $query = Despesa::query();
+        $this->applyDateFilter($query, $request, 'data'); // Ensure 'data' matches your Despesa model field
+        $despesas = $query->get();
         $totalDespesas = $despesas->sum('valor');
-        $html = View::make('admin.pdf.despesa.index', compact('despesas', 'totalDespesas'))->render();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.despesa.index', compact('despesas', 'totalDespesas', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_despesas.pdf', 'I');
     }
 
-    public function inadimplencia()
+    public function inadimplencia(Request $request)
     {
-        $facturas = Factura::where('status', 'Pendente')->with('unidade')->get();
+        $query = Factura::where('status', 'Pendente')->with('unidade');
+        $this->applyDateFilter($query, $request, 'data_vencimento');
+        $facturas = $query->get();
         $totalInadimplencia = $facturas->sum('valor_total');
-        $html = View::make('admin.pdf.inadimplencia.index', compact('facturas', 'totalInadimplencia'))->render();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.inadimplencia.index', compact('facturas', 'totalInadimplencia', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_inadimplencia.pdf', 'I');
     }
 
-    public function pagamento()
+    public function pagamento(Request $request)
     {
-        $pagamentos = Pagamento::with('factura')->get();
+        $query = Pagamento::with('factura');
+        $this->applyDateFilter($query, $request, 'data_pagamento');
+        $pagamentos = $query->get();
         $totalPagamentos = $pagamentos->sum('valor_pago');
-        $html = View::make('admin.pdf.pagamento.index', compact('pagamentos', 'totalPagamentos'))->render();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.pagamento.index', compact('pagamentos', 'totalPagamentos', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_pagamentos.pdf', 'I');
     }
 
-    public function visitante()
+    public function visitante(Request $request)
     {
-        $visitantes = Visitante::with('unidade')->get();
+        $query = Visitante::with('unidade');
+        $this->applyDateFilter($query, $request, 'data_visita'); // Adjust 'data_visita' to match your Visitante model field
+        $visitantes = $query->get();
         $totalVisitantes = $visitantes->count();
-        $html = View::make('admin.pdf.visitante.index', compact('visitantes', 'totalVisitantes'))->render();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.visitante.index', compact('visitantes', 'totalVisitantes', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_visitantes.pdf', 'I');
     }
 
-    public function funcionario()
+    public function funcionario(Request $request)
     {
         $funcionarios = Funcionario::with('departamento')->get();
         $funcionariosPorTipo = $funcionarios->groupBy('tipo');
         $totalFuncionarios = $funcionarios->count();
-        $html = View::make('admin.pdf.funcionario.index', compact('funcionariosPorTipo', 'totalFuncionarios'))->render();
+        $periodText = $this->getPeriodText($request); // Included for consistency, though no filter applied
+        $html = View::make('admin.pdf.funcionario.index', compact('funcionariosPorTipo', 'totalFuncionarios', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_funcionarios.pdf', 'I');
     }
 
+    // Note: 'bloco' method is referenced in routes but missing in your provided controller.
+    // Assuming it's similar to 'unidade', you can add it if needed.
 }
