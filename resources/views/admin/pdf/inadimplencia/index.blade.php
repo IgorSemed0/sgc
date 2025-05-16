@@ -16,7 +16,6 @@
         .header { width: 100%; position: relative; margin-bottom: 20px; }
         .insignia { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
         .textos-cabecalho p { margin: 2px 0; line-height: 1.2; font-size: 14px; }
-        .period-info { font-size: 16px; font-weight: bold; margin: 10px 0; text-align: center; color: #2C3E50; }
     </style>
 </head>
 <body>
@@ -33,7 +32,7 @@
 
     <h2>Relatório de Inadimplência</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
-    <p class="period-info">{{ $reportDate }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total inadimplente: {{ number_format($totalInadimplencia, 2, ',', '.') }}</p>
 
     <table>

@@ -14,6 +14,7 @@
         .footer { margin-top: 30px; font-size: 12px; color: #555; text-align: center; }
         p { text-align: center; }
         .header { width: 100%; position: relative; margin-bottom: 20px; }
+uppgift
         .insignia { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
         .textos-cabecalho p { margin: 2px 0; line-height: 1.2; font-size: 14px; }
     </style>
@@ -32,6 +33,7 @@
 
     <h2>Relatório de Visitantes</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de visitantes: {{ $totalVisitantes }}</p>
 
     <table>
@@ -55,6 +57,6 @@
         </tbody>
     </table>
 
-    <p class="footer">GesCondo - {{ GesCondo('d/m/Y GesCondo:i') }}</p>
+    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

@@ -33,6 +33,7 @@
 
     <h2>Relatório de Moradores</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de moradores: {{ $totalMoradores }}</p>
 
     @foreach ($moradoresPorTipo as $tipo => $moradoresDoTipo)
@@ -59,6 +60,6 @@
         </table>
     @endforeach
 
-    <p class="footer">GesCondo - {{ GesCondo('d/m/Y H:i') }}</p>
+    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

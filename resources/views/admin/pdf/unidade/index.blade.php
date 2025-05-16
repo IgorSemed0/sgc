@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Relatório de Imoóvel por Bloco</title>
+    <title>Relatório de Imóvel por Bloco</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h1, h2 { color: #2C3E50; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; margin-bottom: 10px; text-align: center; }
@@ -25,14 +25,15 @@
             <img src="{{ public_path('assets/images/insignia.jpeg') }}" alt="Insígnia" height="60px" width="60px"><br>
             <div class="textos-cabecalho">
                 <p>Condominio Integrated Manager Platform</p>
-                <p>Relatório de Imoóvel por Bloco</p>
+                <p>Relatório de Imóvel por Bloco</p>
             </div>
         </div>
     </div>
     <hr>
 
-    <h2>Relatório de Imoóvel por Bloco</h2>
+    <h2>Relatório de Imóvel por Bloco</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de unidades: {{ $totalUnidades }}</p>
 
     @foreach ($blocos as $bloco)
@@ -61,6 +62,6 @@
         </table>
     @endforeach
 
-    <p class="footer">GesCondo - {{ GesCondo('d/m/Y GesCondo:i') }}</p>
+    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

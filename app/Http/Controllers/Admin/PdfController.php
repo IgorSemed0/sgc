@@ -138,7 +138,7 @@ class PdfController extends Controller
     public function despesa(Request $request)
     {
         $query = Despesa::query();
-        $this->applyDateFilter($query, $request, 'data'); // Ensure 'data' matches your Despesa model field
+        $this->applyDateFilter($query, $request, 'data_despesa'); // Changed 'data' to 'data_despesa'
         $despesas = $query->get();
         $totalDespesas = $despesas->sum('valor');
         $periodText = $this->getPeriodText($request);
@@ -199,6 +199,18 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_funcionarios.pdf', 'I');
     }
 
-    // Note: 'bloco' method is referenced in routes but missing in your provided controller.
-    // Assuming it's similar to 'unidade', you can add it if needed.
+    public function bloco(Request $request)
+    {
+        $blocos = Bloco::with('unidades')->get()->map(function ($bloco) {
+            $bloco->unidadesPorTipo = $bloco->unidades->groupBy('tipo');
+            return $bloco;
+        });
+        $totalBlocos = Bloco::count();
+        $totalUnidades = Unidade::count();
+        $periodText = $this->getPeriodText($request);
+        $html = View::make('admin.pdf.bloco.index', compact('blocos', 'totalBlocos', 'totalUnidades', 'periodText'))->render();
+        $mpdf = $this->configureMpdf();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('relatorio_blocos.pdf', 'I');
+    }
 }

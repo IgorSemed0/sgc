@@ -32,6 +32,7 @@
 
     <h2>Relatório de Acessos</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de acessos: {{ $totalAcessos }}</p>
 
     <table>

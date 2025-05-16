@@ -32,6 +32,7 @@
 
     <h2>Relatório de Pagamentos</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total pago: {{ number_format($totalPagamentos, 2, ',', '.') }}</p>
 
     <table>
@@ -55,6 +56,6 @@
         </tbody>
     </table>
 
-    <p class="footer">GesCondo - {{ GesCondo('d/m/Y GesCondo:i') }}</p>
+    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

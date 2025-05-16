@@ -17,6 +17,10 @@ class Despesa extends Model
         'data_despesa'
     ];
 
+    protected $casts = [
+                'data_despesa' => 'datetime',
+            ];
+
     // public function condominio()
     // {
     //     return $this->belongsTo(Condominio::class, 'condominio_id');

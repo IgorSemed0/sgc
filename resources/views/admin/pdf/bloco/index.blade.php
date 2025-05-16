@@ -33,6 +33,7 @@
 
     <h2>Relatório de Blocos</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de blocos: {{ $totalBlocos }}</p>
     <p>Total de unidades: {{ $totalUnidades }}</p>
 
@@ -45,7 +46,6 @@
                     <tr>
                         <th>Número</th>
                         <th>Andar</th>
-                        <th>Área (m²)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -54,7 +54,6 @@
                         <tr>
                             <td>{{ $unidade->numero }}</td>
                             <td>{{ $unidade->andar }}</td>
-                            <td>{{ $unidade->area_m2 }}</td>
                             <td>{{ $unidade->status }}</td>
                         </tr>
                     @endforeach

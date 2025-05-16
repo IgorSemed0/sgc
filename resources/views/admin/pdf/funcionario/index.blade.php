@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Relatório de Funcionários</title>
-   gadgets
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h1, h2 { color: #2C3E50; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; margin-bottom: 10px; text-align: center; }
@@ -34,6 +33,7 @@
 
     <h2>Relatório de Funcionários</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
+    <p>Período: {{ $periodText }}</p>
     <p>Total de funcionários: {{ $totalFuncionarios }}</p>
 
     @foreach ($funcionariosPorTipo as $tipo => $funcionariosDoTipo)
