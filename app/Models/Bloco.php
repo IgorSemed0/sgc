@@ -30,6 +30,11 @@ class Bloco extends Model
         return $this->hasMany(Unidade::class, 'bloco_id');
     }
 
+    public function unidade()
+    {
+        return $this->hasMany(Unidade::class, 'bloco_id');
+    }
+
     public function espacoComum()
     {
         return $this->hasMany(EspacoComum::class, 'bloco_id');
