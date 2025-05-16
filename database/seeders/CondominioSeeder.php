@@ -76,7 +76,6 @@ class CondominioSeeder extends Seeder
                     'bloco_id' => $bloco->id,
                     'edificio_id' => $edificio->id,
                     'andar' => $faker->numberBetween(1, 10),
-                    'area_m2' => $faker->numberBetween(50, 200),
                     'status' => $faker->randomElement(['Ocupada', 'Vazia']),
                 ]);
             }
@@ -177,7 +176,7 @@ class CondominioSeeder extends Seeder
                 'Morador' => $moradores,
                 'Funcionario' => $funcionarios,
                 'Visitante' => $visitantes,
-                default => [],d
+                default => [],
             };
             foreach ($entidades as $entidade) {
                 if ($faker->boolean(90)) { // 90% de chance de ter acessos
