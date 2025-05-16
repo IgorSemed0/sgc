@@ -20,6 +20,14 @@ class Factura extends Model
         'observacao'
     ];
 
+protected $casts = [
+            'data_vencimento' => 'datetime',
+        ];
+    public function unidades()
+    {
+        return $this->hasMany(Unidade::class, 'bloco_id');
+    }
+
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidade_id');

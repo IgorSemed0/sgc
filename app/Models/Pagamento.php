@@ -17,6 +17,10 @@ class Pagamento extends Model
         'metodo_pagamento', 
     ];
 
+    protected $casts = [
+            'data_pagamento' => 'datetime',
+        ];
+
     public function factura()
     {
         return $this->belongsTo(Factura::class, 'factura_id');

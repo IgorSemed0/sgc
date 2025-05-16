@@ -18,6 +18,9 @@ class Acesso extends Model
         'observacao',
     ];
 
+    protected $casts = [
+                'data_hora' => 'datetime',
+            ];
     public function pessoa()
     {
         // Convert tipo_pessoa to lowercase to match case in if/else logic
