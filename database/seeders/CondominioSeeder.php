@@ -63,7 +63,8 @@ class CondominioSeeder extends Seeder
 
         // 3. Criar Unidades (2 por edifício = ~50%)
         $unidades = [];
-        $tiposUnidade = ['Estabelecimento Comercial', 'Apartamento'];
+        $tiposUnidade = ['Apartamento', 'Sala Comercial', 'Casa'];
+        $statusUnidade = ['alugada', 'disponivel'];
         foreach ($edificios as $edificio) {
             for ($i = 1; $i <= 2; $i++) {
                 $unidades[] = Unidade::create([
@@ -72,14 +73,14 @@ class CondominioSeeder extends Seeder
                     'bloco_id' => $edificio->bloco_id,
                     'edificio_id' => $edificio->id,
                     'andar' => $faker->numberBetween(1, 10),
-                    'status' => $faker->randomElement(['Ocupada', 'Vazia']),
+                    'status' => $faker->randomElement($statusUnidade),
                 ]);
             }
         }
 
         // 4. Criar Usuários (5 = 50%)
         $users = [];
-        $tiposUsuario = ['Administrador', 'Morador', 'Funcionário'];
+        $tiposUsuario = ['admin', 'morador', 'funcionario'];
         for ($i = 1; $i <= 5; $i++) {
             $users[] = User::create([
                 'primeiro_nome' => $faker->firstName,
@@ -106,10 +107,41 @@ class CondominioSeeder extends Seeder
 
         // 6. Criar Moradores (~35% das unidades)
         $moradores = [];
-        $tiposMorador = ['Proprietário', 'Inquilino', 'Dependente'];
+        $tiposMorador = ['proprietario', 'inquilino', 'dependente'];
+        $inquilinosPorUnidade = [];
         foreach ($unidades as $unidade) {
             if ($faker->boolean(35)) {
-                $moradores[] = Morador::create([
+                $tipo = $faker->randomElement($tiposMorador);
+                $dependenteDe = null;
+                if ($tipo == 'dependente') {
+                    if (isset($inquilinosPorUnidade[$unidade->id]) && !empty($inquilinosPorUnidade[$unidade->id])) {
+                        $dependenteDe = $faker->randomElement($inquilinosPorUnidade[$unidade->id]);
+                    } else {
+                        // Criar um inquilino primeiro
+                        $inquilino = Morador::create([
+                            'primeiro_nome' => $faker->firstName,
+                            'nomes_meio' => $faker->optional()->firstName,
+                            'ultimo_nome' => $faker->lastName,
+                            'email' => $faker->safeEmail,
+                            'telefone' => '+244' . $faker->numerify('9########'),
+                            'bi' => $faker->numerify('##########LA#'),
+                            'cedula' => $faker->unique()->numerify('C#####'),
+                            'data_nascimento' => $faker->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
+                            'sexo' => $faker->randomElement(['Masculino', 'Feminino']),
+                            'unidade_id' => $unidade->id,
+                            'tipo' => 'inquilino',
+                            'estado_residente' => $faker->randomElement([1, 0]),
+                            'dependente_de' => null,
+                        ]);
+                        $dependenteDe = $inquilino->id;
+                        if (!isset($inquilinosPorUnidade[$unidade->id])) {
+                            $inquilinosPorUnidade[$unidade->id] = [];
+                        }
+                        $inquilinosPorUnidade[$unidade->id][] = $inquilino->id;
+                        $moradores[] = $inquilino; // Adicionar o inquilino à lista de moradores
+                    }
+                }
+                $morador = Morador::create([
                     'primeiro_nome' => $faker->firstName,
                     'nomes_meio' => $faker->optional()->firstName,
                     'ultimo_nome' => $faker->lastName,
@@ -120,16 +152,26 @@ class CondominioSeeder extends Seeder
                     'data_nascimento' => $faker->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
                     'sexo' => $faker->randomElement(['Masculino', 'Feminino']),
                     'unidade_id' => $unidade->id,
-                    'tipo' => $faker->randomElement($tiposMorador),
-                    'estado_residente' => $faker->randomElement([1, 0]),
-                    'dependente_de' => null,
+                    'tipo' => $tipo,
+                    'estado_residente' => $tipo == 'proprietario' ? $faker->randomElement([1, 0]) : 1,
+                    'dependente_de' => $dependenteDe,
                 ]);
+                if ($tipo == 'inquilino') {
+                    if (!isset($inquilinosPorUnidade[$unidade->id])) {
+                        $inquilinosPorUnidade[$unidade->id] = [];
+                    }
+                    $inquilinosPorUnidade[$unidade->id][] = $morador->id;
+                }
+                $moradores[] = $morador;
             }
         }
 
         // 7. Criar Funcionários (mantém 1 por departamento)
         $funcionarios = [];
         foreach ($departamentos as $departamento) {
+            $tipo = $faker->randomElement(['Particular', 'Geral']);
+            $unidade_id = ($tipo == 'Particular') ? $faker->randomElement($unidades)->id : 1;
+            $cargo = ($tipo == 'Particular') ? $faker->jobTitle : 'Geral';
             $funcionarios[] = Funcionario::create([
                 'primeiro_nome' => $faker->firstName,
                 'nomes_meio' => $faker->optional()->firstName,
@@ -139,10 +181,10 @@ class CondominioSeeder extends Seeder
                 'bi' => $faker->numerify('##########LA#'),
                 'dt_nascimento' => $faker->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
                 'sexo' => $faker->randomElement(['Masculino', 'Feminino']),
-                'cargo' => $faker->jobTitle,
-                'unidade_id' => $faker->randomElement($unidades)->id,
+                'cargo' => $cargo,
+                'unidade_id' => $unidade_id,
                 'departamento_id' => $departamento->id,
-                'tipo' => 'Funcionário',
+                'tipo' => $tipo,
             ]);
         }
 
@@ -162,6 +204,7 @@ class CondominioSeeder extends Seeder
                 ]);
             }
         }
+
         // 9. Criar Acessos (~45% chance)
         foreach (['Morador' => $moradores, 'Funcionario' => $funcionarios, 'Visitante' => $visitantes] as $tipo => $entidades) {
             foreach ($entidades as $entidade) {
@@ -230,7 +273,7 @@ class CondominioSeeder extends Seeder
                     'data_emissao' => $faker->dateTimeBetween('-1 year', 'now'),
                     'data_vencimento' => $faker->dateTimeBetween('now', '+1 month'),
                     'valor_total' => $faker->numberBetween(1000, 5000),
-                    'status' => $faker->randomElement(['Pendente', 'Pago']),
+                    'status' => $faker->randomElement(['Pendente', 'Pago', 'Cancelado']),
                 ]);
             }
         }
@@ -302,7 +345,7 @@ class CondominioSeeder extends Seeder
                 'post_id' => $post->id,
                 'user_id' => $faker->randomElement($users)->id,
                 'conteudo' => $faker->sentence,
-                    'data_comentario' => $faker->dateTimeBetween($post->data_publicacao, 'now'),
+                'data_comentario' => $faker->dateTimeBetween($post->data_publicacao, 'now'),
             ]);
         }
 
