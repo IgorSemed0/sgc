@@ -17,7 +17,7 @@
         <main>
             @yield('conteudo')
             <footer>
-                <p>&copy; 2025 CDCI. Todos os direitos reservados.</p>
+                <p>&copy; 2025 GesCondo. Todos os direitos reservados.</p>
             </footer>
         </main>
     </section>
