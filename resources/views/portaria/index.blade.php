@@ -116,7 +116,7 @@
                                 <select class="form-control select2" id="unidade_id" name="unidade_id">
                                     <option value="">Selecione uma unidade</option>
                                     @foreach ($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }} - {{ $unidade->bloco }}</option>
+                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }}  {{ $unidade->bloco->nome }}</option>
                                     @endforeach
                                 </select>
                             </div>
