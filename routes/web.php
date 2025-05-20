@@ -379,8 +379,9 @@ Route::middleware([
     });
 
     Route::prefix('portaria')->middleware(['auth', 'admin'])->group(function () {
-        Route::get('index', ['as' =>  'portaria.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
+        Route::get('index', ['as' => 'portaria.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
         Route::post('search', ['as' => 'portaria.search', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@search']);
+        Route::post('search/by/name', ['as' => 'portaria.search.by.name', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@searchByName']);
         Route::post('access', ['as' => 'portaria.access', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@registerAccess']);
         Route::post('visitante/store', ['as' => 'portaria.visitante.store', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@storeVisitante']);
         Route::post('search/morador', ['as' => 'portaria.search.morador', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@searchMorador']);

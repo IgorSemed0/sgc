@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <form id="searchForm" class="mb-3">
                         <div class="input-group">
-                            <input type="text" id="bi" name="bi" class="form-control" placeholder="Digite o BI" required>
+                            <input type="text" id="searchQuery" name="searchQuery" class="form-control" placeholder="Digite o nome ou BI" required>
                             <button type="submit" class="btn btn-primary">Buscar</button>
                         </div>
                     </form>
@@ -84,7 +84,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="primeiro_nome">Primeiro Nome*</label>
+                                <label for="primeiro_nome">Primeiro Nome</label>
                                 <input type="text" class="form-control" id="primeiro_nome" name="primeiro_nome" required>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control" id="nomes_meio" name="nomes_meio">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="ultimo_nome">Último Nome*</label>
+                                <label for="ultimo_nome">Último Nome</label>
                                 <input type="text" class="form-control" id="ultimo_nome" name="ultimo_nome" required>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" id="telefone" name="telefone">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="motivo_visita">Motivo da Visita*</label>
+                                <label for="motivo_visita">Motivo da Visita</label>
                                 <textarea class="form-control" id="motivo_visita" name="motivo_visita" required></textarea>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -116,7 +116,7 @@
                                 <select class="form-control select2" id="unidade_id" name="unidade_id">
                                     <option value="">Selecione uma unidade</option>
                                     @foreach ($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }} - {{ $unidade->bloco }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -200,22 +200,72 @@
     <!-- JavaScript for Search and Modals -->
     <script>
         $(document).ready(function() {
-            // Original BI Search
+            // Name or BI Search
             $('#searchForm').on('submit', function(e) {
                 e.preventDefault();
+                const searchQuery = $('#searchQuery').val();
+
                 $.ajax({
                     url: '{{ route('portaria.search') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        bi: $('#bi').val()
+                        bi: searchQuery
                     },
                     success: function(response) {
                         $('#searchResult').empty();
                         if (response.type === 'not_found') {
-                            $('#searchResult').html('<div class="alert alert-warning">' + response.message + '</div>');
-                            $('#visitanteModal').modal('show');
-                            $('#bi_visitante').val($('#bi').val());
+                            // Try searching by name if BI not found
+                            $.ajax({
+                                url: '{{ route('portaria.search.by.name') }}',
+                                method: 'POST',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    name: searchQuery
+                                },
+                                success: function(nameResponse) {
+                                    if (nameResponse.results.length === 0) {
+                                        $('#searchResult').html('<div class="alert alert-warning">Nenhuma pessoa encontrada. Registre como novo visitante.</div>');
+                                        $('#visitanteModal').modal('show');
+                                        $('#bi_visitante').val(searchQuery);
+                                    } else {
+                                        let resultsHtml = '<div class="alert alert-success">Pessoas encontradas:</div>';
+                                        nameResponse.results.forEach(function(result) {
+                                            resultsHtml += `
+                                                <div class="card mb-2 border-left-${result.tipo === 'morador' ? 'info' : 'warning'}">
+                                                    <div class="card-body p-2">
+                                                        <h6 class="mb-1">${result.nome} (${result.tipo})</h6>
+                                                        <p class="small mb-1">BI: ${result.bi}</p>
+                                                        <p class="small mb-1">${result.additional_info}</p>
+                                                        <button class="btn btn-sm btn-primary select-person" 
+                                                            data-id="${result.id}" 
+                                                            data-nome="${result.nome}" 
+                                                            data-tipo="${result.tipo}">
+                                                            <i class="fas fa-user-check me-1"></i> Selecionar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        });
+                                        $('#searchResult').html(resultsHtml);
+
+                                        // Add event listeners to select buttons
+                                        $('.select-person').on('click', function() {
+                                            const id = $(this).data('id');
+                                            const nome = $(this).data('nome');
+                                            const tipo = $(this).data('tipo');
+
+                                            $('#entidade_id').val(id);
+                                            $('#tipo_pessoa').val(tipo);
+                                            $('#nome_pessoa').val(nome);
+                                            $('#accessModal').modal('show');
+                                        });
+                                    }
+                                },
+                                error: function(xhr) {
+                                    $('#searchResult').html('<div class="alert alert-danger">Erro ao buscar por nome: ' + xhr.responseJSON.message + '</div>');
+                                }
+                            });
                         } else {
                             var name = response.data.primeiro_nome + ' ' + (response.data.nomes_meio || '') + ' ' + response.data.ultimo_nome;
                             $('#searchResult').html('<div class="alert alert-success">Encontrado: ' + name + ' (' + response.type + ')</div>');
@@ -226,7 +276,7 @@
                         }
                     },
                     error: function(xhr) {
-                        $('#searchResult').html('<div class="alert alert-danger">Erro ao buscar: ' + xhr.responseJSON.message + '</div>');
+                        $('#searchResult').html('<div class="alert alert-danger">Erro ao buscar por BI: ' + xhr.responseJSON.message + '</div>');
                     }
                 });
             });
@@ -237,13 +287,11 @@
                 clearTimeout(searchTimer);
                 const searchValue = $(this).val();
                 
-                // Limpa o painel de resultados se o campo estiver vazio
                 if (searchValue.length === 0) {
                     $('#moradorResults').empty();
                     return;
                 }
                 
-                // Mostra um indicador de carregamento apenas se tiver pelo menos 2 caracteres
                 if (searchValue.length >= 2) {
                     $('#moradorResults').html('<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Pesquisando...</div>');
                     
@@ -284,7 +332,6 @@
                                     $('#moradorResults').append(moradorCard);
                                 });
                                 
-                                // Add event listeners to the newly created buttons
                                 $('.contact-morador').on('click', function() {
                                     const moradorId = $(this).data('id');
                                     const moradorNome = $(this).data('nome');
@@ -312,9 +359,8 @@
                                 (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Erro desconhecido') + '</div>');
                             }
                         });
-                    }, 300); // Reduzido de 500ms para 300ms para uma experiência mais responsiva
+                    }, 300);
                 } else {
-                    // Mostra feedback ao usuário para digitar mais caracteres
                     $('#moradorResults').html('<div class="alert alert-warning">Digite pelo menos 2 caracteres para iniciar a pesquisa</div>');
                 }
             });
