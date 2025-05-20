@@ -54,6 +54,104 @@ class PortariaController extends Controller
         return response()->json(['type' => 'not_found', 'message' => 'Pessoa não encontrada. Registre como novo visitante.']);
     }
 
+    public function searchByName(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|min:2',
+        ]);
+
+        $searchTerm = $validated['name'];
+        
+        \Log::info("Busca de pessoa iniciada com termo: " . $searchTerm);
+        
+        // Normalize search term: remove accents, convert to lowercase
+        $normalizedSearch = $this->normalizeString($searchTerm);
+        
+        // Split search term into words
+        $searchWords = array_filter(explode(' ', $normalizedSearch));
+        
+        // If we have less than 2 characters and no multiple words, enforce minimum character limit
+        if (strlen($normalizedSearch) < 3 && count($searchWords) < 2) {
+            return response()->json([
+                'results' => [],
+                'message' => 'Digite pelo menos 3 caracteres para pesquisar'
+            ]);
+        }
+
+        // Search in all types of people
+        $moradores = $this->searchPessoas(Morador::with(['unidade.bloco']), $searchTerm, 'morador');
+        $funcionarios = $this->searchPessoas(Funcionario::query(), $searchTerm, 'funcionario');
+        $visitantes = $this->searchPessoas(Visitante::with(['unidade']), $searchTerm, 'visitante');
+        
+        // Combine and sort results by score
+        $allResults = array_merge($moradores, $funcionarios, $visitantes);
+        
+        usort($allResults, function($a, $b) {
+            return $b['score'] <=> $a['score'];
+        });
+        
+        // Limit to top 10 results
+        $results = array_slice($allResults, 0, 10);
+        
+        return response()->json(['results' => $results]);
+    }
+    
+    /**
+     * Search for pessoas of a specific type
+     * 
+     * @param Builder $query The query builder
+     * @param string $searchTerm The search term
+     * @param string $tipo The type of pessoa (morador, funcionario, visitante)
+     * @return array Results with scores
+     */
+    private function searchPessoas($query, $searchTerm, $tipo)
+    {
+        $normalizedSearch = $this->normalizeString($searchTerm);
+        $searchWords = array_filter(explode(' ', $normalizedSearch));
+        
+        $pessoas = $query->get();
+        $results = [];
+        
+        foreach ($pessoas as $pessoa) {
+            // Create full name
+            $fullName = trim($pessoa->primeiro_nome . ' ' . 
+                   ($pessoa->nomes_meio ? $pessoa->nomes_meio . ' ' : '') . 
+                   $pessoa->ultimo_nome);
+                   
+            // Normalize name for comparison
+            $normalizedName = $this->normalizeString($fullName);
+            
+            // Calculate match score
+            $score = $this->calculateNameMatchScore($normalizedName, $normalizedSearch, $searchWords);
+            
+            // If we have a match, add to results with score
+            if ($score > 0) {
+                // Add additional info based on type
+                if ($tipo === 'morador' && $pessoa->unidade) {
+                    $blocoName = $pessoa->unidade->bloco ? $pessoa->unidade->bloco->nome : 'N/A';
+                    $pessoa->additional_info = "U{$pessoa->unidade->numero} - {$blocoName}";
+                } elseif ($tipo === 'visitante' && $pessoa->unidade) {
+                    $pessoa->additional_info = "U{$pessoa->unidade->numero}";
+                } else {
+                    $pessoa->additional_info = '';
+                }
+                
+                $results[] = [
+                    'id' => $pessoa->id,
+                    'nome' => $fullName,
+                    'tipo' => $tipo,
+                    'bi' => $pessoa->bi ?? 'Não informado',
+                    'additional_info' => $pessoa->additional_info,
+                    'score' => $score,
+                    'telefone' => $pessoa->telefone ?? 'Não informado',
+                    'email' => $pessoa->email ?? 'Não informado'
+                ];
+            }
+        }
+        
+        return $results;
+    }
+
     public function searchMorador(Request $request)
     {
         $validated = $request->validate([
@@ -254,6 +352,17 @@ class PortariaController extends Controller
             'observacao' => 'nullable|string',
         ]);
         
+        $entidadeId = $validated['entidade_id'];
+        $tipoPessoa = $validated['tipo_pessoa'];
+        $tipoAcesso = $validated['tipo'];
+        
+        // Check if we can register this access type
+        $canRegister = $this->canRegisterAccess($entidadeId, $tipoPessoa, $tipoAcesso);
+        
+        if (!$canRegister['allowed']) {
+            return redirect()->back()->with('error', $canRegister['message']);
+        }
+        
         $validated['data_hora'] = now();
 
         try {
@@ -269,6 +378,54 @@ class PortariaController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao registrar acesso: ' . $e->getMessage());
         }
+    }
+    
+    /**
+     * Check if we can register the requested access type
+     * 
+     * @param int $entidadeId The ID of the entity
+     * @param string $tipoPessoa The type of person (morador, funcionario, visitante)
+     * @param string $tipoAcesso The type of access (Entrada, Saida)
+     * @return array Array with 'allowed' boolean and 'message' string
+     */
+    private function canRegisterAccess($entidadeId, $tipoPessoa, $tipoAcesso)
+    {
+        // Get the last access for this entity
+        $lastAccess = Acesso::where('entidade_id', $entidadeId)
+                           ->where('tipo_pessoa', $tipoPessoa)
+                           ->orderBy('data_hora', 'desc')
+                           ->first();
+        
+        // If no previous access, only allow entry (Entrada)
+        if (!$lastAccess) {
+            if ($tipoAcesso === 'Entrada') {
+                return ['allowed' => true, 'message' => ''];
+            } else {
+                return [
+                    'allowed' => false, 
+                    'message' => 'Não é possível registrar uma saída sem uma entrada prévia.'
+                ];
+            }
+        }
+        
+        // If the last access was an entry (Entrada), only allow exit (Saida)
+        if ($lastAccess->tipo === 'Entrada' && $tipoAcesso === 'Entrada') {
+            return [
+                'allowed' => false, 
+                'message' => 'Esta pessoa já tem uma entrada registrada. É necessário registrar a saída antes de uma nova entrada.'
+            ];
+        }
+        
+        // If the last access was an exit (Saida), only allow entry (Entrada)
+        if ($lastAccess->tipo === 'Saida' && $tipoAcesso === 'Saida') {
+            return [
+                'allowed' => false, 
+                'message' => 'Esta pessoa já tem uma saída registrada. É necessário registrar a entrada antes de uma nova saída.'
+            ];
+        }
+        
+        // Otherwise, the requested access type is valid
+        return ['allowed' => true, 'message' => ''];
     }
 
     public function storeVisitante(Request $request)
