@@ -6,20 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Morador;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MoradorController extends Controller
 {
     public function index()
     {
         $data['inquilinos'] = Morador::where('tipo', 'inquilino')->with('unidade')->get();
-        $data['unidades'] = Unidade::all();
+        $data['unidades'] = $this->getAvailableUnidades();
         $data['moradores'] = Morador::with(['unidade', 'inquilino'])->get();
         return view('admin.morador.index', $data);
     }
 
     public function create()
     {
-        $unidades = Unidade::where('status', 'disponivel')->get();
+        $unidades = $this->getAvailableUnidades();
         $inquilinos = Morador::where('tipo', 'inquilino')->with('unidade')->get();
         return view('admin.morador.cadastrar.index', compact('unidades', 'inquilinos'));
     }
@@ -80,7 +81,10 @@ class MoradorController extends Controller
     public function edit($id)
     {
         $morador = Morador::findOrFail($id);
-        $unidades = Unidade::where('status', 'disponivel')->get();
+        
+        // Get available units plus the current unit of this morador
+        $unidades = $this->getAvailableUnidades($morador->id);
+        
         $inquilinos = Morador::where('tipo', 'inquilino')->with('unidade')->get();
         return view('admin.morador.editar.index', compact('morador', 'unidades', 'inquilinos'));
     }
@@ -183,5 +187,28 @@ class MoradorController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao excluir morador permanentemente: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Get unidades that are not assigned to any morador of type proprietario or inquilino
+     * 
+     * @param int|null $excludeMoradorId - Exclude this morador when checking occupancy (useful for edit)
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getAvailableUnidades($excludeMoradorId = null)
+    {
+        // Get all unidade IDs that are occupied by proprietários or inquilinos
+        $occupiedUnidadeIds = Morador::whereIn('tipo', ['proprietario', 'inquilino'])
+            ->when($excludeMoradorId, function ($query) use ($excludeMoradorId) {
+                // If editing a morador, don't consider their own unit as occupied
+                return $query->where('id', '!=', $excludeMoradorId);
+            })
+            ->pluck('unidade_id')
+            ->toArray();
+
+        // Get unidades that are not in the occupied list and have status 'disponivel'
+        return Unidade::where('status', 'disponivel')
+            ->whereNotIn('id', array_filter($occupiedUnidadeIds)) // array_filter removes null values
+            ->get();
     }
 }
