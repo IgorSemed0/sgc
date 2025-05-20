@@ -84,7 +84,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="primeiro_nome">Primeiro Nome</label>
+                                <label for="primeiro_nome">Primeiro Nome*</label>
                                 <input type="text" class="form-control" id="primeiro_nome" name="primeiro_nome" required>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control" id="nomes_meio" name="nomes_meio">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="ultimo_nome">Último Nome</label>
+                                <label for="ultimo_nome">Último Nome*</label>
                                 <input type="text" class="form-control" id="ultimo_nome" name="ultimo_nome" required>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" id="telefone" name="telefone">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="motivo_visita">Motivo da Visita</label>
+                                <label for="motivo_visita">Motivo da Visita*</label>
                                 <textarea class="form-control" id="motivo_visita" name="motivo_visita" required></textarea>
                             </div>
                             <div class="col-md-6 mb-3">
