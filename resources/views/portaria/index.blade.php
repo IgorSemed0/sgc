@@ -237,77 +237,88 @@
                 clearTimeout(searchTimer);
                 const searchValue = $(this).val();
                 
-                if (searchValue.length < 3) {
+                // Limpa o painel de resultados se o campo estiver vazio
+                if (searchValue.length === 0) {
                     $('#moradorResults').empty();
                     return;
                 }
                 
-                searchTimer = setTimeout(function() {
-                    $.ajax({
-                        url: '{{ route('portaria.search.morador') }}',
-                        method: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            name: searchValue
-                        },
-                        success: function(response) {
-                            $('#moradorResults').empty();
-                            
-                            if (response.moradores.length === 0) {
-                                $('#moradorResults').html('<div class="alert alert-info">Nenhum morador encontrado</div>');
-                                return;
-                            }
-                            
-                            response.moradores.forEach(function(morador) {
-                                let fullName = morador.primeiro_nome + ' ' + (morador.nomes_meio ? morador.nomes_meio + ' ' : '') + morador.ultimo_nome;
-                                let moradorCard = `
-                                    <div class="card mb-2">
-                                        <div class="card-body p-2">
-                                            <h6 class="mb-1">${fullName}</h6>
-                                            <p class="small mb-1">Unidade: ${morador.unidade_info}</p>
-                                            <button class="btn btn-sm btn-info contact-morador" 
-                                                data-id="${morador.id}" 
-                                                data-nome="${fullName}" 
-                                                data-unidade="${morador.unidade_info}" 
-                                                data-telefone="${morador.telefone || 'Não informado'}" 
-                                                data-email="${morador.email || 'Não informado'}">
-                                                <i class="fas fa-phone me-1"></i> Contato
-                                            </button>
-                                        </div>
-                                    </div>
-                                `;
-                                $('#moradorResults').append(moradorCard);
-                            });
-                            
-                            // Add event listeners to the newly created buttons
-                            $('.contact-morador').on('click', function() {
-                                const moradorId = $(this).data('id');
-                                const moradorNome = $(this).data('nome');
-                                const moradorUnidade = $(this).data('unidade');
-                                const moradorTelefone = $(this).data('telefone');
-                                const moradorEmail = $(this).data('email');
+                // Mostra um indicador de carregamento apenas se tiver pelo menos 2 caracteres
+                if (searchValue.length >= 2) {
+                    $('#moradorResults').html('<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Pesquisando...</div>');
+                    
+                    searchTimer = setTimeout(function() {
+                        $.ajax({
+                            url: '{{ route('portaria.search.morador') }}',
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                name: searchValue
+                            },
+                            success: function(response) {
+                                $('#moradorResults').empty();
                                 
-                                $('#modalMoradorNome').text(moradorNome);
-                                $('#modalMoradorUnidade').text(moradorUnidade);
-                                $('#modalMoradorTelefone').text(moradorTelefone);
-                                $('#modalMoradorEmail').text(moradorEmail);
-                                
-                                if (moradorTelefone && moradorTelefone !== 'Não informado') {
-                                    $('#modalMoradorTelefoneLink').attr('href', 'tel:' + moradorTelefone).show();
-                                } else {
-                                    $('#modalMoradorTelefoneLink').hide();
+                                if (response.moradores.length === 0) {
+                                    $('#moradorResults').html('<div class="alert alert-info">Nenhum morador encontrado</div>');
+                                    return;
                                 }
                                 
-                                $('#confirmVisit').data('morador-id', moradorId);
-                                $('#moradorContactModal').modal('show');
-                            });
-                        },
-                        error: function(xhr) {
-                            $('#moradorResults').html('<div class="alert alert-danger">Erro ao buscar moradores</div>');
-                        }
-                    });
-                }, 500); // Delay for 500ms to avoid sending too many requests
+                                response.moradores.forEach(function(morador) {
+                                    let fullName = morador.primeiro_nome + ' ' + (morador.nomes_meio ? morador.nomes_meio + ' ' : '') + morador.ultimo_nome;
+                                    let moradorCard = `
+                                        <div class="card mb-2 border-left-info">
+                                            <div class="card-body p-2">
+                                                <h6 class="mb-1">${fullName}</h6>
+                                                <p class="small mb-1">Unidade: ${morador.unidade_info}</p>
+                                                <button class="btn btn-sm btn-info contact-morador" 
+                                                    data-id="${morador.id}" 
+                                                    data-nome="${fullName}" 
+                                                    data-unidade="${morador.unidade_info}" 
+                                                    data-telefone="${morador.telefone || 'Não informado'}" 
+                                                    data-email="${morador.email || 'Não informado'}">
+                                                    <i class="fas fa-phone me-1"></i> Contato
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    $('#moradorResults').append(moradorCard);
+                                });
+                                
+                                // Add event listeners to the newly created buttons
+                                $('.contact-morador').on('click', function() {
+                                    const moradorId = $(this).data('id');
+                                    const moradorNome = $(this).data('nome');
+                                    const moradorUnidade = $(this).data('unidade');
+                                    const moradorTelefone = $(this).data('telefone');
+                                    const moradorEmail = $(this).data('email');
+                                    
+                                    $('#modalMoradorNome').text(moradorNome);
+                                    $('#modalMoradorUnidade').text(moradorUnidade);
+                                    $('#modalMoradorTelefone').text(moradorTelefone);
+                                    $('#modalMoradorEmail').text(moradorEmail);
+                                    
+                                    if (moradorTelefone && moradorTelefone !== 'Não informado') {
+                                        $('#modalMoradorTelefoneLink').attr('href', 'tel:' + moradorTelefone).show();
+                                    } else {
+                                        $('#modalMoradorTelefoneLink').hide();
+                                    }
+                                    
+                                    $('#confirmVisit').data('morador-id', moradorId);
+                                    $('#moradorContactModal').modal('show');
+                                });
+                            },
+                            error: function(xhr) {
+                                $('#moradorResults').html('<div class="alert alert-danger">Erro ao buscar moradores: ' + 
+                                (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Erro desconhecido') + '</div>');
+                            }
+                        });
+                    }, 300); // Reduzido de 500ms para 300ms para uma experiência mais responsiva
+                } else {
+                    // Mostra feedback ao usuário para digitar mais caracteres
+                    $('#moradorResults').html('<div class="alert alert-warning">Digite pelo menos 2 caracteres para iniciar a pesquisa</div>');
+                }
             });
+
             
             // Confirm Visit button click
             $('#confirmVisit').on('click', function() {

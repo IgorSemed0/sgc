@@ -12,6 +12,7 @@ use App\Models\Condominio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PortariaController extends Controller
 {
@@ -56,35 +57,192 @@ class PortariaController extends Controller
     public function searchMorador(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|min:3',
+            'name' => 'required|string|min:2',
         ]);
 
-        $name = $validated['name'];
+        $searchTerm = $validated['name'];
+        
+        // Log para debug
+        \Log::info("Busca de morador iniciada com termo: " . $searchTerm);
+        
+        // Normalize search term: remove accents, convert to lowercase
+        $normalizedSearch = $this->normalizeString($searchTerm);
+        
+        // Split search term into words
+        $searchWords = array_filter(explode(' ', $normalizedSearch));
+        
+        // If we have less than 2 characters and no multiple words, enforce minimum 3 characters
+        if (strlen($normalizedSearch) < 3 && count($searchWords) < 2) {
+            return response()->json([
+                'moradores' => [],
+                'message' => 'Digite pelo menos 3 caracteres para pesquisar'
+            ]);
+        }
 
-        $moradores = Morador::where(function($query) {
-                $query->where('tipo', 'Morador')
-                      ->orWhere('tipo', 'Dependente');
-            })
-            ->where(function($query) use ($name) {
-                $query->where('primeiro_nome', 'like', "%{$name}%")
-                      ->orWhere('nomes_meio', 'like', "%{$name}%")
-                      ->orWhere('ultimo_nome', 'like', "%{$name}%");
-            })
-            ->with(['unidade.bloco'])
-            ->take(10)
-            ->get();
+        // Debug: Verificar quantidade total de moradores no sistema
+        $totalMoradores = Morador::withTrashed()->count();
+        $activeMoradores = Morador::count();
+        \Log::info("Total de moradores (incluindo deletados): $totalMoradores, Ativos: $activeMoradores");
 
-        $moradores = $moradores->map(function($morador) {
-            if ($morador->unidade) {
-                $blocoName = $morador->unidade->bloco ? $morador->unidade->bloco->nome : 'N/A';
-                $morador->unidade_info = "U{$morador->unidade->numero} - {$blocoName}";
-            } else {
-                $morador->unidade_info = 'Não associado';
+        // Get candidate moradores (incluindo todos os tipos)
+        // Removemos o filtro por tipo para verificar se é por isso que não está retornando resultados
+        $moradores = Morador::with(['unidade.bloco'])->get();
+        
+        \Log::info("Moradores encontrados para processamento: " . $moradores->count());
+        
+        $results = [];
+        
+        foreach ($moradores as $morador) {
+            // Verificar os dados do morador para debug
+            \Log::debug("Verificando morador ID: {$morador->id}, Nome: {$morador->primeiro_nome} {$morador->ultimo_nome}, Tipo: {$morador->tipo}");
+            
+            // Create the full name for each morador
+            $fullName = trim($morador->primeiro_nome . ' ' . 
+                       ($morador->nomes_meio ? $morador->nomes_meio . ' ' : '') . 
+                       $morador->ultimo_nome);
+                       
+            // Normalize morador name for comparison
+            $normalizedName = $this->normalizeString($fullName);
+            
+            // Calculate match score
+            $score = $this->calculateNameMatchScore($normalizedName, $normalizedSearch, $searchWords);
+            
+            \Log::debug("Nome: $fullName, Score: $score");
+            
+            // If we have a match, add to results with score
+            if ($score > 0) {
+                // Add unit info
+                if ($morador->unidade) {
+                    $blocoName = $morador->unidade->bloco ? $morador->unidade->bloco->nome : 'N/A';
+                    $morador->unidade_info = "U{$morador->unidade->numero} - {$blocoName}";
+                } else {
+                    $morador->unidade_info = 'Não associado';
+                }
+                
+                \Log::info("Match encontrado: $fullName com score $score");
+                
+                $results[] = [
+                    'morador' => $morador,
+                    'score' => $score
+                ];
             }
-            return $morador;
+        }
+        
+        \Log::info("Total de resultados encontrados: " . count($results));
+        
+        // Sort results by score (highest first)
+        usort($results, function($a, $b) {
+            return $b['score'] <=> $a['score'];
         });
+        
+        // Limit to top 10 results
+        $results = array_slice($results, 0, 10);
+        
+        // Extract just moradores from results
+        $moradores = array_map(function($item) {
+            return $item['morador'];
+        }, $results);
 
         return response()->json(['moradores' => $moradores]);
+    }
+    
+    /**
+     * Normalize string for better comparison
+     * Removes accents, converts to lowercase, and removes extra spaces
+     */
+    private function normalizeString($string)
+    {
+        // Convert to ASCII (remove accents)
+        $string = Str::ascii($string);
+        
+        // Convert to lowercase
+        $string = strtolower($string);
+        
+        // Remove extra spaces
+        $string = preg_replace('/\s+/', ' ', trim($string));
+        
+        return $string;
+    }
+    
+    /**
+     * Calculate a match score between a name and search term
+     * Returns 0 if no match, otherwise a score with higher being better match
+     */
+    private function calculateNameMatchScore($fullName, $searchTerm, $searchWords)
+    {
+        $score = 0;
+        
+        // Check for exact match (highest priority)
+        if ($fullName === $searchTerm) {
+            return 100;
+        }
+        
+        // Check for full name starting with search term
+        if (str_starts_with($fullName, $searchTerm)) {
+            $score += 80;
+        }
+        // Check if full name contains search term
+        elseif (str_contains($fullName, $searchTerm)) {
+            $score += 60;
+        }
+        
+        // If no basic match found, score is 0
+        if ($score === 0) {
+            // Check individual words
+            $nameWords = explode(' ', $fullName);
+            
+            // Check for matches in individual words
+            foreach ($searchWords as $searchWord) {
+                // Skip very short words unless exact matches
+                if (strlen($searchWord) < 3) {
+                    foreach ($nameWords as $nameWord) {
+                        if ($nameWord === $searchWord) {
+                            $score += 40;
+                        }
+                    }
+                    continue;
+                }
+                
+                $wordMatchFound = false;
+                
+                foreach ($nameWords as $nameWord) {
+                    // Exact word match
+                    if ($nameWord === $searchWord) {
+                        $score += 50;
+                        $wordMatchFound = true;
+                        break;
+                    }
+                    
+                    // Name word starts with search word
+                    if (str_starts_with($nameWord, $searchWord)) {
+                        $score += 30;
+                        $wordMatchFound = true;
+                        break;
+                    }
+                    
+                    // Search word starts with name word
+                    if (str_starts_with($searchWord, $nameWord)) {
+                        $score += 20;
+                        $wordMatchFound = true;
+                        break;
+                    }
+                    
+                    // Contains the word
+                    if (str_contains($nameWord, $searchWord)) {
+                        $score += 10;
+                        $wordMatchFound = true;
+                        break;
+                    }
+                }
+                
+                // If we didn't find a match for this word, penalize the score
+                if (!$wordMatchFound) {
+                    $score -= 5;
+                }
+            }
+        }
+        
+        return max(0, $score);
     }
 
     public function registerAccess(Request $request)
