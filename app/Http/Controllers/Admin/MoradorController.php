@@ -56,6 +56,7 @@ class MoradorController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
                 'tipo' => 'required|in:proprietario,inquilino,dependente',
+                'grau_parentesco' => 'required_if:tipo,dependente',
                 'estado_residente' => 'required_if:tipo,proprietario|boolean',
                 'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id'
             ]);
@@ -118,6 +119,7 @@ class MoradorController extends Controller
                 'sexo' => 'required|string|in:Masculino,Feminino,Outro',
                 'unidade_id' => 'required_if:tipo,proprietario,inquilino|exists:unidades,id',
                 'tipo' => 'required|in:proprietario,inquilino,dependente',
+                'grau_parentesco' => 'required_if:tipo,dependente',
                 'estado_residente' => 'required_if:tipo,proprietario|boolean',
                 'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id',
             ]);

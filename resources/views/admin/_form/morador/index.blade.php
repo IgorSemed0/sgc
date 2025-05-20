@@ -64,6 +64,21 @@
         </select>
     </div>
 
+    <!-- Campo Grau Parentesco (apenas para dependente) -->
+    <div class="col-md-6 mb-3 grau-parentesco-div" style="display: none;">
+        <label for="grau_parentesco">Grau Parentesco*</label>
+        <select class="form-control select2" id="grau_parentesco" name="grau_parentesco">
+            <option value="">Selecione o grau de parentesco</option>
+            <option value="Filho" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Filho' ? 'selected' : '' }}>Filho</option>
+            <option value="Sobrinho" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Sobrinho' ? 'selected' : '' }}>Sobrinho</option>
+            <option value="Cônjuge" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Cônjuge' ? 'selected' : '' }}>Cônjuge</option>
+            <option value="Irmão(a)" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Irmão(a)' ? 'selected' : '' }}>Irmão(a)</option>
+            <option value="Primo(a)" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Primo(a)' ? 'selected' : '' }}>Primo(a)</option>
+            <option value="Pais" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Pais' ? 'selected' : '' }}>Pais</option>
+            <option value="Outro" {{ old('grau_parentesco', $morador->grau_parentesco ?? '') == 'Outro' ? 'selected' : '' }}>Outro</option>
+        </select>
+    </div>
+
     <!-- Campo BI ou Cédula -->
     <div class="col-md-6 mb-3 bi-div">
         <label for="bi">BI</label>
@@ -73,7 +88,7 @@
         <label for="cedula">Cédula (Caso não tenha um BI)</label>
         <input type="text" class="form-control" name="cedula" value="{{ old('cedula', $morador->cedula ?? '') }}">
     </div>
-
+    
     <!-- Campo Unidade (não para dependente) -->
     <div class="col-md-6 mb-3 unidade-div">
         <label for="unidade_id">Unidade*</label>
@@ -127,6 +142,7 @@ function adjustFields(form) {
     var tipo = form.find('[name="tipo"]').val();
 
     if (tipo === 'proprietario') {
+        // Proprietario fields
         form.find('.estado-residente-div').show();
         form.find('[name="estado_residente"]').prop('disabled', false).prop('required', true);
         form.find('.dependente-de-div').hide();
@@ -137,7 +153,11 @@ function adjustFields(form) {
         form.find('[name="bi"]').prop('disabled', false).prop('required', true);
         form.find('.cedula-div').hide();
         form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+        // Hide grau parentesco for proprietarios
+        form.find('.grau-parentesco-div').hide();
+        form.find('[name="grau_parentesco"]').prop('disabled', true).prop('required', false);
     } else if (tipo === 'inquilino') {
+        // Inquilino fields
         form.find('.estado-residente-div').hide();
         form.find('[name="estado_residente"]').prop('disabled', true).prop('required', false);
         form.find('.dependente-de-div').hide();
@@ -148,7 +168,11 @@ function adjustFields(form) {
         form.find('[name="bi"]').prop('disabled', false).prop('required', true);
         form.find('.cedula-div').hide();
         form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+        // Hide grau parentesco for inquilinos
+        form.find('.grau-parentesco-div').hide();
+        form.find('[name="grau_parentesco"]').prop('disabled', true).prop('required', false);
     } else if (tipo === 'dependente') {
+        // Dependente fields
         form.find('.estado-residente-div').hide();
         form.find('[name="estado_residente"]').prop('disabled', true).prop('required', false);
         form.find('.dependente-de-div').show();
@@ -157,6 +181,10 @@ function adjustFields(form) {
         form.find('[name="unidade_id"]').prop('disabled', true).prop('required', false);
         form.find('.bi-div').show();
         form.find('[name="bi"]').prop('disabled', false).prop('required', false);
+        // Show grau parentesco only for dependentes and make it required
+        form.find('.grau-parentesco-div').show();
+        form.find('[name="grau_parentesco"]').prop('disabled', false).prop('required', true);
+        
         if (form.find('[name="bi"]').val().length === 0) {
             form.find('.cedula-div').show();
             form.find('[name="cedula"]').prop('disabled', false).prop('required', true);
@@ -176,6 +204,8 @@ function adjustFields(form) {
         form.find('[name="bi"]').prop('disabled', true).prop('required', false);
         form.find('.cedula-div').hide();
         form.find('[name="cedula"]').prop('disabled', true).prop('required', false);
+        form.find('.grau-parentesco-div').hide();
+        form.find('[name="grau_parentesco"]').prop('disabled', true).prop('required', false);
     }
 }
 </script>
