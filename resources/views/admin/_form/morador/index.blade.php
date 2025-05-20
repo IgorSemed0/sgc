@@ -12,12 +12,12 @@
         <input type="text" class="form-control" id="ultimo_nome" name="ultimo_nome" value="{{ old('ultimo_nome', $morador->ultimo_nome ?? '') }}" required>
     </div>
     <div class="col-md-6 mb-3">
-        <label for="email">Email*</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $morador->email ?? '') }}" required>
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $morador->email ?? '') }}">
     </div>
     <div class="col-md-6 mb-3">
-        <label for="telefone">Telefone*</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $morador->telefone ?? '') }}" required>
+        <label for="telefone">Telefone</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $morador->telefone ?? '') }}">
     </div>
     <div class="col-md-6 mb-3">
         <label for="data_nascimento">Data de Nascimento*</label>

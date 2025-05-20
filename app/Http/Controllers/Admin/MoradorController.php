@@ -31,8 +31,8 @@ class MoradorController extends Controller
                 'primeiro_nome' => 'required|string|max:255',
                 'nomes_meio' => 'nullable|string|max:255',
                 'ultimo_nome' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:moradors,email',
-                'telefone' => 'required|string|max:20',
+                'email' => 'nullable|email|max:255|unique:moradors,email',
+                'telefone' => 'nullable|string|max:20',
                 'bi' => [
                     'nullable',
                     'string',
