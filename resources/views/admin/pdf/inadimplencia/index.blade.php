@@ -23,7 +23,7 @@
         <div class="insignia">
             <img src="{{ public_path('assets/images/insignia.jpeg') }}" alt="Insígnia" height="60px" width="60px"><br>
             <div class="textos-cabecalho">
-                <p>Condominio Integrated Manager Platform</p>
+                <p>GesCondo</p>
                 <p>Relatório de Inadimplência</p>
             </div>
         </div>
