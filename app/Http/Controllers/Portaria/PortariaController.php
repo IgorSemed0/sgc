@@ -277,7 +277,7 @@ class PortariaController extends Controller
             'primeiro_nome' => 'required|string|max:255',
             'nomes_meio' => 'nullable|string|max:255',
             'ultimo_nome' => 'required|string|max:255',
-            'bi' => 'required|string|max:255|unique:visitantes',
+            'bi' => 'nullable|string|max:255|unique:visitantes',
             'email' => 'nullable|email|max:255',
             'telefone' => 'nullable|string|max:255',
             'motivo_visita' => 'required|string',

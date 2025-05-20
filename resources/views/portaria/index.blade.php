@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="bi">BI</label>
-                                <input type="text" class="form-control" id="bi_visitante" name="bi" required>
+                                <input type="text" class="form-control" id="bi_visitante" name="bi">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email">Email</label>
@@ -113,10 +113,10 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="unidade_id">Unidade</label>
-                                <select class="form-control select2" id="unidade_id" name="unidade_id" required>
+                                <select class="form-control select2" id="unidade_id" name="unidade_id">
                                     <option value="">Selecione uma unidade</option>
                                     @foreach ($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }} - {{ $unidade->bloco }}</option>
+                                        <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -318,7 +318,6 @@
                     $('#moradorResults').html('<div class="alert alert-warning">Digite pelo menos 2 caracteres para iniciar a pesquisa</div>');
                 }
             });
-
             
             // Confirm Visit button click
             $('#confirmVisit').on('click', function() {
