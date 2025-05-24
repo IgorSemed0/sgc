@@ -20,7 +20,16 @@ class Voto extends Model
 
     public function votacao()
     {
-    return $this->hasMany(Votacao::class, 'votacao_id');
+        return $this->belongsTo(Votacao::class, 'votacao_id');
     }
 
+    public function opcaoVotacao()
+    {
+        return $this->belongsTo(OpcaoVotacao::class, 'opcao_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

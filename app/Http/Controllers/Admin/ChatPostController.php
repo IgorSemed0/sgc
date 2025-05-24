@@ -7,6 +7,8 @@ use App\Models\ChatPost;
 use App\Models\Condominio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ChatPostController extends Controller
 {
@@ -29,14 +31,15 @@ class ChatPostController extends Controller
 
     public function store(Request $request)
     {
+        $autor = Auth::user()->id;
         try {
             $validated = $request->validate([
-                'autor_id' => 'required|exists:users,id',
-                'tipo_autor' => 'required|string|max:255',
                 'titulo' => 'required|string|max:255',
                 'conteudo' => 'required|string',
-                'data_publicacao' => 'required|date',
             ]);
+                $validated['tipo_autor'] = "admin";
+                $validated['data_publicacao'] = Carbon::now();
+                $validated['autor_id'] = $autor;
 
             ChatPost::create($validated);
 

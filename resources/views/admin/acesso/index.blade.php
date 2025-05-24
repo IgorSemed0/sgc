@@ -3,10 +3,10 @@
 @section('conteudo')
 <h1 class="h3">Tabela de Acessos</h1>
 <div class="d-flex justify-content-between mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acessoModal">Novo Acesso</button>
-    <a href="{{ route('admin.acesso.trash') }}" class="btn btn-secondary">
+    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acessoModal">Novo Acesso</button> -->
+    <!-- <a href="{{ route('admin.acesso.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
-    </a>
+    </a> -->
 </div>
 
 <div class="card p-4">
@@ -32,8 +32,8 @@
                 <td>{{ $acesso->tipo }}</td>
                 <td>{{ $acesso->observacao }}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $acesso->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.acesso.destroy', $acesso->id) }}')">Deletar</a>
+                    <!-- <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $acesso->id }}">Editar</a>
+                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.acesso.destroy', $acesso->id) }}')">Deletar</a> -->
                 </td>
             </tr>
 
@@ -55,9 +55,9 @@
     </table>
 
     <!-- Pagination Links -->
-    <div class="d-flex justify-content-center mt-4">
+    <!-- <div class="d-flex justify-content-center mt-4">
         {{ $acessos->links() }}
-    </div>
+    </div> -->
 
     <div class="modal fade" id="acessoModal" tabindex="-1" aria-labelledby="acessoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

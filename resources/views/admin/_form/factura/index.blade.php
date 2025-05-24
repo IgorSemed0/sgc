@@ -30,7 +30,7 @@
         <label for="status">Status</label>
         <select class="form-control select2" id="status" name="status" required>
             <option value="">Selecione o status</option>
-            <option value="Pendente" {{ old('status', $factura->status ?? '') == 'Pendente' ? 'selected' : '' }}>Pendente</option>
+            <option value="Pendente" {{ old('status', $factura->status ?? '') == 'Pendente' ? 'selected' : '' }} selected >Pendente</option>
             <option value="Pago" {{ old('status', $factura->status ?? '') == 'Pago' ? 'selected' : '' }}>Pago</option>
             <option value="Cancelado" {{ old('status', $factura->status ?? '') == 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
         </select>

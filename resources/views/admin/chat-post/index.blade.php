@@ -21,7 +21,6 @@
                 <th>Data Publicação</th>
                 <th>Ações</th>
             </tr>
-       。五
         <tbody>
             @foreach ($chatPosts as $chatPost)
             <tr>
