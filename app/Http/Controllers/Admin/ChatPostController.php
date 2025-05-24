@@ -31,15 +31,15 @@ class ChatPostController extends Controller
 
     public function store(Request $request)
     {
-        $autor = Auth::user()->id;
         try {
+            $autor = Auth::user()->id;
             $validated = $request->validate([
                 'titulo' => 'required|string|max:255',
                 'conteudo' => 'required|string',
             ]);
-                $validated['tipo_autor'] = "admin";
-                $validated['data_publicacao'] = Carbon::now();
-                $validated['autor_id'] = $autor;
+            $validated['tipo_autor'] = "admin";
+            $validated['data_publicacao'] = Carbon::now();
+            $validated['autor_id'] = $autor;
 
             ChatPost::create($validated);
 
@@ -65,13 +65,16 @@ class ChatPostController extends Controller
         try {
             $chatPost = ChatPost::findOrFail($id);
 
+            $autor = Auth::user()->id;
+
             $validated = $request->validate([
-                'autor_id' => 'required|exists:users,id',
-                'tipo_autor' => 'required|string|max:255',
                 'titulo' => 'required|string|max:255',
                 'conteudo' => 'required|string',
-                'data_publicacao' => 'required|date',
             ]);
+
+            $validated['tipo_autor'] = "admin";
+            $validated['data_publicacao'] = Carbon::now();
+            $validated['autor_id'] = $autor;
 
             $chatPost->update($validated);
 

@@ -7,6 +7,9 @@ use App\Models\ChatComentario;
 use App\Models\ChatPost;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class ChatComentarioController extends Controller
 {
@@ -28,12 +31,14 @@ class ChatComentarioController extends Controller
     public function store(Request $request)
     {
         try {
+            $autor = Auth::user()->id;
+       
             $validated = $request->validate([
                 'post_id' => 'required|exists:chat_posts,id',
-                'user_id' => 'required|exists:users,id',
                 'conteudo' => 'required|string',
-                'data_comentario' => 'required|date',
             ]);
+                $validated['data_comentario'] = Carbon::now();
+                $validated['user_id'] =$autor;
 
             ChatComentario::create($validated);
 
@@ -58,13 +63,15 @@ class ChatComentarioController extends Controller
     {
         try {
             $chatComentario = ChatComentario::findOrFail($id);
-
+            $autor = Auth::user()->id;
+       
             $validated = $request->validate([
                 'post_id' => 'required|exists:chat_posts,id',
-                'user_id' => 'required|exists:users,id',
                 'conteudo' => 'required|string',
-                'data_comentario' => 'required|date',
             ]);
+                $validated['data_comentario'] = Carbon::now();
+                $validated['user_id'] =$autor;
+
 
             $chatComentario->update($validated);
 
