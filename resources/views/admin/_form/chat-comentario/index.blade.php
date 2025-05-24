@@ -14,10 +14,6 @@
         <label for="conteudo">Conteúdo</label>
         <textarea class="form-control" id="conteudo" name="conteudo" required>{{ old('conteudo', $chatComentario->conteudo ?? '') }}</textarea>
     </div>
-    <div class="col-md-6 mb-3">
-        <label for="data_comentario">Data Comentário</label>
-        <input type="datetime-local" class="form-control" id="data_comentario" name="data_comentario" value="{{ old('data_comentario', $chatComentario->data_comentario ?? '') }}" required>
-    </div>
 </div>
 
 <script>
