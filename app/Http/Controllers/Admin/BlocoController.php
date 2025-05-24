@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bloco;
 use App\Models\Condominio;
+use App\Models\Edificio;
 use Illuminate\Http\Request;
 
 class BlocoController extends Controller
@@ -12,6 +13,7 @@ class BlocoController extends Controller
     public function index()
     {
         $data['condominios'] = Condominio::all();
+        $data['edificios'] = Edificio::with('bloco')->get();
         $data['blocos'] = Bloco::all();
         return view('admin.bloco.index', $data);
     }
@@ -111,6 +113,26 @@ class BlocoController extends Controller
             return redirect()->back()->with('success', 'Bloco excluído permanentemente.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao excluir bloco permanentemente: ' . $e->getMessage());
+        }
+    }
+
+    public function edificioStore(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'nome' => 'required|string|max:255',
+                'descricao' => 'nullable|string|max:255',
+                'bloco_id' => 'required|exists:blocos,id',
+            ]);
+
+            Edificio::create($validated);
+
+            return redirect()->route('admin.bloco.index')
+                ->with('success', 'Edifício registrado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao registrar edifício: ' . $e->getMessage())
+                ->withInput();
         }
     }
 }

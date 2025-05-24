@@ -20,9 +20,10 @@ class Factura extends Model
         'observacao'
     ];
 
-protected $casts = [
+    protected $casts = [
             'data_vencimento' => 'datetime',
-        ];
+    ];
+
     public function unidades()
     {
         return $this->hasMany(Unidade::class, 'bloco_id');
