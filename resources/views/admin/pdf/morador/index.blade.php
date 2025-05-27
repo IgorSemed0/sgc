@@ -9,7 +9,7 @@
         h3 { color: #2C3E50; font-size: 18px; margin-top: 20px; text-align: center; }
         hr { border: 1px solid #2C3E50; margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; text-align: center; }
-        th, td { border: 1px solid #2C3E50; padding: 10px; text-align: center; }
+        th, td { border: 1px solid #2C3E50; padding: 8px; text-align: center; font-size: 12px; }
         th { background-color: #34495E; color: white; }
         tr:nth-child(even) { background-color: #ECF0F1; }
         .footer { margin-top: 30px; font-size: 12px; color: #555; text-align: center; }
@@ -37,27 +37,61 @@
     <p>Total de moradores: {{ $totalMoradores }}</p>
 
     @foreach ($moradoresPorTipo as $tipo => $moradoresDoTipo)
-        <h3>{{ $tipo }} ({{ $moradoresDoTipo->count() }})</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Imóvel</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($moradoresDoTipo as $morador)
+        <h3>{{ ucfirst($tipo) }} ({{ $moradoresDoTipo->count() }})</h3>
+        
+        @if($tipo === 'dependente')
+            {{-- Table for dependentes with specific columns --}}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $morador->primeiro_nome }} {{ $morador->ultimo_nome }}</td>
-                        <td>{{ $morador->unidade->numero }}</td>
-                        <td>{{ $morador->email }}</td>
-                        <td>{{ $morador->telefone }}</td>
+                        <th>Nome</th>
+                        <th>Sexo</th>
+                        <th>Idade</th>
+                        <th>Unidade</th>
+                        <th>Morador Associado</th>
+                        <th>Grau Parentesco</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($moradoresDoTipo as $morador)
+                        <tr>
+                            <td>{{ $morador->primeiro_nome }} {{ $morador->ultimo_nome }}</td>
+                            <td>{{ $morador->sexo ?? 'N/A' }}</td>
+                            <td>{{ $morador->idade ?? 'N/A' }}</td>
+                            <td>{{ $morador->unidade->numero ?? 'N/A' }}</td>
+                            <td>{{ $morador->nome_morador_associado ?? 'N/A' }}</td>
+                            <td>{{ $morador->grau_parentesco ?? 'N/A' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            {{-- Table for proprietario and inquilino with standard columns --}}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sexo</th>
+                        <th>Idade</th>
+                        <th>Unidade</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($moradoresDoTipo as $morador)
+                        <tr>
+                            <td>{{ $morador->primeiro_nome }} {{ $morador->ultimo_nome }}</td>
+                            <td>{{ $morador->sexo ?? 'N/A' }}</td>
+                            <td>{{ $morador->idade ?? 'N/A' }}</td>
+                            <td>{{ $morador->unidade->numero ?? 'N/A' }}</td>
+                            <td>{{ $morador->email ?? 'N/A' }}</td>
+                            <td>{{ $morador->telefone ?? 'N/A' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     @endforeach
 
     <p class="footer">ConGest - {{ date('d/m/Y H:i') }}</p>

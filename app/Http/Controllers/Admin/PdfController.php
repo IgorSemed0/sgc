@@ -74,8 +74,8 @@ class PdfController extends Controller
 
     public function morador(Request $request)
     {
-        $query = Morador::with('unidade');
-
+        $query = Morador::with(['unidade', 'inquilino']);
+    
         if ($request->filled('bloco')) {
             $query->whereHas('unidade', fn($q) => $q->where('bloco_id', $request->bloco));
         }
@@ -85,12 +85,34 @@ class PdfController extends Controller
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
         }
-
-        $moradores = $query->get();
+    
+        $moradores = $query->get()->map(function ($morador) {
+            // Calculate age from birth year
+            if ($morador->data_nascimento) {
+                $birthYear = \Carbon\Carbon::parse($morador->data_nascimento)->year;
+                $currentYear = now()->year;
+                $morador->idade = $currentYear - $birthYear;
+            } else {
+                $morador->idade = null;
+            }
+            
+            // Get associated morador name for dependentes
+            if ($morador->tipo === 'dependente' && $morador->dependente_de) {
+                $associatedMorador = Morador::find($morador->dependente_de);
+                $morador->nome_morador_associado = $associatedMorador 
+                    ? $associatedMorador->primeiro_nome . ' ' . $associatedMorador->ultimo_nome 
+                    : 'N/A';
+            } else {
+                $morador->nome_morador_associado = null;
+            }
+            
+            return $morador;
+        });
+    
         $moradoresPorTipo = $moradores->groupBy('tipo');
         $totalMoradores = $moradores->count();
         $periodText = $this->getPeriodText($request);
-
+    
         $html = View::make('admin.pdf.morador.index', compact('moradores', 'moradoresPorTipo', 'totalMoradores', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
