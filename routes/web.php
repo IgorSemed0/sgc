@@ -282,7 +282,8 @@ Route::middleware([
                 Route::post('restore/{id}', ['as' => 'admin.voto.restore', 'uses' => 'App\Http\Controllers\Admin\VotoController@restore']);
                 Route::delete('purge/{id}', ['as' => 'admin.voto.purge', 'uses' => 'App\Http\Controllers\Admin\VotoController@purge']);
             });
-                        // EspacoComum Routes
+
+            // EspacoComum Routes
             Route::prefix('espaco-comum')->group(function () {
                 Route::get('index', ['as' => 'admin.espaco-comum.index', 'uses' => 'App\Http\Controllers\Admin\EspacoComumController@index']);
                 Route::get('create', ['as' => 'admin.espaco-comum.create', 'uses' => 'App\Http\Controllers\Admin\EspacoComumController@create']);
@@ -380,6 +381,10 @@ Route::middleware([
     });
 
     Route::prefix('portaria')->middleware(['auth', 'admin'])->group(function () {
+        Route::get('index', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
+        Route::get('/', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);        
+        Route::get('/', ['as' => 'dashboard', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);        
+
         Route::get('index', ['as' => 'portaria.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
         Route::post('search', ['as' => 'portaria.search', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@search']);
         Route::post('search/by/name', ['as' => 'portaria.search.by.name', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@searchByName']);

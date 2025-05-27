@@ -1,5 +1,5 @@
 <nav>
-    <i class="toggle-sidebar fas fa-bars icon"></i>
+    <!-- <i class="toggle-sidebar fas fa-bars icon"></i> -->
     <form action="#">
         <div class="form-group">
             <!-- <input type="text" placeholder="Pesquisar"> -->
@@ -24,10 +24,10 @@
         </a>
     @endif
     
-    <a href="#" class="nav-link">
+    <!-- <a href="#" class="nav-link">
         <i class="fas fa-envelope icon"></i>
         <span class="badge">3</span>
-    </a>
+    </a> -->
     
     <span class="divider"></span>
     
