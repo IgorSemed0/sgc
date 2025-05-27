@@ -25,4 +25,9 @@ class Edificio extends Model
     {
         return $this->hasMany(Unidade::class, 'edificio_id');
     }
+
+    public function unidades()
+    {
+        return $this->hasMany(Unidade::class, 'edificio_id');
+    }
 }

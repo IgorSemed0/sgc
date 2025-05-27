@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Edificio;
-use App\Models\Bloco;
 use Illuminate\Http\Request;
 
 class EdificioController extends Controller
@@ -113,6 +112,33 @@ class EdificioController extends Controller
             return redirect()->back()->with('success', 'Edifício excluído permanentemente.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao excluir edifício permanentemente: ' . $e->getMessage());
+        }
+    }
+
+    public function storeEdificio(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'tipo' => 'required|string|max:255',
+                'numero' => 'required|string|max:255',
+                'edificio_id' => 'nullable|exists:edificios,id',
+                'andar' => 'nullable|integer',
+                'status' => 'required|string|max:255',
+            ]);
+    
+            if (!empty($validated['edificio_id'])) {
+                $edificio = Edificio::findOrFail($validated['edificio_id']);
+                $validated['bloco_id'] = $edificio->bloco_id;
+            }
+    
+            Unidade::create($validated);
+    
+            return redirect()->route('admin.unidade.index')
+                ->with('success', 'Imóvel registrada com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao registrar imóvel: ' . $e->getMessage())
+                ->withInput();
         }
     }
 }

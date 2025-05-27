@@ -71,6 +71,7 @@ Route::middleware([
                 Route::get('index', ['as' => 'admin.edificio.index', 'uses' => 'App\Http\Controllers\Admin\EdificioController@index']);
                 Route::get('create', ['as' => 'admin.edificio.create', 'uses' => 'App\Http\Controllers\Admin\EdificioController@create']);
                 Route::post('store', ['as' => 'admin.edificio.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@store']);
+                Route::post('store', ['as' => 'admin.edificio.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@storeEdificio']);
                 Route::get('edit/{id}', ['as' => 'admin.edificio.edit', 'uses' => 'App\Http\Controllers\Admin\EdificioController@edit']);
                 Route::put('update/{id}', ['as' => 'admin.edificio.update', 'uses' => 'App\Http\Controllers\Admin\EdificioController@update']);
                 Route::get('destroy/{id}', ['as' => 'admin.edificio.destroy', 'uses' => 'App\Http\Controllers\Admin\EdificioController@destroy']);
@@ -383,8 +384,7 @@ Route::middleware([
     Route::prefix('portaria')->middleware(['auth', 'admin'])->group(function () {
         Route::get('index', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
         Route::get('/', ['as' => 'admin.home.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);        
-        Route::get('/', ['as' => 'dashboard', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);        
-
+        Route::get('/', ['as' => 'dashboard', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);       
         Route::get('index', ['as' => 'portaria.index', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@index']);
         Route::post('search', ['as' => 'portaria.search', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@search']);
         Route::post('search/by/name', ['as' => 'portaria.search.by.name', 'uses' => 'App\Http\Controllers\Portaria\PortariaController@searchByName']);
