@@ -1,5 +1,5 @@
 <nav>
-    <!-- <i class="toggle-sidebar fas fa-bars icon"></i> -->
+    <i class="toggle-sidebar fas "></i>
     <form action="#">
         <div class="form-group">
             <!-- <input type="text" placeholder="Pesquisar"> -->
@@ -40,15 +40,15 @@
         <img src="{{ $fotoPerfil }}" alt="Foto de perfil">
         <ul class="profile-link">
             <li>
-                <a href="#">
+                <a href="{{ route('morador.perfil') }}">
                     <i class="fas fa-user icon"></i> Perfil
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="#">
                     <i class="fas fa-cog icon"></i> Configurações
                 </a>
-            </li>
+            </li> -->
             <!-- <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

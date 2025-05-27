@@ -149,7 +149,6 @@
         });
     </script>
 
-    <script src="{{ asset('style/exibir.js') }}"></script>
     <script src="{{ asset('style/pesquisar.js') }}"></script>
 </body>
 

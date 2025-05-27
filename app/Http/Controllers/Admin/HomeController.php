@@ -59,6 +59,11 @@ class HomeController extends Controller
             ->pluck('total', 'tipo')
             ->toArray();
 
+        $user = auth()->user();
+        if($user->tipo_usuario === 'funcionario')
+        {
+            return redirect()->route('portaria.index');
+        }
         return view('admin.index', $data);
     }
 }
