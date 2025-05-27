@@ -1,5 +1,5 @@
 <div class="modal-body">
-    <form action="{{ route('admin.edificio.store') }}" method="POST">
+    <form action="{{ route('admin.edificio.unidade.store') }}" method="POST">
         @csrf
         {{$edificio=null}}
         @include('admin._form.edificio.index')

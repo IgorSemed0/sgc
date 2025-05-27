@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Edificio;
+use App\Models\Bloco;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class EdificioController extends Controller
