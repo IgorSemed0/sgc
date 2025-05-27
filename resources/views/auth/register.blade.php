@@ -8,7 +8,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-white text-center py-4">
-                    <h1>GesCondo</h1>
+                    <h1>ConGest</h1>
                     <h4 class="mb-0">Criar Conta</h4>
                 </div>
                 <div class="card-body p-4">

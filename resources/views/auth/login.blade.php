@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Login | GesCondo')
+@section('title', 'Login | ConGest')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,7 @@
         <div class="col-md-5">
             <div class="text-center mb-4">
                 <h1 class="fw-bold" style="font-size: 2.5rem; color: #1775f1;">
-                    <i class="fas fa-building me-2"></i>GesCondo
+                    <i class="fas fa-building me-2"></i>ConGest
                 </h1>
                 <!-- <p class="text-muted lead">Sistema de Gestão de Condomínio</p> -->
             </div>
@@ -101,7 +101,7 @@
             
             <div class="text-center mt-4">
                 <p class="text-muted small">
-                    <i class="fas fa-shield-alt me-1"></i> Área segura | &copy; {{ date('Y') }} GesCondo
+                    <i class="fas fa-shield-alt me-1"></i> Área segura | &copy; {{ date('Y') }} ConGest
                 </p>
             </div>
         </div>

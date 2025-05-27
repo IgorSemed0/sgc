@@ -11,7 +11,7 @@
     <!-- Footer -->
     <footer class="text-center py-4 mt-5 text-muted">
         <div class="container">
-            <p>&copy; {{ date('Y') }} GesCondo - Sistema de Gestão de Condomínio. Todos os direitos reservados.</p>
+            <p>&copy; {{ date('Y') }} ConGest - Sistema de Gestão de Condomínio. Todos os direitos reservados.</p>
         </div>
     </footer>
 

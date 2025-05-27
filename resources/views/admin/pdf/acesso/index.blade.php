@@ -23,7 +23,7 @@
         <div class="insignia">
             <img src="{{ public_path('assets/images/insignia.jpeg') }}" alt="Insígnia" height="60px" width="60px"><br>
             <div class="textos-cabecalho">
-                <p>GesCondo</p>
+                <p>ConGest</p>
                 <p>Relatório de Acessos</p>
             </div>
         </div>
@@ -58,6 +58,6 @@
         </tbody>
     </table>
 
-    <p class="footer">GesCondo - {{ date('d/m/Y H:i') }}</p>
+    <p class="footer">ConGest - {{ date('d/m/Y H:i') }}</p>
 </body>
 </html>

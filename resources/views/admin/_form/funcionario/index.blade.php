@@ -48,10 +48,6 @@
             <option value="Geral" {{ old('tipo', $funcionario->tipo ?? '') == 'Geral' ? 'selected' : '' }}>Geral</option>
         </select>
     </div>
-    <div class="col-md-6 mb-3" id="cargo_div">
-        <label for="cargo">Cargo*</label>
-        <input type="text" class="form-control" id="cargo" name="cargo" value="{{ old('cargo', $funcionario->cargo ?? '') }}" required>
-    </div>
     <div class="col-md-6 mb-3">
         <label for="departamento_id">Departamento*</label>
         <select class="form-control select2" id="departamento_id" name="departamento_id" required>
@@ -63,9 +59,13 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-6 mb-3" id="unidade_div">
+    <div class="col-md-6 mb-3 cargo-div" style="display: none;">
+        <label for="cargo">Cargo*</label>
+        <input type="text" class="form-control" id="cargo" name="cargo" value="{{ old('cargo', $funcionario->cargo ?? '') }}">
+    </div>
+    <div class="col-md-6 mb-3 unidade-div" style="display: none;">
         <label for="unidade_id">Unidade*</label>
-        <select class="form-control select2" id="unidade_id" name="unidade_id" required>
+        <select class="form-control select2" id="unidade_id" name="unidade_id">
             <option value="">Selecione uma unidade</option>
             @foreach ($unidades as $unidade)
                 <option value="{{ $unidade->id }}" {{ old('unidade_id', $funcionario->unidade_id ?? '') == $unidade->id ? 'selected' : '' }}>
@@ -77,33 +77,75 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: 'Selecione uma opção',
-            width: '100%'
-        });
-
-        function adjustFields() {
-            var tipo = $('#tipo').val();
-            if (tipo == 'Geral') {
-                $('#cargo_div').hide();
-                $('#unidade_div').hide();
-                $('#cargo').prop('required', false);
-                $('#unidade_id').prop('required', false);
-            } else if (tipo == 'Particular') {
-                $('#cargo_div').show();
-                $('#unidade_div').show();
-                $('#cargo').prop('required', true);
-                $('#unidade_id').prop('required', true);
-            } else {
-                $('#cargo_div').hide();
-                $('#unidade_div').hide();
-                $('#cargo').prop('required', false);
-                $('#unidade_id').prop('required', false);
-            }
-        }
-
-        $('#tipo').change(adjustFields);
-        adjustFields();
+$(document).ready(function() {
+    // Check if this is in a modal or regular page
+    var container = $('.modal').length > 0 ? $('.modal') : $(document);
+    
+    container.on('shown.bs.modal', function() {
+        initializeFuncionarioForm($(this));
     });
+    
+    // For non-modal forms, initialize immediately
+    if (container.is($(document))) {
+        initializeFuncionarioForm($(document));
+    }
+});
+
+function initializeFuncionarioForm(container) {
+    var form = container.find('form').length > 0 ? container.find('form') : container;
+
+    // Initialize Select2 on the form's select elements
+    form.find('.select2').select2({
+        placeholder: 'Selecione uma opção',
+        width: '100%'
+    });
+
+    // Adjust fields initially
+    adjustFuncionarioFields(form);
+
+    // Bind change event to tipo
+    form.find('[name="tipo"]').change(function() {
+        adjustFuncionarioFields(form);
+    });
+}
+
+function adjustFuncionarioFields(form) {
+    var tipo = form.find('[name="tipo"]').val();
+
+    if (tipo === 'Particular') {
+        // Show cargo field
+        form.find('.cargo-div').show();
+        form.find('[name="cargo"]').prop('disabled', false).prop('required', true);
+        
+        // Show unidade field
+        form.find('.unidade-div').show();
+        form.find('[name="unidade_id"]').prop('disabled', false).prop('required', true);
+        
+    } else if (tipo === 'Geral') {
+        // Hide cargo field
+        form.find('.cargo-div').hide();
+        form.find('[name="cargo"]').prop('disabled', true).prop('required', false).val('');
+        
+        // Hide unidade field
+        form.find('.unidade-div').hide();
+        form.find('[name="unidade_id"]').prop('disabled', true).prop('required', false).val('');
+        
+        // Clear Select2 value if applicable
+        if (form.find('[name="unidade_id"]').hasClass('select2-hidden-accessible')) {
+            form.find('[name="unidade_id"]').select2('val', '');
+        }
+        
+    } else {
+        // Default state - hide both fields
+        form.find('.cargo-div').hide();
+        form.find('[name="cargo"]').prop('disabled', true).prop('required', false).val('');
+        
+        form.find('.unidade-div').hide();
+        form.find('[name="unidade_id"]').prop('disabled', true).prop('required', false).val('');
+        
+        if (form.find('[name="unidade_id"]').hasClass('select2-hidden-accessible')) {
+            form.find('[name="unidade_id"]').select2('val', '');
+        }
+    }
+}
 </script>

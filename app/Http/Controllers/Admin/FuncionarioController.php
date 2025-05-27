@@ -30,32 +30,32 @@ class FuncionarioController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'primeiro_nome' => 'required|string|max:255',
-                'nomes_meio' => 'nullable|string|max:255',
-                'ultimo_nome' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'telefone' => 'required|string|max:20',
-                'bi' => 'required|string|max:20',
-                'dt_nascimento' => 'required|date',
-                'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'tipo' => 'required|in:Particular,Geral',
-                'cargo' => 'required_if:tipo,Particular|string|max:255|nullable',
-                'unidade_id' => 'required_if:tipo,Particular|exists:unidades,id|nullable',
-                'departamento_id' => 'required|exists:departamentos,id',
-            ]);
-
-            Funcionario::create($validated);
-
-            return redirect()->route('admin.funcionario.index')
-                ->with('success', 'Funcionário registrado com sucesso.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Erro ao registrar funcionário: ' . $e->getMessage())
-                ->withInput();
+        $validated = $request->validate([
+            'primeiro_nome' => 'required|string|max:255',
+            'nomes_meio' => 'nullable|string|max:255',
+            'ultimo_nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:funcionarios,email',
+            'username' => 'nullable|string|max:255',
+            'telefone' => 'required|string|max:255',
+            'bi' => 'required|string|max:255',
+            'dt_nascimento' => 'required|date',
+            'sexo' => 'required|in:Masculino,Feminino,Outro',
+            'tipo' => 'required|in:Particular,Geral',
+            'cargo' => 'required_if:tipo,Particular|nullable|string|max:255',
+            'departamento_id' => 'required|exists:departamentos,id',
+            'unidade_id' => 'required_if:tipo,Particular|nullable|exists:unidades,id',
+        ]);
+    
+        if ($validated['tipo'] === 'Geral') {
+            $validated['unidade_id'] = null;
+            $validated['cargo'] = null;
         }
+    
+        Funcionario::create($validated);
+    
+        return redirect()->route('admin.funcionarios.index')->with('success', 'Funcionário criado com sucesso!');
     }
+
 
     public function edit($id)
     {
@@ -66,35 +66,32 @@ class FuncionarioController extends Controller
         return view('admin.funcionario.editar.index', compact('funcionario', 'departamentos', 'condominios', 'unidades'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Funcionario $funcionario)
     {
-        try {
-            $funcionario = Funcionario::findOrFail($id);
-
-            $validated = $request->validate([
-                'primeiro_nome' => 'required|string|max:255',
-                'nomes_meio' => 'nullable|string|max:255',
-                'ultimo_nome' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'telefone' => 'required|string|max:20',
-                'bi' => 'required|string|max:20',
-                'dt_nascimento' => 'required|date',
-                'sexo' => 'required|string|in:Masculino,Feminino,Outro',
-                'tipo' => 'required|in:Particular,Geral',
-                'cargo' => 'required_if:tipo,Particular|string|max:255|nullable',
-                'unidade_id' => 'required_if:tipo,Particular|exists:unidades,id|nullable',
-                'departamento_id' => 'required|exists:departamentos,id',
-            ]);
-
-            $funcionario->update($validated);
-
-            return redirect()->route('admin.funcionario.index')
-                ->with('success', 'Funcionário atualizado com sucesso.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Erro ao atualizar funcionário: ' . $e->getMessage())
-                ->withInput();
+        $validated = $request->validate([
+            'primeiro_nome' => 'required|string|max:255',
+            'nomes_meio' => 'nullable|string|max:255',
+            'ultimo_nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:funcionarios,email,' . $funcionario->id,
+            'username' => 'nullable|string|max:255',
+            'telefone' => 'required|string|max:255',
+            'bi' => 'required|string|max:255',
+            'dt_nascimento' => 'required|date',
+            'sexo' => 'required|in:Masculino,Feminino,Outro',
+            'tipo' => 'required|in:Particular,Geral',
+            'cargo' => 'required_if:tipo,Particular|nullable|string|max:255',
+            'departamento_id' => 'required|exists:departamentos,id',
+            'unidade_id' => 'required_if:tipo,Particular|nullable|exists:unidades,id',
+        ]);
+    
+        if ($validated['tipo'] === 'Geral') {
+            $validated['unidade_id'] = null;
+            $validated['cargo'] = null;
         }
+    
+        $funcionario->update($validated);
+    
+        return redirect()->route('admin.funcionarios.index')->with('success', 'Funcionário atualizado com sucesso!');
     }
 
     public function destroy($id)

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('tipo');
             $table->string('telefone');
-            $table->string('bi');
+            $table->string('bi')->unique();
             $table->date('dt_nascimento');
             $table->string('sexo');
-            $table->string('cargo');
-            $table->foreignId('unidade_id')->constrained('unidades')->onDelete('cascade')->nullable();
+            $table->string('cargo')->nullable();
+            $table->foreignId('unidade_id')->nullable()->constrained('unidades')->onDelete('cascade')->nullable();
             $table->unsignedBigInteger('departamento_id'); 
             $table->timestamps();
             $table->softDeletes();

@@ -1,6 +1,6 @@
 <section id="sidebar">
     <a href="#" class="brand">
-        ______GESCONDO________
+        ______CONGEST________
     </a>
     <ul class="side-menu">
 @if(Auth::user()->tipo_usuario === 'admin')
