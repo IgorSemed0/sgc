@@ -42,7 +42,7 @@
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Unidade</th>
+                    <th>Imóvel</th>
                     <th>Email</th>
                     <th>Telefone</th>
                 </tr>
