@@ -33,14 +33,65 @@
                 <td>{{ $factura->data_emissao }}</td>
                 <td>{{ $factura->data_vencimento }}</td>
                 <td>{{ $factura->valor_total }}</td>
-                <td>{{ $factura->status }}</td>
+                <td>
+                    <span class="badge 
+                        @if($factura->status == 'Pago') bg-success 
+                        @elseif($factura->status == 'Pendente') bg-warning 
+                        @else bg-danger 
+                        @endif">
+                        {{ $factura->status }}
+                    </span>
+                </td>
                 <td>{{ $factura->observacao }}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $factura->id }}">Editar</a>
-                    <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.factura.destroy', $factura->id) }}')">Deletar</a>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal{{ $factura->id }}" title="Atualizar Status">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $factura->id }}" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.factura.destroy', $factura->id) }}')" title="Deletar">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
 
+            <!-- Status Update Modal -->
+            <div class="modal fade" id="statusModal{{ $factura->id }}" tabindex="-1" aria-labelledby="statusModal{{ $factura->id }}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Atualizar Status - Fatura #{{ $factura->id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('admin.factura.updateStatus', $factura->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="status{{ $factura->id }}" class="form-label">Novo Status</label>
+                                    <select class="form-control" id="status{{ $factura->id }}" name="status" required>
+                                        <option value="Pendente" {{ $factura->status == 'Pendente' ? 'selected' : '' }}>Pendente</option>
+                                        <option value="Pago" {{ $factura->status == 'Pago' ? 'selected' : '' }}>Pago</option>
+                                        <option value="Cancelado" {{ $factura->status == 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
+                                    </select>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Status Atual:</strong> {{ $factura->status }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Atualizar Status</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
             <div class="modal fade" id="editar_modal{{ $factura->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $factura->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -58,6 +109,7 @@
         </tbody>
     </table>
 
+    <!-- Create Modal -->
     <div class="modal fade" id="facturaModal" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

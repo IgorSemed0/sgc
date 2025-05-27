@@ -123,4 +123,23 @@ class FacturaController extends Controller
             return redirect()->back()->with('error', 'Erro ao excluir fatura permanentemente: ' . $e->getMessage());
         }
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $factura = Factura::findOrFail($id);
+
+            $validated = $request->validate([
+                'status' => 'required|string|in:Pendente,Pago,Cancelado',
+            ]);
+
+            $factura->update(['status' => $validated['status']]);
+
+            return redirect()->route('admin.factura.index')
+                ->with('success', 'Status da fatura atualizado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao atualizar status da fatura: ' . $e->getMessage());
+        }
+    }
 }

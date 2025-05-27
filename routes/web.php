@@ -165,6 +165,7 @@ Route::middleware([
                 Route::get('trash', ['as' => 'admin.factura.trash', 'uses' => 'App\Http\Controllers\Admin\FacturaController@trash']);
                 Route::post('restore/{id}', ['as' => 'admin.factura.restore', 'uses' => 'App\Http\Controllers\Admin\FacturaController@restore']);
                 Route::delete('purge/{id}', ['as' => 'admin.factura.purge', 'uses' => 'App\Http\Controllers\Admin\FacturaController@purge']);
+                Route::patch('update-status/{id}', ['as' => 'admin.factura.updateStatus', 'uses' => 'App\Http\Controllers\Admin\FacturaController@updateStatus']);
             });
     
             // FacturaItem Routes
