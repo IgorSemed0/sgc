@@ -21,31 +21,32 @@ use Illuminate\Support\Facades\View;
 
 class PdfController extends Controller
 {
-    /**
-     * Display the index view with filter options for all reports.
-     */
     public function index()
     {
-        // Data for filters
+        // Dados para os filtros
         $blocos = Bloco::all();
-        $tiposMorador = ['Proprietário', 'Inquilino', 'Outro'];
-        $generos = ['Masculino', 'Feminino', 'Outro'];
-        $tiposUnidade = ['Apartamento', 'Sala Comercial', 'Casa'];
-        $statusUnidade = ['disponivel', 'alugada'];
-        $tiposPessoaAcesso = ['Visitante', 'Morador', 'Funcionario', 'Prestador de Serviço'];
-        $metodosPagamento = ['dinheiro', 'transferencia_bancaria', 'cartao_credito', 'multicaixa', 'paypal', 'outro'];
+        $edificios = Edificio::all();
+        $unidades = Unidade::all();
         $departamentos = Departamento::all();
+        $tiposMorador = ['Proprietário', 'Inquilino', 'Outro'];
+        $statusMorador = ['Ativo', 'Inativo'];
+        $tiposUnidade = ['Apartamento', 'Sala Comercial', 'Casa'];
+        $statusUnidade = ['Desocupada', 'Ocupada'];
+        $tiposPessoaAcesso = ['Visitante', 'Morador', 'Funcionario', 'Prestador de Serviço'];
+        $tiposAcesso = ['Entrada', 'Saída'];
+        $categoriasDespesa = ['Manutenção', 'Água', 'Luz', 'Outros'];
+        $metodosPagamento = ['dinheiro', 'transferencia_bancaria', 'cartao_credito', 'multicaixa', 'paypal', 'outro'];
+        $motivosVisita = ['Entrega', 'Visita', 'Serviço', 'Outro'];
+        $tiposFuncionario = ['Porteiro', 'Zelador', 'Administrador'];
         $cargos = Funcionario::select('cargo')->distinct()->pluck('cargo');
 
         return view('admin.pdf.index', compact(
-            'blocos', 'tiposMorador', 'generos', 'tiposUnidade', 'statusUnidade',
-            'tiposPessoaAcesso', 'metodosPagamento', 'departamentos', 'cargos'
+            'blocos', 'edificios', 'unidades', 'departamentos', 'tiposMorador', 'statusMorador',
+            'tiposUnidade', 'statusUnidade', 'tiposPessoaAcesso', 'tiposAcesso', 'categoriasDespesa',
+            'metodosPagamento', 'motivosVisita', 'tiposFuncionario', 'cargos'
         ));
     }
 
-    /**
-     * Configure mPDF settings.
-     */
     private function configureMpdf()
     {
         $mpdf = new Mpdf([
@@ -62,9 +63,6 @@ class PdfController extends Controller
         return $mpdf;
     }
 
-    /**
-     * Generate text describing the selected period.
-     */
     private function getPeriodText(Request $request)
     {
         if ($request->has('start') && $request->has('end')) {
@@ -75,9 +73,6 @@ class PdfController extends Controller
         return 'Todos os Períodos';
     }
 
-    /**
-     * Generate PDF for Morador report.
-     */
     public function morador(Request $request)
     {
         $query = Morador::with('unidade');
@@ -85,17 +80,14 @@ class PdfController extends Controller
         if ($request->filled('bloco')) {
             $query->whereHas('unidade', fn($q) => $q->where('bloco_id', $request->bloco));
         }
+        if ($request->filled('unidade')) {
+            $query->where('unidade_id', $request->unidade);
+        }
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
         }
-        if ($request->filled('genero')) {
-            $query->where('sexo', $request->genero);
-        }
-        if ($request->filled('idade_min')) {
-            $query->where('dt_nascimento', '<=', Carbon::now()->subYears($request->idade_min));
-        }
-        if ($request->filled('idade_max')) {
-            $query->where('dt_nascimento', '>=', Carbon::now()->subYears($request->idade_max + 1));
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
 
         $moradores = $query->get();
@@ -109,15 +101,15 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_moradores.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Unidade report.
-     */
     public function unidade(Request $request)
     {
-        $query = Unidade::with('bloco');
+        $query = Unidade::with('bloco', 'edificio');
 
         if ($request->filled('bloco')) {
             $query->where('bloco_id', $request->bloco);
+        }
+        if ($request->filled('edificio')) {
+            $query->where('edificio_id', $request->edificio);
         }
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
@@ -125,20 +117,20 @@ class PdfController extends Controller
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
+        if ($request->filled('andar')) {
+            $query->where('andar', $request->andar);
+        }
 
-        $blocos = Bloco::with(['unidades' => fn($q) => $q->where($query->getQuery()->wheres)])->get();
-        $totalUnidades = $query->count();
+        $unidades = $query->get();
+        $totalUnidades = $unidades->count();
         $periodText = $this->getPeriodText($request);
 
-        $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades', 'periodText'))->render();
+        $html = View::make('admin.pdf.unidade.index', compact('unidades', 'totalUnidades', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_unidades.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Acesso report.
-     */
     public function acesso(Request $request)
     {
         $query = Acesso::with('pessoa');
@@ -152,8 +144,11 @@ class PdfController extends Controller
         if ($request->filled('tipo_pessoa')) {
             $query->whereIn('tipo_pessoa', (array)$request->tipo_pessoa);
         }
-        if ($request->filled('destino')) {
-            $query->whereHas('pessoa.unidade', fn($q) => $q->where('numero', $request->destino));
+        if ($request->filled('tipo_acesso')) {
+            $query->where('tipo', $request->tipo_acesso);
+        }
+        if ($request->filled('unidade')) {
+            $query->whereHas('pessoa.unidade', fn($q) => $q->where('id', $request->unidade));
         }
 
         $acessos = $query->get();
@@ -166,9 +161,6 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_acessos.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Despesa report.
-     */
     public function despesa(Request $request)
     {
         $query = Despesa::query();
@@ -179,8 +171,14 @@ class PdfController extends Controller
         if ($request->filled('end')) {
             $query->where('data_despesa', '<=', Carbon::parse($request->end));
         }
-        if ($request->filled('descricao')) {
-            $query->where('descricao', 'like', '%' . $request->descricao . '%');
+        if ($request->filled('categoria')) {
+            $query->where('categoria', $request->categoria);
+        }
+        if ($request->filled('valor_min')) {
+            $query->where('valor', '>=', $request->valor_min);
+        }
+        if ($request->filled('valor_max')) {
+            $query->where('valor', '<=', $request->valor_max);
         }
 
         $despesas = $query->get();
@@ -193,9 +191,6 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_despesas.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Inadimplência report.
-     */
     public function inadimplencia(Request $request)
     {
         $query = Factura::where('status', 'Pendente')->with('unidade');
@@ -206,8 +201,17 @@ class PdfController extends Controller
         if ($request->filled('end')) {
             $query->where('data_vencimento', '<=', Carbon::parse($request->end));
         }
+        if ($request->filled('bloco')) {
+            $query->whereHas('unidade', fn($q) => $q->where('bloco_id', $request->bloco));
+        }
         if ($request->filled('unidade')) {
-            $query->whereHas('unidade', fn($q) => $q->where('numero', $request->unidade));
+            $query->where('unidade_id', $request->unidade);
+        }
+        if ($request->filled('valor_min')) {
+            $query->where('valor_total', '>=', $request->valor_min);
+        }
+        if ($request->filled('valor_max')) {
+            $query->where('valor_total', '<=', $request->valor_max);
         }
 
         $facturas = $query->get();
@@ -220,12 +224,9 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_inadimplencia.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Pagamento report.
-     */
     public function pagamento(Request $request)
     {
-        $query = Pagamento::with('factura');
+        $query = Pagamento::with('factura.unidade');
 
         if ($request->filled('start')) {
             $query->where('data_pagamento', '>=', Carbon::parse($request->start));
@@ -233,8 +234,20 @@ class PdfController extends Controller
         if ($request->filled('end')) {
             $query->where('data_pagamento', '<=', Carbon::parse($request->end));
         }
+        if ($request->filled('bloco')) {
+            $query->whereHas('factura.unidade', fn($q) => $q->where('bloco_id', $request->bloco));
+        }
+        if ($request->filled('unidade')) {
+            $query->whereHas('factura', fn($q) => $q->where('unidade_id', $request->unidade));
+        }
         if ($request->filled('metodo')) {
             $query->where('metodo_pagamento', $request->metodo);
+        }
+        if ($request->filled('valor_min')) {
+            $query->where('valor_pago', '>=', $request->valor_min);
+        }
+        if ($request->filled('valor_max')) {
+            $query->where('valor_pago', '<=', $request->valor_max);
         }
 
         $pagamentos = $query->get();
@@ -247,21 +260,24 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_pagamentos.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Visitante report.
-     */
     public function visitante(Request $request)
     {
         $query = Visitante::with('unidade');
 
         if ($request->filled('start')) {
-            $query->where('created_at', '>=', Carbon::parse($request->start));
+            $query->where('data_visita', '>=', Carbon::parse($request->start));
         }
         if ($request->filled('end')) {
-            $query->where('created_at', '<=', Carbon::parse($request->end));
+            $query->where('data_visita', '<=', Carbon::parse($request->end));
+        }
+        if ($request->filled('bloco')) {
+            $query->whereHas('unidade', fn($q) => $q->where('bloco_id', $request->bloco));
+        }
+        if ($request->filled('unidade')) {
+            $query->where('unidade_id', $request->unidade);
         }
         if ($request->filled('motivo')) {
-            $query->where('motivo_visita', 'like', '%' . $request->motivo . '%');
+            $query->where('motivo_visita', $request->motivo);
         }
 
         $visitantes = $query->get();
@@ -274,9 +290,6 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_visitantes.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Funcionário report.
-     */
     public function funcionario(Request $request)
     {
         $query = Funcionario::with('departamento');
@@ -284,11 +297,11 @@ class PdfController extends Controller
         if ($request->filled('departamento')) {
             $query->where('departamento_id', $request->departamento);
         }
-        if ($request->filled('cargo')) {
-            $query->where('cargo', $request->cargo);
-        }
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
+        }
+        if ($request->filled('cargo')) {
+            $query->where('cargo', $request->cargo);
         }
 
         $funcionarios = $query->get();
@@ -302,23 +315,20 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_funcionarios.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Bloco report.
-     */
     public function bloco(Request $request)
     {
-        $query = Bloco::with('unidades');
+        $query = Bloco::with(['unidades' => function($q) use ($request) {
+            if ($request->filled('tipo_unidade')) {
+                $q->where('tipo', $request->tipo_unidade);
+            }
+            if ($request->filled('status_unidade')) {
+                $q->where('status', $request->status_unidade);
+            }
+        }]);
 
-        if ($request->filled('nome')) {
-            $query->where('nome', 'like', '%' . $request->nome . '%');
-        }
-
-        $blocos = $query->get()->map(function ($bloco) {
-            $bloco->unidadesPorTipo = $bloco->unidades->groupBy('tipo');
-            return $bloco;
-        });
-        $totalBlocos = $query->count();
-        $totalUnidades = Unidade::whereIn('bloco_id', $blocos->pluck('id'))->count();
+        $blocos = $query->get();
+        $totalBlocos = $blocos->count();
+        $totalUnidades = $blocos->sum(fn($bloco) => $bloco->unidades->count());
         $periodText = $this->getPeriodText($request);
 
         $html = View::make('admin.pdf.bloco.index', compact('blocos', 'totalBlocos', 'totalUnidades', 'periodText'))->render();
@@ -327,29 +337,33 @@ class PdfController extends Controller
         return $mpdf->Output('relatorio_blocos.pdf', 'I');
     }
 
-    /**
-     * Generate PDF for Edifício report.
-     */
-    public function edificio(Request $request)
+    public function ocupacaoUnidades(Request $request)
     {
-        $query = Edificio::with('bloco');
+        $query = Unidade::with('bloco', 'edificio');
 
         if ($request->filled('bloco')) {
             $query->where('bloco_id', $request->bloco);
         }
-        if ($request->filled('nome')) {
-            $query->where('nome', 'like', '%' . $request->nome . '%');
+        if ($request->filled('edificio')) {
+            $query->where('edificio_id', $request->edificio);
+        }
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('andar')) {
+            $query->where('andar', $request->andar);
         }
 
-        $edificios = $query->get();
-        $totalEdificios = $edificios->count();
+        $unidades = $query->get();
+        $totalUnidades = $unidades->count();
         $periodText = $this->getPeriodText($request);
 
-        $html = View::make('admin.pdf.edificio.index', compact('edificios', 'totalEdificios', 'periodText'))->render();
+        $html = View::make('admin.pdf.ocupacao_unidades.index', compact('unidades', 'totalUnidades', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('relatorio_edificios.pdf', 'I');
+        return $mpdf->Output('relatorio_ocupacao_unidades.pdf', 'I');
     }
-
-    // Remove form methods as they are no longer needed
 }

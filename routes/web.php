@@ -396,45 +396,15 @@ Route::middleware([
 
     Route::prefix('pdf')->middleware(['auth', 'admin'])->group(function () {
         Route::get('index', ['as' => 'pdf.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@index']);
-    
-        // Morador
-        Route::get('morador/form', ['as' => 'pdf.morador.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@moradorForm']);
         Route::get('morador', ['as' => 'pdf.morador.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@morador']);
-    
-        // Unidade (enhanced with filters)
-        Route::get('unidade/form', ['as' => 'pdf.unidade.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@unidadeForm']);
         Route::get('unidade', ['as' => 'pdf.unidade.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@unidade']);
-    
-        // Acesso
-        Route::get('acesso/form', ['as' => 'pdf.acesso.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@acessoForm']);
         Route::get('acesso', ['as' => 'pdf.acesso.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@acesso']);
-    
-        // Despesa
-        Route::get('despesa/form', ['as' => 'pdf.despesa.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@despesaForm']);
         Route::get('despesa', ['as' => 'pdf.despesa.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@despesa']);
-    
-        // Inadimplência
-        Route::get('inadimplencia/form', ['as' => 'pdf.inadimplencia.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@inadimplenciaForm']);
         Route::get('inadimplencia', ['as' => 'pdf.inadimplencia.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@inadimplencia']);
-    
-        // Pagamento
-        Route::get('pagamento/form', ['as' => 'pdf.pagamento.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@pagamentoForm']);
         Route::get('pagamento', ['as' => 'pdf.pagamento.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@pagamento']);
-    
-        // Visitante
-        Route::get('visitante/form', ['as' => 'pdf.visitante.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@visitanteForm']);
         Route::get('visitante', ['as' => 'pdf.visitante.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@visitante']);
-    
-        // Funcionário
-        Route::get('funcionario/form', ['as' => 'pdf.funcionario.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@funcionarioForm']);
         Route::get('funcionario', ['as' => 'pdf.funcionario.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@funcionario']);
-    
-        // Bloco
-        Route::get('bloco/form', ['as' => 'pdf.bloco.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@blocoForm']);
         Route::get('bloco', ['as' => 'pdf.bloco.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@bloco']);
-    
-        // Edifício (new report)
-        Route::get('edificio/form', ['as' => 'pdf.edificio.form', 'uses' => 'App\Http\Controllers\Admin\PdfController@edificioForm']);
-        Route::get('edificio', ['as' => 'pdf.edificio.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@edificio']);
+        Route::get('ocupacao_unidades', ['as' => 'pdf.ocupacao_unidades.index', 'uses' => 'App\Http\Controllers\Admin\PdfController@ocupacaoUnidades']);
     });
 });

@@ -25,6 +25,15 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label>Unidade:</label>
+                                    <select name="unidade" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Tipo de Morador:</label>
                                     <select name="tipo" class="form-control">
                                         <option value="">Todos</option>
@@ -34,21 +43,13 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>Gênero:</label>
-                                    <select name="genero" class="form-control">
+                                    <label>Status:</label>
+                                    <select name="status" class="form-control">
                                         <option value="">Todos</option>
-                                        @foreach($generos as $genero)
-                                            <option value="{{ $genero }}">{{ $genero }}</option>
+                                        @foreach($statusMorador as $status)
+                                            <option value="{{ $status }}">{{ $status }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Idade Mínima:</label>
-                                    <input type="number" name="idade_min" class="form-control" placeholder="Ex: 18">
-                                </div>
-                                <div class="mb-3">
-                                    <label>Idade Máxima:</label>
-                                    <input type="number" name="idade_max" class="form-control" placeholder="Ex: 65">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -73,6 +74,15 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label>Edifício:</label>
+                                    <select name="edificio" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($edificios as $edificio)
+                                            <option value="{{ $edificio->id }}">{{ $edificio->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Tipo de Unidade:</label>
                                     <select name="tipo" class="form-control">
                                         <option value="">Todos</option>
@@ -89,6 +99,10 @@
                                             <option value="{{ $status }}">{{ $status }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Andar:</label>
+                                    <input type="number" name="andar" class="form-control" placeholder="Ex: 1">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -121,8 +135,22 @@
                                     @endforeach
                                 </div>
                                 <div class="mb-3">
-                                    <label>Local de Destino:</label>
-                                    <input type="text" name="destino" class="form-control" placeholder="Ex: Apt B203">
+                                    <label>Tipo de Acesso:</label>
+                                    <select name="tipo_acesso" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($tiposAcesso as $tipo)
+                                            <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Unidade:</label>
+                                    <select name="unidade" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -146,8 +174,21 @@
                                     <input type="date" name="end" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label>Descrição:</label>
-                                    <input type="text" name="descricao" class="form-control" placeholder="Ex: Manutenção">
+                                    <label>Categoria:</label>
+                                    <select name="categoria" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($categoriasDespesa as $categoria)
+                                            <option value="{{ $categoria }}">{{ $categoria }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Mínimo:</label>
+                                    <input type="number" name="valor_min" class="form-control" step="0.01" placeholder="Ex: 100.00">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Máximo:</label>
+                                    <input type="number" name="valor_max" class="form-control" step="0.01" placeholder="Ex: 500.00">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -171,8 +212,30 @@
                                     <input type="date" name="end" class="form-control">
                                 </div>
                                 <div class="mb-3">
+                                    <label>Bloco:</label>
+                                    <select name="bloco" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($blocos as $bloco)
+                                            <option value="{{ $bloco->id }}">{{ $bloco->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Unidade:</label>
-                                    <input type="text" name="unidade" class="form-control" placeholder="Ex: A101">
+                                    <select name="unidade" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Mínimo:</label>
+                                    <input type="number" name="valor_min" class="form-control" step="0.01" placeholder="Ex: 100.00">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Máximo:</label>
+                                    <input type="number" name="valor_max" class="form-control" step="0.01" placeholder="Ex: 500.00">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -196,6 +259,24 @@
                                     <input type="date" name="end" class="form-control">
                                 </div>
                                 <div class="mb-3">
+                                    <label>Bloco:</label>
+                                    <select name="bloco" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($blocos as $bloco)
+                                            <option value="{{ $bloco->id }}">{{ $bloco->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Unidade:</label>
+                                    <select name="unidade" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Método de Pagamento:</label>
                                     <select name="metodo" class="form-control">
                                         <option value="">Todos</option>
@@ -203,6 +284,14 @@
                                             <option value="{{ $metodo }}">{{ $metodo }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Mínimo:</label>
+                                    <input type="number" name="valor_min" class="form-control" step="0.01" placeholder="Ex: 100.00">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Valor Máximo:</label>
+                                    <input type="number" name="valor_max" class="form-control" step="0.01" placeholder="Ex: 500.00">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -226,8 +315,31 @@
                                     <input type="date" name="end" class="form-control">
                                 </div>
                                 <div class="mb-3">
+                                    <label>Bloco:</label>
+                                    <select name="bloco" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($blocos as $bloco)
+                                            <option value="{{ $bloco->id }}">{{ $bloco->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Unidade:</label>
+                                    <select name="unidade" class="form-control">
+                                        <option value="">Todas</option>
+                                        @foreach($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->numero }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Motivo da Visita:</label>
-                                    <input type="text" name="motivo" class="form-control" placeholder="Ex: Entrega">
+                                    <select name="motivo" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($motivosVisita as $motivo)
+                                            <option value="{{ $motivo }}">{{ $motivo }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -252,20 +364,21 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label>Tipo de Funcionário:</label>
+                                    <select name="tipo" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($tiposFuncionario as $tipo)
+                                            <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label>Cargo:</label>
                                     <select name="cargo" class="form-control">
                                         <option value="">Todos</option>
                                         @foreach($cargos as $cargo)
                                             <option value="{{ $cargo }}">{{ $cargo }}</option>
                                         @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Tipo:</label>
-                                    <select name="tipo" class="form-control">
-                                        <option value="">Todos</option>
-                                        <option value="Permanente">Permanente</option>
-                                        <option value="Temporário">Temporário</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
@@ -282,8 +395,22 @@
                             <p class="card-text">Relatório de blocos do condomínio</p>
                             <form action="{{ route('pdf.bloco.index') }}" method="GET">
                                 <div class="mb-3">
-                                    <label>Nome:</label>
-                                    <input type="text" name="nome" class="form-control" placeholder="Ex: Bloco A">
+                                    <label>Tipo de Unidade:</label>
+                                    <select name="tipo_unidade" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($tiposUnidade as $tipo)
+                                            <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Status da Unidade:</label>
+                                    <select name="status_unidade" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($statusUnidade as $status)
+                                            <option value="{{ $status }}">{{ $status }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
@@ -291,13 +418,13 @@
                     </div>
                 </div>
 
-                <!-- Edifícios -->
+                <!-- Ocupação de Unidades -->
                 <div class="col-md-4 col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Edifícios</h5>
-                            <p class="card-text">Relatório de edifícios do condomínio</p>
-                            <form action="{{ route('pdf.edificio.index') }}" method="GET">
+                            <h5 class="card-title">Ocupação de Unidades</h5>
+                            <p class="card-text">Relatório de ocupação das unidades</p>
+                            <form action="{{ route('pdf.ocupacao_unidades.index') }}" method="GET">
                                 <div class="mb-3">
                                     <label>Bloco:</label>
                                     <select name="bloco" class="form-control">
@@ -308,8 +435,35 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>Nome:</label>
-                                    <input type="text" name="nome" class="form-control" placeholder="Ex: Edifício Central">
+                                    <label>Edifício:</label>
+                                    <select name="edificio" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($edificios as $edificio)
+                                            <option value="{{ $edificio->id }}">{{ $edificio->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Tipo de Unidade:</label>
+                                    <select name="tipo" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($tiposUnidade as $tipo)
+                                            <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Status:</label>
+                                    <select name="status" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach($statusUnidade as $status)
+                                            <option value="{{ $status }}">{{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Andar:</label>
+                                    <input type="number" name="andar" class="form-control" placeholder="Ex: 1">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
