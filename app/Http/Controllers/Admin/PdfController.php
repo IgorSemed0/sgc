@@ -28,11 +28,10 @@ class PdfController extends Controller
         $edificios = Edificio::all();
         $unidades = Unidade::all();
         $departamentos = Departamento::all();
-        $tiposMorador = ['Proprietário', 'Inquilino', 'Outro'];
-        $statusMorador = ['Ativo', 'Inativo'];
+        $tiposMorador = ['proprietario', 'inquilino', 'dependente'];
         $tiposUnidade = ['Apartamento', 'Sala Comercial', 'Casa'];
         $statusUnidade = ['Desocupada', 'Ocupada'];
-        $tiposPessoaAcesso = ['Visitante', 'Morador', 'Funcionario', 'Prestador de Serviço'];
+        $tiposPessoaAcesso = ['Visitante', 'Morador', 'Funcionario'];
         $tiposAcesso = ['Entrada', 'Saída'];
         $categoriasDespesa = ['Manutenção', 'Água', 'Luz', 'Outros'];
         $metodosPagamento = ['dinheiro', 'transferencia_bancaria', 'cartao_credito', 'multicaixa', 'paypal', 'outro'];
@@ -41,9 +40,9 @@ class PdfController extends Controller
         $cargos = Funcionario::select('cargo')->distinct()->pluck('cargo');
 
         return view('admin.pdf.index', compact(
-            'blocos', 'edificios', 'unidades', 'departamentos', 'tiposMorador', 'statusMorador',
-            'tiposUnidade', 'statusUnidade', 'tiposPessoaAcesso', 'tiposAcesso', 'categoriasDespesa',
-            'metodosPagamento', 'motivosVisita', 'tiposFuncionario', 'cargos'
+            'blocos', 'edificios', 'unidades', 'departamentos', 'tiposMorador',
+            'tiposUnidade', 'statusUnidade', 'tiposPessoaAcesso', 'tiposAcesso',
+            'categoriasDespesa', 'metodosPagamento', 'motivosVisita', 'tiposFuncionario', 'cargos'
         ));
     }
 
@@ -85,9 +84,6 @@ class PdfController extends Controller
         }
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
-        }
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
         }
 
         $moradores = $query->get();

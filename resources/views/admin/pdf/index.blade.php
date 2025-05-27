@@ -42,15 +42,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label>Status:</label>
-                                    <select name="status" class="form-control">
-                                        <option value="">Todos</option>
-                                        @foreach($statusMorador as $status)
-                                            <option value="{{ $status }}">{{ $status }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <button type="submit" class="btn btn-primary btn-block">Gerar Relatório</button>
                             </form>
                         </div>
