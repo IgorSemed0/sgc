@@ -2,12 +2,12 @@
 @section('title', 'Listar Visitantes')
 @section('conteudo')
 <h1 class="h3">Tabela de Visitantes</h1>
-<div class="d-flex justify-content-between mb-3">
+<!-- <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#visitanteModal">Novo Visitante</button>
     <a href="{{ route('admin.visitante.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
-</div>
+</div> -->
 
 <div class="card p-4">
     <table class="table table-striped myTable">
@@ -22,7 +22,7 @@
                 <th>Data Entrada</th>
                 <th>Data Saída</th>
                 <th>Unidade</th>
-                <th>Ações</th>
+                <!-- <th>Ações</th> -->
             </tr>
         </thead>
         <tbody>
@@ -37,10 +37,10 @@
                 <td>{{ $visitante->data_entrada }}</td>
                 <td>{{ $visitante->data_saida }}</td>
                 <td>{{ $visitante->unidade->tipo ?? '' }} - {{ $visitante->unidade->numero ?? ''}}</td>
-                <td>
+                <!-- <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $visitante->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.visitante.destroy', $visitante->id) }}')">Deletar</a>
-                </td>
+                </td> -->
             </tr>
 
             <div class="modal fade" id="editar_modal{{ $visitante->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $visitante->id }}Label" aria-hidden="true">
