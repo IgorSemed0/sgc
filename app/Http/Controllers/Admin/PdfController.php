@@ -30,7 +30,7 @@ class PdfController extends Controller
         $departamentos = Departamento::all();
         $tiposMorador = ['proprietario', 'inquilino', 'dependente'];
         $tiposUnidade = ['Apartamento', 'Sala Comercial', 'Casa'];
-        $statusUnidade = ['Desocupada', 'Ocupada'];
+        $statusUnidade = ['disponivel', 'alugada'];
         $tiposPessoaAcesso = ['Visitante', 'Morador', 'Funcionario'];
         $tiposAcesso = ['Entrada', 'Saída'];
         $categoriasDespesa = ['Manutenção', 'Água', 'Luz', 'Outros'];
@@ -121,34 +121,34 @@ class PdfController extends Controller
 
     public function unidade(Request $request)
     {
-        $query = Unidade::with('bloco', 'edificio');
-
+        $query = Bloco::with(['unidades' => function ($q) use ($request) {
+            if ($request->filled('edificio')) {
+                $q->where('edificio_id', $request->edificio);
+            }
+            if ($request->filled('tipo')) {
+                $q->where('tipo', $request->tipo);
+            }
+            if ($request->filled('status')) {
+                $q->where('status', $request->status);
+            }
+            if ($request->filled('andar')) {
+                $q->where('andar', $request->andar);
+            }
+        }]);
+    
         if ($request->filled('bloco')) {
-            $query->where('bloco_id', $request->bloco);
+            $query->where('id', $request->bloco);
         }
-        if ($request->filled('edificio')) {
-            $query->where('edificio_id', $request->edificio);
-        }
-        if ($request->filled('tipo')) {
-            $query->where('tipo', $request->tipo);
-        }
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-        if ($request->filled('andar')) {
-            $query->where('andar', $request->andar);
-        }
-
-        $unidades = $query->get();
-        $totalUnidades = $unidades->count();
+    
+        $blocos = $query->get();
+        $totalUnidades = $blocos->sum(fn($bloco) => $bloco->unidades->count());
         $periodText = $this->getPeriodText($request);
-
-        $html = View::make('admin.pdf.unidade.index', compact('unidades', 'totalUnidades', 'periodText'))->render();
+    
+        $html = View::make('admin.pdf.unidade.index', compact('blocos', 'totalUnidades', 'periodText'))->render();
         $mpdf = $this->configureMpdf();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('relatorio_unidades.pdf', 'I');
     }
-
     public function acesso(Request $request)
     {
         $query = Acesso::with('pessoa');
