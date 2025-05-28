@@ -30,7 +30,7 @@
                 <td>{{ $espacoComum->descricao ?? '-' }}</td>
                 <td>{{ $espacoComum->capacidade }}</td>
                 <td>{{ $espacoComum->regras ?? '-' }}</td>
-                <td>{{ $espacoComum->bloco }}</td>
+                <td>{{ $espacoComum->bloco->nome }}</td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $espacoComum->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.espaco-comum.destroy', $espacoComum->id) }}')">Deletar</a>
