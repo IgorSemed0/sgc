@@ -132,4 +132,36 @@ class ChatPostController extends Controller
             return redirect()->back()->with('error', 'Erro ao excluir post de chat permanentemente: ' . $e->getMessage());
         }
     }
+
+    public function feed(Request $request)
+    {
+        try {
+            $posts = ChatPost::with(['chatComentarios.user', 'user'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(9);
+        } catch (\Exception $e) {
+            $posts = collect([]);
+        }
+            
+        return view('admin.chat-post.feed', compact('posts'));
+    }
+    
+    public function feedSearch(Request $request)
+    {
+        $search = $request->input('search');
+        
+        try {
+            $posts = ChatPost::with(['chatComentarios.user', 'user'])
+                ->where('titulo', 'like', "%{$search}%")
+                ->orWhere('conteudo', 'like', "%{$search}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate(9);
+                
+            $posts->appends(['search' => $search]);
+        } catch (\Exception $e) {
+            $posts = collect([]);
+        }
+        
+        return view('admin.chat-post.feed', compact('posts', 'search'));
+    }
 }

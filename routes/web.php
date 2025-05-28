@@ -323,6 +323,8 @@ Route::middleware([
                 Route::get('trash', ['as' => 'admin.chat-post.trash', 'uses' => 'App\Http\Controllers\Admin\ChatPostController@trash']);
                 Route::post('restore/{id}', ['as' => 'admin.chat-post.restore', 'uses' => 'App\Http\Controllers\Admin\ChatPostController@restore']);
                 Route::delete('purge/{id}', ['as' => 'admin.chat-post.purge', 'uses' => 'App\Http\Controllers\Admin\ChatPostController@purge']);
+                Route::get('feed', ['as' => 'admin.feed', 'uses' => 'App\Http\Controllers\Admin\ChatPostController@feed']);
+                Route::get('feed/search', ['as' => 'admin.feed.search', 'uses' => 'App\Http\Controllers\Admin\ChatPostController@feedSearch']);
             });
             
             // ChatComentario Routes
