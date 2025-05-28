@@ -34,7 +34,7 @@
     <h2>Relatório de Imóvel por Bloco</h2>
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
     <p>Período: {{ $periodText }}</p>
-    <p>Total de unidades: {{ $totalUnidades }}</p>
+    <p>Total de imóveis: {{ $totalUnidades }}</p>
 
     @foreach ($blocos as $bloco)
         <h3>Bloco: {{ $bloco->nome }} ({{ $bloco->unidade->count() }})</h3>
@@ -44,7 +44,6 @@
                     <th>Tipo</th>
                     <th>Número</th>
                     <th>Andar</th>
-                    <th>Área (m²)</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -54,7 +53,6 @@
                         <td>{{ $unidade->tipo }}</td>
                         <td>{{ $unidade->numero }}</td>
                         <td>{{ $unidade->andar }}</td>
-                        <td>{{ $unidade->area_m2 }}</td>
                         <td>{{ $unidade->status }}</td>
                     </tr>
                 @endforeach

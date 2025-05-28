@@ -40,7 +40,7 @@ uppgift
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Unidade</th>
+                <th>Imóvel</th>
                 <th>Motivo Visita</th>
                 <th>Telefone</th>
             </tr>

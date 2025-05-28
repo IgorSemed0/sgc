@@ -47,7 +47,7 @@
                         <th>Nome</th>
                         <th>Sexo</th>
                         <th>Idade</th>
-                        <th>Unidade</th>
+                        <th>Imóvel</th>
                         <th>Morador Associado</th>
                         <th>Grau Parentesco</th>
                     </tr>
@@ -73,7 +73,7 @@
                         <th>Nome</th>
                         <th>Sexo</th>
                         <th>Idade</th>
-                        <th>Unidade</th>
+                        <th>Imóvel</th>
                         <th>Email</th>
                         <th>Telefone</th>
                     </tr>

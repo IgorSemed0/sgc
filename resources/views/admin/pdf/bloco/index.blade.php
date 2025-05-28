@@ -35,7 +35,7 @@
     <p>Data de geração: {{ now()->format('d/m/Y') }}</p>
     <p>Período: {{ $periodText }}</p>
     <p>Total de blocos: {{ $totalBlocos }}</p>
-    <p>Total de unidades: {{ $totalUnidades }}</p>
+    <p>Total de imóveis: {{ $totalUnidades }}</p>
 
     @foreach ($blocos as $bloco)
         <h3>Bloco: {{ $bloco->nome }} ({{ $bloco->unidades->count() }})</h3>

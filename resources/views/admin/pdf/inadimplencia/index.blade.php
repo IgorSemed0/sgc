@@ -38,7 +38,7 @@
     <table>
         <thead>
             <tr>
-                <th>Unidade</th>
+                <th>Imóvel</th>
                 <th>Referência</th>
                 <th>Data Vencimento</th>
                 <th>Valor Total</th>
