@@ -7,7 +7,7 @@
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card text-white bg-danger">
-                <div class="card-header">Total de Unidades</div>
+                <div class="card-header">Total de Inmóveis</div>
                 <div class="card-body">
                     <h5 class="card-title mt-4 mb-4">{{ $totalUnidades }}</h5>
                 </div>
@@ -56,7 +56,7 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card">
-                <div class="card-header">Unidades por Tipo</div>
+                <div class="card-header">Imóveis por Tipo</div>
                 <div class="card-body" style="display: flex; justify-content: center; align-items: center; height: 400px;">
                     <!-- Set explicit width and height for the canvas -->
                     <canvas id="graficoBarras" style="max-width: 100%; max-height: 100%;"></canvas>
@@ -112,7 +112,7 @@
                 data: {
                     labels: @json(array_keys($unitTypes)),
                     datasets: [{
-                        label: "Número de Unidades",
+                        label: "Número de Imóveis",
                         data: @json(array_values($unitTypes)),
                         backgroundColor: "#ffc107"
                     }]

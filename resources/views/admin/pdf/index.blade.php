@@ -14,7 +14,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Moradores</h5>
                             <p class="card-text">Informações sobre os moradores do condomínio</p>
-                            <form action="{{ route('pdf.morador.index') }}" method="GET">
+                            <form action="{{ route('pdf.morador.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Bloco:</label>
                                     <select name="bloco" class="form-control">
@@ -54,7 +54,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Unidades</h5>
                             <p class="card-text">Informações sobre as unidades do condomínio</p>
-                            <form action="{{ route('pdf.unidade.index') }}" method="GET">
+                            <form action="{{ route('pdf.unidade.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Bloco:</label>
                                     <select name="bloco" class="form-control">
@@ -107,7 +107,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Acessos</h5>
                             <p class="card-text">Registro de acessos ao condomínio</p>
-                            <form action="{{ route('pdf.acesso.index') }}" method="GET">
+                            <form action="{{ route('pdf.acesso.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Data de Início:</label>
                                     <input type="date" name="start" class="form-control">
@@ -155,7 +155,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Despesas</h5>
                             <p class="card-text">Relatório de despesas do condomínio</p>
-                            <form action="{{ route('pdf.despesa.index') }}" method="GET">
+                            <form action="{{ route('pdf.despesa.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Data de Início:</label>
                                     <input type="date" name="start" class="form-control">
@@ -193,7 +193,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Inadimplência</h5>
                             <p class="card-text">Relatório de faturas pendentes</p>
-                            <form action="{{ route('pdf.inadimplencia.index') }}" method="GET">
+                            <form action="{{ route('pdf.inadimplencia.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Data de Vencimento Início:</label>
                                     <input type="date" name="start" class="form-control">
@@ -240,7 +240,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Pagamentos</h5>
                             <p class="card-text">Relatório de pagamentos efetuados</p>
-                            <form action="{{ route('pdf.pagamento.index') }}" method="GET">
+                            <form action="{{ route('pdf.pagamento.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Data de Pagamento Início:</label>
                                     <input type="date" name="start" class="form-control">
@@ -296,7 +296,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Visitantes</h5>
                             <p class="card-text">Relatório de visitantes do condomínio</p>
-                            <form action="{{ route('pdf.visitante.index') }}" method="GET">
+                            <form action="{{ route('pdf.visitante.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Data de Visita Início:</label>
                                     <input type="date" name="start" class="form-control">
@@ -344,7 +344,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Funcionários</h5>
                             <p class="card-text">Relatório de funcionários do condomínio</p>
-                            <form action="{{ route('pdf.funcionario.index') }}" method="GET">
+                            <form action="{{ route('pdf.funcionario.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Departamento:</label>
                                     <select name="departamento" class="form-control">
@@ -384,7 +384,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Blocos</h5>
                             <p class="card-text">Relatório de blocos do condomínio</p>
-                            <form action="{{ route('pdf.bloco.index') }}" method="GET">
+                            <form action="{{ route('pdf.bloco.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Tipo de Unidade:</label>
                                     <select name="tipo_unidade" class="form-control">
@@ -415,7 +415,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">Ocupação de Unidades</h5>
                             <p class="card-text">Relatório de ocupação das unidades</p>
-                            <form action="{{ route('pdf.ocupacao_unidades.index') }}" method="GET">
+                            <form action="{{ route('pdf.ocupacao_unidades.index') }}" target="_blank" method="GET">
                                 <div class="mb-3">
                                     <label>Bloco:</label>
                                     <select name="bloco" class="form-control">
