@@ -102,7 +102,7 @@
                 </div>
 
                 <!-- Acessos -->
-                <div class="col-md-4 col-sm-6 mb-3">
+                <!-- <div class="col-md-4 col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <h5 class="card-title">Acessos</h5>
@@ -147,7 +147,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Despesas -->
                 <div class="col-md-4 col-sm-6 mb-3">
