@@ -85,6 +85,7 @@ Route::middleware([
                 Route::get('index', ['as' => 'admin.unidade.index', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@index']);
                 Route::get('create', ['as' => 'admin.unidade.create', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@create']);
                 Route::post('store', ['as' => 'admin.unidade.store', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@store']);
+                Route::post('store/morador', ['as' => 'admin.unidade.morador.store', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@storeMorador']);
                 Route::get('edit/{id}', ['as' => 'admin.unidade.edit', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@edit']);
                 Route::put('update/{id}', ['as' => 'admin.unidade.update', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@update']);
                 Route::get('destroy/{id}', ['as' => 'admin.unidade.destroy', 'uses' => 'App\Http\Controllers\Admin\UnidadeController@destroy']);

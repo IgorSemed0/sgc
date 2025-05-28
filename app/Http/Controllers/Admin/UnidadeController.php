@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Unidade;
 use App\Models\Bloco;
 use App\Models\Edificio;
+use App\Models\Morador;
 use Illuminate\Http\Request;
 
 class UnidadeController extends Controller
@@ -14,7 +15,7 @@ class UnidadeController extends Controller
     {
         $data['blocos'] = Bloco::all();
         $data['edificios'] = Edificio::all();
-        $data['unidades'] = Unidade::with(['bloco', 'edificio'])->get();
+        $data['unidades'] = Unidade::with(['bloco', 'edificio', 'moradores'])->paginate(10);
         return view('admin.unidade.index', $data);
     }
 
@@ -130,6 +131,67 @@ class UnidadeController extends Controller
             return redirect()->back()->with('success', 'Imóvel excluída permanentemente.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao excluir imóvel permanentemente: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Store a new Morador from the Unidade index page
+     */
+    public function moradorStore(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'primeiro_nome' => 'required|string|max:255',
+                'nomes_meio' => 'nullable|string|max:255',
+                'ultimo_nome' => 'required|string|max:255',
+                'email' => 'nullable|email|max:255|unique:moradors,email',
+                'telefone' => 'nullable|string|max:20',
+                'bi' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,bi',
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (in_array($request->tipo, ['proprietario', 'inquilino']) && empty($value)) {
+                            $fail('O campo BI é obrigatório para proprietários e inquilinos.');
+                        } elseif ($request->tipo == 'dependente' && empty($value) && empty($request->cedula)) {
+                            $fail('Para dependentes, é necessário fornecer BI ou Cédula.');
+                        }
+                    },
+                ],
+                'cedula' => [
+                    'nullable',
+                    'string',
+                    'max:20',
+                    'unique:moradors,cedula',
+                ],
+                'data_nascimento' => 'required|date',
+                'sexo' => 'required|string|in:Masculino,Feminino,Outro',
+                'unidade_id' => 'required|exists:unidades,id',
+                'tipo' => 'required|in:proprietario,inquilino,dependente',
+                'grau_parentesco' => 'required_if:tipo,dependente',
+                'estado_residente' => 'nullable|boolean',
+                'dependente_de' => 'required_if:tipo,dependente|exists:moradors,id'
+            ]);
+
+            // Verify that the unidade exists
+            $unidade = Unidade::findOrFail($validated['unidade_id']);
+
+            if ($request->tipo == 'dependente') {
+                $inquilino = Morador::find($request->dependente_de);
+                if ($inquilino->unidade_id != $validated['unidade_id']) {
+                    throw new \Exception('O responsável deve pertencer à mesma unidade.');
+                }
+            }
+    
+            Morador::create($validated);
+    
+            return redirect()->route('admin.unidade.index')
+                ->with('success', 'Morador registrado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao registrar morador: ' . $e->getMessage())
+                ->withInput();
         }
     }
 }

@@ -46,4 +46,9 @@ class Morador extends Model
     {
         return $this->belongsTo(Morador::class, 'dependente_de');
     }
+
+    public function morador()
+    {
+        return $this->belongsTo(Morador::class, 'dependente_de');
+    }
 }
