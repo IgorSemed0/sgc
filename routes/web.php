@@ -71,7 +71,7 @@ Route::middleware([
                 Route::get('index', ['as' => 'admin.edificio.index', 'uses' => 'App\Http\Controllers\Admin\EdificioController@index']);
                 Route::get('create', ['as' => 'admin.edificio.create', 'uses' => 'App\Http\Controllers\Admin\EdificioController@create']);
                 Route::post('store', ['as' => 'admin.edificio.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@store']);
-                Route::post('storeUnidade', ['as' => 'admin.edificio.unidade.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@storeEdificio']);
+                Route::post('unidade/store', ['as' => 'admin.edificio.unidade.store', 'uses' => 'App\Http\Controllers\Admin\EdificioController@unidadeStore']);
                 Route::get('edit/{id}', ['as' => 'admin.edificio.edit', 'uses' => 'App\Http\Controllers\Admin\EdificioController@edit']);
                 Route::put('update/{id}', ['as' => 'admin.edificio.update', 'uses' => 'App\Http\Controllers\Admin\EdificioController@update']);
                 Route::get('destroy/{id}', ['as' => 'admin.edificio.destroy', 'uses' => 'App\Http\Controllers\Admin\EdificioController@destroy']);

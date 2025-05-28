@@ -46,168 +46,159 @@
                     <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#infoModal{{ $edificio->id }}">Ver Informações</button>
                 </td>
             </tr>
-
-            <!-- Modal for Editing Edificio -->
-            <div class="modal fade" id="editar_modal{{ $edificio->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $edificio->id }}Label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar Edifício</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            @include('admin.edificio.editar.index', ['edificio' => $edificio])
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Adding Unidade -->
-            <div class="modal fade unidade-modal" id="unidadeModal{{ $edificio->id }}" tabindex="-1" aria-labelledby="unidadeModal{{ $edificio->id }}Label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Adicionar Imóvel ao Edifício {{ $edificio->nome }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('admin.unidade.store') }}" method="POST" class="unidade-form">
-                                @csrf
-                                <input type="hidden" name="edificio_id" value="{{ $edificio->id }}" class="edificio-id-input">
-                                <input type="hidden" name="bloco_id" value="{{ $edificio->bloco_id }}" class="bloco-id-input">
-                                
-                                <!-- Show selected edificio and bloco info (read-only) -->
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Bloco Selecionado</label>
-                                        <div class="alert alert-secondary">
-                                            <strong>{{ $edificio->bloco->nome }}</strong>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Edifício Selecionado</label>
-                                        <div class="alert alert-info">
-                                            <strong>{{ $edificio->nome }}</strong> - {{ $edificio->descricao ?? 'Sem descrição' }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="tipo{{ $edificio->id }}" class="form-label">Tipo <span class="text-danger">*</span></label>
-                                        <select class="form-select unidade-tipo" id="tipo{{ $edificio->id }}" name="tipo" required>
-                                            <option value="">Selecione o tipo</option>
-                                            <option value="apartamento">Apartamento</option>
-                                            <option value="casa">Casa</option>
-                                            <option value="sala_comercial">Sala Comercial</option>
-                                            <option value="loja">Loja</option>
-                                            <option value="escritorio">Escritório</option>
-                                            <option value="garagem">Garagem</option>
-                                            <option value="deposito">Depósito</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="numero{{ $edificio->id }}" class="form-label">Número <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control unidade-numero" id="numero{{ $edificio->id }}" name="numero" required placeholder="Ex: 101, 201A, etc.">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="andar{{ $edificio->id }}" class="form-label">Andar</label>
-                                        <input type="number" class="form-control unidade-andar" id="andar{{ $edificio->id }}" name="andar" min="0" placeholder="Ex: 1, 2, 10">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="area{{ $edificio->id }}" class="form-label">Área (m²)</label>
-                                        <input type="number" class="form-control unidade-area" id="area{{ $edificio->id }}" name="area_m2" step="0.01" min="0" placeholder="Ex: 85.50">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="status{{ $edificio->id }}" class="form-label">Status</label>
-                                        <select class="form-select unidade-status" id="status{{ $edificio->id }}" name="status">
-                                            <option value="disponivel">Disponível</option>
-                                            <option value="ocupado">Ocupado</option>
-                                            <option value="manutencao">Em Manutenção</option>
-                                            <option value="reservado">Reservado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Salvar Imóvel</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Viewing Edificio Info -->
-            <div class="modal fade" id="infoModal{{ $edificio->id }}" tabindex="-1" aria-labelledby="infoModal{{ $edificio->id }}Label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Informações do Edifício {{ $edificio->nome }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <h6>Detalhes do Edifício</h6>
-                            <p><strong>Sigla:</strong> {{ $edificio->nome }}</p>
-                            <p><strong>Descrição:</strong> {{ $edificio->descricao ?? 'N/A' }}</p>
-                            <p><strong>Bloco:</strong> {{ $edificio->bloco->nome }}</p>
-                            <hr>
-                            <h6>Imóveis/Unidades</h6>
-                            <p><strong>Total de Unidades:</strong> {{ $edificio->unidades()->count() }}</p>
-                            @if ($edificio->unidades()->count() > 0)
-                                <div class="table-responsive">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Número</th>
-                                                <th>Tipo</th>
-                                                <th>Andar</th>
-                                                <th>Área (m²)</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($edificio->unidades as $unidade)
-                                                <tr>
-                                                    <td>{{ $unidade->numero }}</td>
-                                                    <td>{{ ucfirst(str_replace('_', ' ', $unidade->tipo)) }}</td>
-                                                    <td>{{ $unidade->andar ?? 'N/A' }}</td>
-                                                    <td>{{ $unidade->area_m2 ? number_format($unidade->area_m2, 2) : 'N/A' }}</td>
-                                                    <td>
-                                                        <span class="badge bg-{{ $unidade->status == 'disponivel' ? 'success' : ($unidade->status == 'ocupado' ? 'primary' : 'warning') }}">
-                                                            {{ ucfirst($unidade->status) }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @else
-                                <p>Nenhuma unidade cadastrada neste edifício.</p>
-                            @endif
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             @endforeach
         </tbody>
     </table>
+</div>
 
-    <!-- Modal for Creating Edificio -->
-    <div class="modal fade" id="edificioModal" tabindex="-1" aria-labelledby="edificioModalLabel" aria-hidden="true">
+<!-- Modals outside the foreach loop -->
+@foreach ($edificios as $edificio)
+    <!-- Modal for Editing Edificio -->
+    <div class="modal fade" id="editar_modal{{ $edificio->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $edificio->id }}Label" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Edifício</h5>
+                    <h5 class="modal-title">Editar Edifício</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @include('admin.edificio.cadastrar.index')
+                <div class="modal-body">
+                    @include('admin.edificio.editar.index', ['edificio' => $edificio])
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Unidade -->
+    <div class="modal fade unidade-modal" id="unidadeModal{{ $edificio->id }}" tabindex="-1" aria-labelledby="unidadeModal{{ $edificio->id }}Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Imóvel ao Edifício {{ $edificio->nome }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.edificio.unidade.store') }}" method="POST" class="unidade-form">
+                        @csrf
+                        <input type="hidden" name="edificio_id" value="{{ $edificio->id }}" class="edificio-id-input">
+                        <input type="hidden" name="bloco_id" value="{{ $edificio->bloco_id }}" class="bloco-id-input">
+                        
+                        <!-- Show selected edificio and bloco info (read-only) -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Bloco Selecionado</label>
+                                <div class="alert alert-secondary">
+                                    <strong>{{ $edificio->bloco->nome }}</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Edifício Selecionado</label>
+                                <div class="alert alert-info">
+                                    <strong>{{ $edificio->nome }}</strong> - {{ $edificio->descricao ?? 'Sem descrição' }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="tipo{{ $edificio->id }}" class="form-label">Tipo <span class="text-danger">*</span></label>
+                                <select class="form-select unidade-tipo" id="tipo{{ $edificio->id }}" name="tipo" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="Apartamento">Apartamento</option>
+                                    <option value="Casa">Casa</option>
+                                    <option value="Estabelecimento Comercial">Estabelecimento Comercial</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="numero{{ $edificio->id }}" class="form-label">Número <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control unidade-numero" id="numero{{ $edificio->id }}" name="numero" required placeholder="Ex: 101, 201A, etc.">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="andar{{ $edificio->id }}" class="form-label">Andar</label>
+                                <input type="number" class="form-control unidade-andar" id="andar{{ $edificio->id }}" name="andar" min="0" placeholder="Ex: 1, 2, 10">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="status{{ $edificio->id }}" class="form-label">Status</label>
+                                <select class="form-select unidade-status" id="status{{ $edificio->id }}" name="status">
+                                    <option value="disponivel">Disponível</option>
+                                    <option value="ocupado">Ocupado</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Salvar Imóvel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Edificio Info -->
+    <div class="modal fade" id="infoModal{{ $edificio->id }}" tabindex="-1" aria-labelledby="infoModal{{ $edificio->id }}Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Informações do Edifício {{ $edificio->nome }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Detalhes do Edifício</h6>
+                    <p><strong>Sigla:</strong> {{ $edificio->nome }}</p>
+                    <p><strong>Descrição:</strong> {{ $edificio->descricao ?? 'N/A' }}</p>
+                    <p><strong>Bloco:</strong> {{ $edificio->bloco->nome }}</p>
+                    <hr>
+                    <h6>Imóveis/Unidades</h6>
+                    <p><strong>Total de Unidades:</strong> {{ $edificio->unidades()->count() }}</p>
+                    @if ($edificio->unidades()->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Tipo</th>
+                                        <th>Andar</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($edificio->unidades as $unidade)
+                                        <tr>
+                                            <td>{{ $unidade->numero }}</td>
+                                            <td>{{ ucfirst(str_replace('_', ' ', $unidade->tipo)) }}</td>
+                                            <td>{{ $unidade->andar ?? 'N/A' }}</td>
+                                            <td>
+                                                <span class="badge bg-{{ $unidade->status == 'disponivel' ? 'success' : ($unidade->status == 'ocupado' ? 'primary' : 'warning') }}">
+                                                    {{ ucfirst($unidade->status) }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p>Nenhuma unidade cadastrada neste edifício.</p>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
+<!-- Modal for Creating Edificio -->
+<div class="modal fade" id="edificioModal" tabindex="-1" aria-labelledby="edificioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cadastro de Edifício</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @include('admin.edificio.cadastrar.index')
         </div>
     </div>
 </div>
@@ -286,15 +277,6 @@
                 }
             });
         }
-
-        // Clear edit modals
-        const editModals = document.querySelectorAll('[id^="editar_modal"]');
-        editModals.forEach(modal => {
-            modal.addEventListener('show.bs.modal', function(event) {
-                // For edit modals, we might want to preserve the original values
-                // So we don't clear them automatically
-            });
-        });
     });
 </script>
 @endsection

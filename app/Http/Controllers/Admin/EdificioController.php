@@ -13,7 +13,7 @@ class EdificioController extends Controller
     public function index()
     {
         $data['blocos'] = Bloco::all();
-        $data['edificios'] = Edificio::with('bloco')->get();
+        $data['edificios'] = Edificio::with(['bloco', 'unidades'])->get();
         return view('admin.edificio.index', $data);
     }
 
@@ -117,26 +117,31 @@ class EdificioController extends Controller
         }
     }
 
-    public function storeEdificio(Request $request)
+    /**
+     * Store a new Unidade from the Edificio index page
+     */
+    public function unidadeStore(Request $request)
     {
         try {
             $validated = $request->validate([
                 'tipo' => 'required|string|max:255',
                 'numero' => 'required|string|max:255',
-                'edificio_id' => 'nullable|exists:edificios,id',
-                'andar' => 'nullable|integer',
-                'status' => 'required|string|max:255',
+                'edificio_id' => 'required|exists:edificios,id',
+                'bloco_id' => 'required|exists:blocos,id',
+                'andar' => 'nullable|integer|min:0',
+                'status' => 'required|string|in:disponivel,ocupado',
             ]);
-    
-            if (!empty($validated['edificio_id'])) {
-                $edificio = Edificio::findOrFail($validated['edificio_id']);
-                $validated['bloco_id'] = $edificio->bloco_id;
+
+            // Verify that the edificio belongs to the specified bloco
+            $edificio = Edificio::findOrFail($validated['edificio_id']);
+            if ($edificio->bloco_id != $validated['bloco_id']) {
+                throw new \Exception('Edifício não pertence ao bloco especificado.');
             }
-    
+
             Unidade::create($validated);
-    
-            return redirect()->route('admin.unidade.index')
-                ->with('success', 'Imóvel registrada com sucesso.');
+
+            return redirect()->route('admin.edificio.index')
+                ->with('success', 'Imóvel registrado com sucesso.');
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Erro ao registrar imóvel: ' . $e->getMessage())
