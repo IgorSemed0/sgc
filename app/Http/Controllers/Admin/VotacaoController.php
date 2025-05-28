@@ -5,14 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Votacao;
 use App\Models\Condominio;
+use App\Models\OpcaoVotacao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VotacaoController extends Controller
 {
     public function index()
     {
         $data['condominios'] = Condominio::all();
-        $data['votacaos'] = Votacao::all();
+        $data['votacaos'] = Votacao::with(['opcaoVotacaos' => function($query) {
+            $query->withCount('votos')->orderBy('votos_count', 'desc');
+        }])->get();
+        
         return view('admin.votacao.index', $data);
     }
 
@@ -32,13 +37,37 @@ class VotacaoController extends Controller
                 'data_fim' => 'required|date|after:data_inicio',
                 'quorum_minimo' => 'nullable|integer|min:0',
                 'status' => 'required|string|max:255',
+                'opcoes' => 'required|array|min:2',
+                'opcoes.*' => 'required|string|max:255',
             ]);
 
-            Votacao::create($validated);
+            DB::beginTransaction();
+
+            $votacao = Votacao::create([
+                'titulo' => $validated['titulo'],
+                'descricao' => $validated['descricao'],
+                'data_inicio' => $validated['data_inicio'],
+                'data_fim' => $validated['data_fim'],
+                'quorum_minimo' => $validated['quorum_minimo'],
+                'status' => $validated['status'],
+            ]);
+
+            // Create voting options
+            foreach ($validated['opcoes'] as $opcao) {
+                if (!empty(trim($opcao))) {
+                    OpcaoVotacao::create([
+                        'votacao_id' => $votacao->id,
+                        'descricao' => trim($opcao)
+                    ]);
+                }
+            }
+
+            DB::commit();
 
             return redirect()->route('admin.votacao.index')
                 ->with('success', 'Votação registrada com sucesso.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()
                 ->with('error', 'Erro ao registrar votação: ' . $e->getMessage())
                 ->withInput();
@@ -47,7 +76,7 @@ class VotacaoController extends Controller
 
     public function edit($id)
     {
-        $votacao = Votacao::findOrFail($id);
+        $votacao = Votacao::with('opcaoVotacaos')->findOrFail($id);
         $condominios = Condominio::all();
         return view('admin.votacao.editar.index', compact('votacao', 'condominios'));
     }
@@ -64,13 +93,39 @@ class VotacaoController extends Controller
                 'data_fim' => 'required|date|after:data_inicio',
                 'quorum_minimo' => 'nullable|integer|min:0',
                 'status' => 'required|string|max:255',
+                'opcoes' => 'required|array|min:1',
+                'opcoes.*' => 'required|string|max:255',
             ]);
 
-            $votacao->update($validated);
+            DB::beginTransaction();
+
+            $votacao->update([
+                'titulo' => $validated['titulo'],
+                'descricao' => $validated['descricao'],
+                'data_inicio' => $validated['data_inicio'],
+                'data_fim' => $validated['data_fim'],
+                'quorum_minimo' => $validated['quorum_minimo'],
+                'status' => $validated['status'],
+            ]);
+
+            // Delete existing options and create new ones
+            $votacao->opcaoVotacaos()->delete();
+            
+            foreach ($validated['opcoes'] as $opcao) {
+                if (!empty(trim($opcao))) {
+                    OpcaoVotacao::create([
+                        'votacao_id' => $votacao->id,
+                        'descricao' => trim($opcao)
+                    ]);
+                }
+            }
+
+            DB::commit();
 
             return redirect()->route('admin.votacao.index')
                 ->with('success', 'Votação atualizada com sucesso.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()
                 ->with('error', 'Erro ao atualizar votação: ' . $e->getMessage())
                 ->withInput();

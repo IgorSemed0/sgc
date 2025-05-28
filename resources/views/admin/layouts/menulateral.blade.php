@@ -70,16 +70,15 @@
         <li class="divider" data-text="Votações e Comunicação"></li>
         
         <li>
-            <a href="#">
+            <a href="{{ route('admin.votacao.index') }}">
                 <i class="fas fa-vote-yea icon"></i>
                 Votações
-                <i class="fas fa-angle-right icon-right"></i>
             </a>
-            <ul class="side-dropdown">
+            <!-- <ul class="side-dropdown">
                 <li><a href="{{ route('admin.votacao.index') }}"><i class="fas fa-vote-yea icon"></i> Votações</a></li>
-                <li><a href="{{ route('admin.opcao-votacao.index') }}"><i class="fas fa-list-ul icon"></i> Opções de Votação</a></li>
-                <li><a href="{{ route('admin.voto.index') }}"><i class="fas fa-ballot-check icon"></i> Votos</a></li>
-            </ul>
+                 <li><a href="{{ route('admin.opcao-votacao.index') }}"><i class="fas fa-list-ul icon"></i> Opções de Votação</a></li>
+                 <li><a href="{{ route('admin.voto.index') }}"><i class="fas fa-ballot-check icon"></i> Votos</a></li>
+            </ul> -->
         </li>
 
         <li>
@@ -102,14 +101,14 @@
         <li class="divider" data-text="Relatórios"></li>
         
         <li>
-            <a href="#">
+            <a href="{{ route('pdf.index') }}">
                 <i class="fas fa-file-alt icon"></i>
                 Relatórios
-                <i class="fas fa-angle-right icon-right"></i>
+                <!-- <i class="fas fa-angle-right icon-right"></i> -->
             </a>
-            <ul class="side-dropdown">
+            <!-- <ul class="side-dropdown">
                 <li><a href="{{ route('pdf.index') }}"><i class="fas fa-home icon"></i> Relatórios</a></li>
-            </ul>
+            </ul> -->
         </li>
         
 @endif

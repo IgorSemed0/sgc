@@ -15,7 +15,7 @@ class Voto extends Model
         'user_id', 
         'opcao_id', 
         'data_hora', 
-        'hash_voto'
+        // 'hash_voto'
     ];
 
     public function votacao()

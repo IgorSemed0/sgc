@@ -19,4 +19,27 @@ class OpcaoVotacao extends Model
     {
         return $this->belongsTo(Votacao::class, 'votacao_id');
     }
+
+    public function votos()
+    {
+        return $this->hasMany(Voto::class, 'opcao_id');
+    }
+
+    // Get vote count for this option
+    public function getVotosCountAttribute()
+    {
+        return $this->votos()->count();
+    }
+
+    // Get percentage of votes for this option
+    public function getPercentualVotosAttribute()
+    {
+        $totalVotos = $this->votacao->voto()->count();
+        
+        if ($totalVotos == 0) {
+            return 0;
+        }
+        
+        return round(($this->votos_count / $totalVotos) * 100, 2);
+    }
 }

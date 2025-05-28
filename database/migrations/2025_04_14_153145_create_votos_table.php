@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('opcao_id');
             $table->dateTime('data_hora');
-            $table->string('hash_voto', 255)->nullable();
+            // $table->string('hash_voto', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -36,7 +36,7 @@ class VotoController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'opcao_id' => 'required|exists:opcao_votacaos,id',
                 'data_hora' => 'required|date',
-                'hash_voto' => 'nullable|string|max:255',
+                // 'hash_voto' => 'nullable|string|max:255',
             ]);
 
             Voto::create($validated);
@@ -69,7 +69,7 @@ class VotoController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'opcao_id' => 'required|exists:opcao_votacaos,id',
                 'data_hora' => 'required|date',
-                'hash_voto' => 'nullable|string|max:255',
+                // 'hash_voto' => 'nullable|string|max:255',
             ]);
 
             $voto->update($validated);

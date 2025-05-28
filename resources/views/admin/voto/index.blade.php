@@ -2,12 +2,12 @@
 @section('title', 'Listar Votos')
 @section('conteudo')
 <h1 class="h3">Tabela de Votos</h1>
-<div class="d-flex justify-content-between mb-3">
+<!-- <div class="d-flex justify-content-between mb-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#votoModal">Novo Voto</button>
     <a href="{{ route('admin.voto.trash') }}" class="btn btn-secondary">
         <i class="fas fa-trash"></i> Lixeira
     </a>
-</div>
+</div> -->
 
 <div class="card p-4">
     <table class="table table-striped myTable">
@@ -18,8 +18,8 @@
                 <th>Usuário</th>
                 <th>Opção</th>
                 <th>Data/Hora</th>
-                <th>Hash Voto</th>
-                <th>Ações</th>
+                <!-- <th>Hash Voto</th> -->
+                <!-- <th>Ações</th> -->
             </tr>
         </thead>
         <tbody>
@@ -30,11 +30,11 @@
                 <td>{{ $voto->user->full_name }}</td>
                 <td>{{ $voto->opcaoVotacao->descricao }}</td>
                 <td>{{ \Carbon\Carbon::parse($voto->data_hora)->format('d/m/Y H:i') }}</td>
-                <td>{{ $voto->hash_voto ?? '-' }}</td>
-                <td>
+                <!-- <td>{{ $voto->hash_voto ?? '-' }}</td> -->
+                <!-- <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $voto->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.voto.destroy', $voto->id) }}')">Deletar</a>
-                </td>
+                </td> -->
             </tr>
 
             <div class="modal fade" id="editar_modal{{ $voto->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $voto->id }}Label" aria-hidden="true">

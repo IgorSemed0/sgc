@@ -20,6 +20,7 @@
                 <th>Data Fim</th>
                 <th>Quórum Mínimo</th>
                 <th>Status</th>
+                <th>Opções & Resultados</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -28,17 +29,91 @@
             <tr>
                 <td>{{ $votacao->id }}</td>
                 <td>{{ $votacao->titulo }}</td>
-                <td>{{ $votacao->descricao }}</td>
+                <td>{{ Str::limit($votacao->descricao, 50) }}</td>
                 <td>{{ \Carbon\Carbon::parse($votacao->data_inicio)->format('d/m/Y H:i') }}</td>
                 <td>{{ \Carbon\Carbon::parse($votacao->data_fim)->format('d/m/Y H:i') }}</td>
                 <td>{{ $votacao->quorum_minimo ?? '-' }}</td>
-                <td>{{ $votacao->status }}</td>
+                <td>
+                    <span class="badge 
+                        @if($votacao->status == 'ativa') bg-success
+                        @elseif($votacao->status == 'inativa') bg-secondary
+                        @elseif($votacao->status == 'finalizada') bg-primary
+                        @else bg-warning
+                        @endif">
+                        {{ ucfirst($votacao->status) }}
+                    </span>
+                </td>
+                <td>
+                    @if($votacao->opcaoVotacaos->count() > 0)
+                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#resultados_modal{{ $votacao->id }}">
+                            Ver Resultados ({{ $votacao->voto->count() }} votos)
+                        </button>
+                    @else
+                        <span class="text-muted">Sem opções</span>
+                    @endif
+                </td>
                 <td>
                     <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar_modal{{ $votacao->id }}">Editar</a>
                     <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.votacao.destroy', $votacao->id) }}')">Deletar</a>
                 </td>
             </tr>
 
+            <!-- Results Modal -->
+            <div class="modal fade" id="resultados_modal{{ $votacao->id }}" tabindex="-1" aria-labelledby="resultados_modal{{ $votacao->id }}Label" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Resultados da Votação: {{ $votacao->titulo }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @php
+                                $totalVotos = $votacao->voto->count();
+                            @endphp
+                            
+                            <div class="mb-3">
+                                <strong>Total de Votos:</strong> {{ $totalVotos }}
+                            </div>
+                            
+                            @if($totalVotos > 0)
+                                <div class="row">
+                                    @foreach($votacao->opcaoVotacaos->sortByDesc('votos_count') as $opcao)
+                                        @php
+                                            $votosOpcao = $opcao->votos->count();
+                                            $percentual = $totalVotos > 0 ? round(($votosOpcao / $totalVotos) * 100, 2) : 0;
+                                        @endphp
+                                        <div class="col-12 mb-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">{{ $opcao->descricao }}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <span>{{ $votosOpcao }} votos</span>
+                                                        <span class="badge bg-primary">{{ $percentual }}%</span>
+                                                    </div>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" 
+                                                             style="width: {{ $percentual }}%" 
+                                                             aria-valuenow="{{ $percentual }}" 
+                                                             aria-valuemin="0" 
+                                                             aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i> Nenhum voto registrado ainda para esta votação.
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
             <div class="modal fade" id="editar_modal{{ $votacao->id }}" tabindex="-1" aria-labelledby="editar_modal{{ $votacao->id }}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -56,10 +131,11 @@
         </tbody>
     </table>
 
+    <!-- Create Modal -->
     <div class="modal fade" id="votacaoModal" tabindex="-1" aria-labelledby="votacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header"0>
                     <h5 class="modal-title">Cadastro de Votação</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
